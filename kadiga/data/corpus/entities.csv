@@ -1,0 +1,332 @@
+id,split,start,end,label,text
+WPD-01,train,3,14,DATE,4 juin 1859
+WPD-01,train,30,43,PER,Henri Lambert
+WPD-01,train,72,78,LOC,France
+WPD-01,train,81,85,LOC,Aden
+WPD-01,train,109,127,LOC,golfe de Tadjourah
+WPD-02,train,15,19,DATE,1884
+WPD-02,train,91,105,PER,Léonce Lagarde
+WPD-02,train,109,117,DATE,1er août
+WPD-03,train,24,28,DATE,1888
+WPD-03,train,45,61,LOC,port de Djibouti
+WPD-03,train,103,129,LOC,Côte française des Somalis
+WPD-03,train,133,137,DATE,1896
+WPD-04,train,23,27,DATE,1897
+WPD-04,train,31,35,DATE,1917
+WPD-04,train,60,68,LOC,Djibouti
+WPD-04,train,72,83,LOC,Addis-Abeba
+WPD-04,train,176,184,LOC,Éthiopie
+WPD-05,train,46,57,DATE,5 août 1914
+WPD-06,train,3,7,DATE,1949
+WPD-06,train,9,17,LOC,Djibouti
+WPD-07,train,30,42,DATE,19 mars 1967
+WPD-08,train,3,16,DATE,novembre 1975
+WPD-08,train,65,72,LOC,Afrique
+WPD-08,train,100,114,PER,Pierre Messmer
+WPD-09,train,3,15,DATE,juillet 1976
+WPD-09,train,17,33,PER,Ali Aref Bourhan
+WPD-09,train,95,118,ORG,Conseil de gouvernement
+WPD-09,train,140,162,PER,Abdallah Mohamed Kamil
+WPD-10,train,3,7,DATE,1976
+WPD-10,train,24,66,ORG,Front de libération de la Côte des Somalis
+WPD-10,train,110,118,LOC,Djibouti
+WPD-10,train,125,131,LOC,France
+WPD-10,train,195,201,LOC,Loyada
+WPD-11,train,3,7,ORG,GIGN
+WPD-12,train,3,13,DATE,8 mai 1977
+WPD-12,train,70,74,DATE,1958
+WPD-12,train,78,82,DATE,1967
+WPD-13,train,22,29,DATE,27 juin
+WPD-13,train,55,77,LOC,République de Djibouti
+WPD-14,train,26,47,PER,Hassan Gouled Aptidon
+WPD-15,train,12,33,PER,Barkat Gourad Hamadou
+WPD-16,train,12,16,DATE,1991
+WPD-16,train,55,109,ORG,Front pour la restauration de l'unité et la démocratie
+WPD-16,train,111,115,ORG,FRUD
+WPD-16,train,129,139,PER,Ahmed Dini
+WPD-17,train,3,7,DATE,1999
+WPD-17,train,9,28,PER,Ismaïl Omar Guelleh
+WPD-18,train,3,15,DATE,janvier 2009
+WPD-18,train,43,80,ORG,Conseil de sécurité des Nations unies
+WPD-18,train,85,122,ORG,Conseil de sécurité des Nations unies
+WPD-18,train,153,161,LOC,Érythrée
+WPD-19,train,3,7,DATE,2013
+WPD-19,train,114,142,ORG,Union pour le salut national
+WPD-19,train,144,147,ORG,USN
+WPD-20,train,3,7,DATE,2017
+WPD-20,train,19,29,LOC,États-Unis
+WPD-20,train,34,40,LOC,France
+WPD-20,train,44,50,LOC,Italie
+WPD-20,train,57,62,LOC,Japon
+WPD-20,train,67,72,LOC,Chine
+WPD-21,test,0,8,LOC,Djibouti
+WPD-21,test,55,59,DATE,1977
+WPD-21,test,142,146,DATE,1981
+WPD-22,test,77,96,PER,Ismaïl Omar Guelleh
+WPD-22,test,132,153,PER,Hassan Gouled Aptidon
+WPD-23,test,0,8,LOC,Djibouti
+WPD-23,test,82,112,ORG,Organisation des Nations unies
+WPD-23,test,114,117,ORG,ONU
+WPD-23,test,142,145,ORG,FAO
+WPD-23,test,147,150,ORG,OMS
+WPD-23,test,161,176,ORG,Union africaine
+WPD-23,test,178,180,ORG,UA
+WPD-23,test,186,197,ORG,Ligue arabe
+WPD-23,test,201,252,ORG,Autorité intergouvernementale pour le développement
+WPD-24,test,30,76,ORG,Organisation internationale de la francophonie
+WPD-25,test,15,21,LOC,Dikhil
+WPD-25,test,28,37,LOC,Tadjourah
+WPD-25,test,56,107,ORG,Association internationale des régions francophones
+WPD-26,test,12,20,LOC,Djibouti
+WPD-26,test,37,87,ORG,Association internationale des maires francophones
+WPD-27,test,0,8,LOC,Djibouti
+WPD-27,test,56,64,LOC,Djibouti
+WPD-27,test,97,101,LOC,Arta
+WPD-27,test,104,114,LOC,Ali Sabieh
+WPD-27,test,117,123,LOC,Dikhil
+WPD-27,test,126,131,LOC,Obock
+WPD-27,test,134,143,LOC,Tadjourah
+WPD-28,train,0,8,LOC,Djibouti
+WPD-28,train,27,45,LOC,Corne de l'Afrique
+WPD-28,train,53,65,LOC,golfe d'Aden
+WPD-28,train,72,85,LOC,Bab-el-Mandeb
+WPD-28,train,108,117,LOC,mer Rouge
+WPD-29,train,71,79,LOC,Érythrée
+WPD-29,train,95,103,LOC,Éthiopie
+WPD-29,train,122,129,LOC,Somalie
+WPD-30,train,22,30,LOC,Djibouti
+WPD-30,train,38,53,LOC,mont Mousa Alli
+WPD-30,train,100,108,LOC,Érythrée
+WPD-30,train,114,122,LOC,Éthiopie
+WPD-31,train,28,37,LOC,lac Assal
+WPD-32,train,3,23,LOC,désert de Grand Bara
+WPD-32,train,53,61,LOC,Djibouti
+WPD-32,train,81,85,LOC,Arta
+WPD-32,train,89,99,LOC,Ali Sabieh
+WPD-32,train,106,112,LOC,Dikhil
+WPD-33,train,52,56,DATE,2009
+WPD-33,train,61,83,LOC,République de Djibouti
+WPD-34,train,12,20,LOC,Djibouti
+WPD-35,train,152,161,LOC,Tadjourah
+WPD-36,train,64,75,LOC,Kourtimaley
+WPD-36,train,93,97,LOC,Arta
+WPD-37,train,56,72,LOC,plateau de Digri
+WPD-37,train,91,101,LOC,Ali Sabieh
+WPD-38,train,43,59,LOC,port de Djibouti
+WPD-38,train,91,98,LOC,Doraleh
+WPD-39,train,3,7,DATE,2015
+WPD-39,train,51,59,LOC,Éthiopie
+WPD-39,train,165,173,LOC,Djibouti
+WPD-39,train,177,181,DATE,2015
+WPD-40,train,3,9,LOC,France
+WPD-40,train,100,119,ORG,lycée Joseph-Kessel
+WPD-40,train,138,146,LOC,Djibouti
+WPD-40,train,150,154,DATE,1991
+WPD-41,train,81,103,LOC,République de Djibouti
+WPD-41,train,170,179,LOC,Hess Daba
+WPD-41,train,198,204,LOC,Dikhil
+WPD-41,train,208,216,DATE,mai 2007
+WPD-42,train,3,24,DATE,début des années 2000
+WPD-42,train,74,83,LOC,lac Assal
+WPD-43,val,0,8,LOC,Djibouti
+WPD-43,val,74,78,ORG,CERD
+WPD-44,train,6,31,PER,Abdallah Abdillahi Miguil
+WPD-44,train,61,102,ORG,Centre de formation du personnel de santé
+WPD-44,train,128,172,ORG,Institut de formation des cadres de la santé
+WPD-44,train,214,222,LOC,Djibouti
+WPD-44,train,228,232,DATE,2007
+WPD-45,train,2,17,ORG,hôpital Peltier
+WPD-45,train,78,86,LOC,Djibouti
+WPD-46,train,24,46,ORG,maternité Dar el Hanan
+WPD-46,train,52,70,ORG,hôpital Paul Faure
+WPD-47,train,48,55,LOC,Balbala
+WPD-47,train,57,61,LOC,Arta
+WPD-47,train,63,72,LOC,Tadjourah
+WPD-48,train,54,70,ORG,hôpital Ar-Rahma
+WPD-48,train,101,114,ORG,Clinique Affi
+WPD-49,train,31,36,ORG,USAID
+WPD-49,train,44,48,DATE,2003
+WPD-50,train,14,83,ORG,"Fonds mondial de lutte contre le sida, la tuberculose et le paludisme"
+WPD-50,train,112,116,DATE,2009
+WPD-51,train,32,37,LOC,Maroc
+WPD-51,train,41,45,LOC,Cuba
+WPD-51,train,115,120,LOC,Maroc
+WPD-51,train,126,130,LOC,Cuba
+WPD-52,val,0,9,ORG,La Nation
+WPD-52,val,68,76,LOC,Djibouti
+WPD-53,val,21,39,ORG,Réveil de Djibouti
+WPD-53,val,49,53,DATE,1943
+WPD-54,test,4,31,ORG,forces armées djiboutiennes
+WPD-54,test,52,56,DATE,2012
+WPD-54,test,62,101,ORG,Mission de l'Union africaine en Somalie
+WPD-55,train,3,19,DATE,11 décembre 2002
+WPD-55,train,55,70,PER,Donald Rumsfeld
+WPD-55,train,179,207,ORG,Troupes de marine françaises
+WPD-55,train,212,226,LOC,camp Lemonnier
+WPD-56,train,24,40,ORG,Voice of America
+WPD-57,train,3,15,DATE,janvier 2002
+WPD-57,train,17,25,LOC,Djibouti
+WPD-57,train,31,40,LOC,Allemagne
+WPD-58,train,3,13,DATE,avril 2010
+WPD-58,train,45,53,LOC,Djibouti
+WPD-58,train,89,120,ORG,Forces japonaises d'autodéfense
+WPD-59,train,3,18,DATE,31 juillet 2011
+WPD-59,train,23,59,ORG,13e demi-brigade de Légion étrangère
+WPD-59,train,61,69,ORG,13e DBLE
+WPD-59,train,78,86,LOC,Djibouti
+WPD-59,train,106,115,LOC,Abou Dabi
+WPD-60,train,10,23,DATE,1er août 2017
+WPD-60,train,28,43,ORG,marine chinoise
+WPD-60,train,99,115,LOC,port de Djibouti
+WPD-61,train,11,19,LOC,Djibouti
+WPD-62,train,3,7,DATE,1895
+WPD-63,train,12,20,LOC,Djibouti
+WPD-63,train,24,33,DATE,août 1966
+WPD-63,train,37,54,PER,Charles de Gaulle
+WPD-63,train,74,87,LOC,Asie de l'Est
+WPD-64,train,3,7,DATE,1992
+WPD-67,train,3,25,LOC,République de Djibouti
+WPD-67,train,118,122,DATE,1949
+WPD-68,train,91,99,LOC,Djibouti
+WPD-68,train,104,129,DATE,29 juin au 2 juillet 2006
+WPD-69,train,8,12,DATE,2006
+WPD-69,train,79,90,DATE,11 mai 2006
+WPD-69,train,95,120,PER,Abdallah Abdillahi Miguil
+WPD-69,train,175,188,DATE,27 avril 2006
+WPD-70,train,85,88,ORG,OMS
+WPD-70,train,121,130,ORG,NAMRU III
+WPD-70,train,134,139,LOC,Caire
+WPD-71,train,3,9,LOC,France
+WPD-71,train,18,22,DATE,2019
+WPD-71,train,57,65,LOC,Djibouti
+WPD-72,train,4,14,LOC,États-Unis
+WPD-72,train,110,120,LOC,États-Unis
+WPU-01,test,30,60,ORG,Pôle universitaire de Djibouti
+WPU-01,test,64,86,ORG,université de Djibouti
+WPU-01,test,124,138,DATE,7 janvier 2006
+WPU-02,test,2,24,ORG,université de Djibouti
+WPU-02,test,39,47,DATE,mai 2011
+WPU-02,test,51,107,ORG,ministère de l'Enseignement supérieur et de la recherche
+WPU-02,test,109,115,ORG,MENSUR
+WPU-02,test,199,209,DATE,avril 2011
+WPU-03,test,36,40,DATE,2008
+WPU-03,test,51,55,DATE,2011
+WPU-03,test,85,111,DATE,rentrée universitaire 2014
+WPU-04,test,39,59,PER,Djama Mohamed Hassan
+WPU-05,test,9,25,DATE,29 novembre 2011
+WPU-05,test,68,72,DATE,2014
+WPA-01,val,3,12,LOC,lac Assal
+WPA-01,val,49,65,LOC,Afrique de l'Est
+WPA-01,val,85,93,LOC,Djibouti
+WPA-02,val,87,94,LOC,Afrique
+WPA-02,val,152,168,LOC,lac de Tibériade
+WPA-02,val,175,184,LOC,mer Morte
+ENS-01,train,2,24,ORG,Université de Djibouti
+ENS-01,train,47,55,LOC,Djibouti
+ENS-01,train,59,74,DATE,14 octobre 2026
+ENS-02,train,3,7,ORG,CRMN
+ENS-02,train,27,38,FORM,Master IAMD
+ENS-03,train,3,63,FORM,Master Intelligence Artificielle et Modélisation des Données
+ENS-03,train,87,109,ORG,Université de Djibouti
+ENS-04,train,2,24,ORG,Université de Djibouti
+HCE-01,train,28,32,DATE,2006
+HCE-01,train,63,85,ORG,université de Djibouti
+HCE-02,train,3,7,DATE,2006
+HCE-02,train,35,47,DATE,janvier 2019
+HCE-03,train,19,23,DATE,2006
+HCE-03,train,27,29,ORG,UD
+HCE-04,train,10,14,DATE,2019
+HCE-04,train,20,42,ORG,université de Djibouti
+HCE-05,train,3,9,ORG,Hcéres
+HCE-05,train,31,44,PER,Pierre Sebban
+HCE-06,train,36,57,DATE,28 au 30 janvier 2019
+HCE-06,train,63,85,ORG,Université de Djibouti
+HCE-06,train,105,112,LOC,Balbala
+HCE-07,train,3,20,FORM,licence d'anglais
+HCE-08,train,3,6,ORG,CSP
+HCE-09,train,3,23,ORG,Centre de recherches
+HCE-09,train,45,49,DATE,2017
+HCE-10,train,23,27,ORG,CERD
+HCE-10,train,33,56,ORG,école doctorale de l'UD
+HCE-11,train,23,27,ORG,CERD
+HCE-12,train,16,20,ORG,CERD
+HCE-12,train,48,88,ORG,Conseil d'administration de l'université
+HCE-13,train,19,21,ORG,UD
+HCE-14,train,3,23,ORG,Faculté d'ingénierie
+HCE-15,train,47,69,FORM,licence entreprenariat
+HCE-16,train,13,15,ORG,ED
+HCE-17,train,2,4,ORG,UD
+HCE-17,train,64,83,ORG,chambre de commerce
+HCE-18,train,22,25,ORG,AUF
+HCE-19,train,3,7,DATE,2019
+HCE-19,train,29,51,ORG,université de Djibouti
+HCE-20,train,112,116,DATE,2017
+HCE-21,train,3,23,ORG,Faculté des Sciences
+LOI-01,val,15,46,ORG,Comité Supérieur de l'Education
+LOI-01,val,48,53,ORG,C.S.E
+LOI-02,val,32,77,ORG,Journal Officiel de la République de Djibouti
+LOI-03,val,65,99,ORG,Ministère de l’Education Nationale
+JOA-01,test,32,44,DATE,09 juin 2012
+JOA-01,test,69,125,ORG,Ministère de l’Enseignement Supérieur et de la Recherche
+JOA-01,test,127,133,ORG,MENSUR
+JOA-02,test,39,54,DATE,07 janvier 2006
+JOA-02,test,77,99,ORG,Université de Djibouti
+JOA-02,test,101,103,ORG,UD
+JOA-03,test,89,95,FORM,Master
+JOA-04,test,37,54,DATE,15 septembre 2012
+JOA-04,test,143,165,ORG,Université de Djibouti
+JOA-05,test,37,52,DATE,02 octobre 2013
+JOA-05,test,76,124,ORG,faculté d’ingénieurs de l’Université de Djibouti
+JOA-06,test,37,53,DATE,20 décembre 2014
+JOA-06,test,81,112,ORG,Faculté de Médecine de Djibouti
+JOA-06,test,117,139,ORG,Université de Djibouti
+JOA-07,test,14,66,ORG,Conseil d’Administration de l’Université de Djibouti
+JOA-08,test,3,24,ORG,Conseil des Ministres
+JOA-08,test,49,61,DATE,24 Mars 2026
+JOA-09,test,118,153,FORM,Master mention “Génie Informatique”
+JOA-10,test,3,20,FORM,Diplôme de Master
+JOA-11,test,7,15,LOC,Djibouti
+JOA-11,test,20,33,DATE,14 Avril 2026
+JOA-12,test,52,71,PER,ISMAÏL OMAR GUELLEH
+HLA-01,val,2,24,ORG,Université de Djibouti
+HLA-02,val,46,93,ORG,Institut universitaire de Technologie tertiaire
+HLA-02,val,95,100,ORG,IUT-T
+HLA-02,val,107,129,ORG,Université de Djibouti
+HLA-03,val,22,63,FORM,Licence appliquée Logistique et Transport
+HLA-04,val,3,7,FORM,LALT
+HLA-04,val,37,72,FORM,DUT Gestion logistique et transport
+HLA-04,val,74,77,FORM,GLT
+HLA-05,val,88,110,ORG,Université de Djibouti
+HLA-05,val,119,177,FORM,master Transports Internationaux et Stratégies Logistiques
+HLA-05,val,179,183,FORM,TISL
+HLA-06,val,9,31,ORG,Université de Djibouti
+HLA-06,val,139,142,FORM,DUT
+HLA-06,val,148,165,FORM,licence appliquée
+HLA-06,val,172,178,FORM,master
+HLA-07,val,46,68,ORG,Université de Djibouti
+HLA-07,val,92,98,ORG,Hcéres
+HLA-07,val,102,111,DATE,2018-2019
+HLA-08,val,124,157,ORG,Agence Française de Développement
+HLA-08,val,159,162,ORG,AFD
+HLA-08,val,179,218,ORG,Agence Universitaire de la Francophonie
+HLA-08,val,220,223,ORG,AUF
+HLA-09,val,29,44,PER,Muriel Jougleux
+HLA-10,val,8,14,ORG,Hcéres
+HLA-10,val,17,32,PER,Thierry Coulhon
+HLA-11,val,3,9,ORG,Hcéres
+HLA-11,val,31,44,PER,Evelyne Lande
+HLA-11,val,75,90,PER,Michelle Houppe
+HLA-12,val,63,78,DATE,7 décembre 2021
+HLA-12,val,88,103,DATE,17 octobre 2022
+HLA-13,val,3,18,DATE,17 octobre 2022
+HLA-13,val,137,150,PER,Sabine Separi
+HLA-14,val,29,34,ORG,ISCAE
+HLA-14,val,36,39,ORG,IAD
+HLA-14,val,43,46,ORG,EMD
+HLA-14,val,144,146,ORG,UD
+HLA-15,val,185,189,DATE,2017
+HLA-15,val,197,215,ORG,Université Paris 1
+HLA-15,val,248,259,FORM,master TISL
+HLA-16,val,21,36,ORG,Banque Mondiale
+JOA-13,test,118,166,FORM,"Master mention “Comptabilité, Contrôle et Audit”"
+JOA-14,test,118,178,FORM,Master mention “Génie Énergétique et Efficacité Energétique”
