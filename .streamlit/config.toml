@@ -1,0 +1,16 @@
+# Configuration de la démo (lancée depuis la racine du dépôt : streamlit run demo/app.py)
+[browser]
+# Aucune statistique d'usage envoyée sur internet.
+gatherUsageStats = false
+
+[server]
+# La démo reste sur cet ordinateur (adresse locale) : Streamlit n'a pas besoin de chercher une adresse publique sur internet.
+address = "localhost"
+
+[theme]
+# Thème clair imposé : les couleurs pastel de l'application restent lisibles même si l'ordinateur est en mode sombre.
+base = "light"
+primaryColor = "#1F5FD6"
+backgroundColor = "#F3F7FC"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#14213D"

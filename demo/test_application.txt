@@ -1,0 +1,161 @@
+TEST DE L'APPLICATION NER DJIBOUTI (outil de test de Streamlit, sans navigateur)
+Fait le 2026-11-22 à 21:09:20
+
+1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
+      10.9  texte sombre sur surlignage ORG  (#14213D sur #BFD8F7)
+  [OK ] contraste suffisant : texte sombre sur surlignage ORG
+      11.0  texte sombre sur surlignage LOC  (#14213D sur #F9CFA3)
+  [OK ] contraste suffisant : texte sombre sur surlignage LOC
+      10.4  texte sombre sur surlignage DATE  (#14213D sur #DCC9F3)
+  [OK ] contraste suffisant : texte sombre sur surlignage DATE
+      11.8  texte sombre sur surlignage PER  (#14213D sur #BDE8C4)
+  [OK ] contraste suffisant : texte sombre sur surlignage PER
+      10.5  texte sombre sur surlignage FORMATION  (#14213D sur #F7C4DA)
+  [OK ] contraste suffisant : texte sombre sur surlignage FORMATION
+      16.0  texte sombre sur carte blanche  (#14213D sur #FFFFFF)
+  [OK ] contraste suffisant : texte sombre sur carte blanche
+      14.7  texte sombre sur carte des résultats  (#14213D sur #EEF8F1)
+  [OK ] contraste suffisant : texte sombre sur carte des résultats
+      14.8  texte sombre sur fond de page  (#14213D sur #F3F7FC)
+  [OK ] contraste suffisant : texte sombre sur fond de page
+      14.0  texte sombre sur encadré d'avertissement  (#14213D sur #E7F1FC)
+  [OK ] contraste suffisant : texte sombre sur encadré d'avertissement
+      10.3  titre sur début du bandeau  (#14306E sur #DCEBFB)
+  [OK ] contraste suffisant : titre sur début du bandeau
+       8.4  titre sur fin du bandeau  (#14306E sur #BBD6F5)
+  [OK ] contraste suffisant : titre sur fin du bandeau
+      13.2  texte sombre sur début du bandeau  (#14213D sur #DCEBFB)
+  [OK ] contraste suffisant : texte sombre sur début du bandeau
+      10.7  texte sombre sur fin du bandeau  (#14213D sur #BBD6F5)
+  [OK ] contraste suffisant : texte sombre sur fin du bandeau
+      13.3  texte blanc sur haut de la barre latérale  (#FFFFFF sur #0D2B6B)
+  [OK ] contraste suffisant : texte blanc sur haut de la barre latérale
+       8.1  texte blanc sur bas de la barre latérale  (#FFFFFF sur #1A4BA3)
+  [OK ] contraste suffisant : texte blanc sur bas de la barre latérale
+       5.7  texte blanc sur menu actif  (#FFFFFF sur #1F5FD6)
+  [OK ] contraste suffisant : texte blanc sur menu actif
+       7.1  texte du bouton sur le début du dégradé  (#FFFFFF sur #1D4FC2)
+  [OK ] contraste suffisant : texte du bouton sur le début du dégradé
+       5.4  texte du bouton sur la fin du dégradé  (#FFFFFF sur #2A63D6)
+  [OK ] contraste suffisant : texte du bouton sur la fin du dégradé
+     -> contraste le plus faible : 5.4
+
+2. Hors ligne : recherche de ressources en ligne dans les fichiers de la démo
+  [OK ] aucune URL de ressource en ligne (rien trouvé)
+  [OK ] aucune police en ligne
+  [OK ] aucune photo dans l'application (la maquette .png n'est pas utilisée par l'application)
+  [OK ] l'application ne charge pas la maquette
+
+3. Les 3 systèmes sur les 3 exemples (ce que l'écran affiche, comparé à analyser())
+  [OK ] la page d'accueil s'affiche sans erreur
+  [OK ] bandeau « Bienvenue sur NER Djibouti ! » présent
+  [OK ] cartes « Votre texte » et « Résultats de l'analyse » présentes
+  [OK ] bouton « Analyser le texte » présent
+  [OK ] système par défaut = D
+  [OK ] le bouton « Un extrait où le système réussit » remplit le texte du segment A01_S005
+
+  [A01_S005] Un extrait où le système réussit
+  Texte : Cette visite constitue un temps fort dans les relations entre Djibouti et l'OIF.
+    D – modèle ré-entraîné (Kadiga) -> écran : ['Djibouti [LOC]', 'OIF [ORG]']
+  [OK ] A01_S005 / D : aucune erreur
+  [OK ] A01_S005 / D : l'écran affiche exactement les entités de analyser()
+  [OK ] A01_S005 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A01_S005 / D : le résumé annonce 2 entité(s)
+  [OK ] A01_S005 / D : le tableau « entité / type » a 2 ligne(s)
+    A – spaCy seul -> écran : ['Djibouti [LOC]', 'OIF [ORG]']
+  [OK ] A01_S005 / A : aucune erreur
+  [OK ] A01_S005 / A : l'écran affiche exactement les entités de analyser()
+  [OK ] A01_S005 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
+  [OK ] A01_S005 / A : le résumé annonce 2 entité(s)
+  [OK ] A01_S005 / A : le tableau « entité / type » a 2 ligne(s)
+    3a+3b – nos règles locales (version gelée) -> écran : ['Djibouti [LOC]', 'OIF [ORG]']
+  [OK ] A01_S005 / 3a+3b : aucune erreur
+  [OK ] A01_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
+  [OK ] A01_S005 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A01_S005 / 3a+3b : le résumé annonce 2 entité(s)
+  [OK ] A01_S005 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
+  [OK ] le bouton « Un extrait avec des personnes » remplit le texte du segment A12_S005
+
+  [A12_S005] Un extrait avec des personnes
+  Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
+    D – modèle ré-entraîné (Kadiga) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+  [OK ] A12_S005 / D : aucune erreur
+  [OK ] A12_S005 / D : l'écran affiche exactement les entités de analyser()
+  [OK ] A12_S005 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A12_S005 / D : le résumé annonce 2 entité(s)
+  [OK ] A12_S005 / D : le tableau « entité / type » a 2 ligne(s)
+    A – spaCy seul -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+  [OK ] A12_S005 / A : aucune erreur
+  [OK ] A12_S005 / A : l'écran affiche exactement les entités de analyser()
+  [OK ] A12_S005 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
+  [OK ] A12_S005 / A : le résumé annonce 2 entité(s)
+  [OK ] A12_S005 / A : le tableau « entité / type » a 2 ligne(s)
+    3a+3b – nos règles locales (version gelée) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+  [OK ] A12_S005 / 3a+3b : aucune erreur
+  [OK ] A12_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
+  [OK ] A12_S005 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A12_S005 / 3a+3b : le résumé annonce 2 entité(s)
+  [OK ] A12_S005 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
+  [OK ] le bouton « Un extrait difficile (D s'y trompe) » remplit le texte du segment A01_S001
+
+  [A01_S001] Un extrait difficile (D s'y trompe)
+  Texte : La Secrétaire générale de l'OIF, Louise Mushikiwabo, entame une visite officielle de trois jours à Djibouti, placée sous le signe du développement, de l'investissement et de l'emploi des jeunes.
+    D – modèle ré-entraîné (Kadiga) -> écran : ["Secrétaire générale de l'OIF [ORG]", 'Louise Mushikiwabo [PER]', 'Djibouti [LOC]']
+  [OK ] A01_S001 / D : aucune erreur
+  [OK ] A01_S001 / D : l'écran affiche exactement les entités de analyser()
+  [OK ] A01_S001 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A01_S001 / D : le résumé annonce 3 entité(s)
+  [OK ] A01_S001 / D : le tableau « entité / type » a 3 ligne(s)
+    A – spaCy seul -> écran : ["Secrétaire générale de l'OIF [ORG]", 'Louise Mushikiwabo [PER]', 'Djibouti [LOC]']
+  [OK ] A01_S001 / A : aucune erreur
+  [OK ] A01_S001 / A : l'écran affiche exactement les entités de analyser()
+  [OK ] A01_S001 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
+  [OK ] A01_S001 / A : le résumé annonce 3 entité(s)
+  [OK ] A01_S001 / A : le tableau « entité / type » a 3 ligne(s)
+    3a+3b – nos règles locales (version gelée) -> écran : ['OIF [ORG]', 'Louise Mushikiwabo [PER]', 'Djibouti [LOC]']
+  [OK ] A01_S001 / 3a+3b : aucune erreur
+  [OK ] A01_S001 / 3a+3b : l'écran affiche exactement les entités de analyser()
+  [OK ] A01_S001 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A01_S001 / 3a+3b : le résumé annonce 3 entité(s)
+  [OK ] A01_S001 / 3a+3b : le tableau « entité / type » a 3 ligne(s)
+
+5. Cas limites
+  [OK ] texte vide : message clair affiché
+  [OK ] texte vide : pas d'erreur technique
+  [OK ] texte de 3001 caractères : message « trop long » affiché
+  [OK ] du code HTML saisi par l'utilisateur est affiché comme du texte, jamais exécuté
+  [OK ] modèle manquant : message d'erreur clair avec la commande d'installation
+  [OK ] modèle manquant : pas de page d'erreur technique
+
+6. Les trois pages
+  [OK ] page « Catégories reconnues » : s'affiche sans erreur
+  [OK ] page « Catégories reconnues » : aucun score affiché
+  [OK ] page Catégories : le type ORG est présenté
+  [OK ] page Catégories : le type LOC est présenté
+  [OK ] page Catégories : le type DATE est présenté
+  [OK ] page Catégories : le type PER est présenté
+  [OK ] page Catégories : le type FORMATION est présenté
+  [OK ] page Catégories : exemple de FORMATION = « Master IAMD » (corpus de Kadiga)
+     Tableau « ce que chaque système sait reconnaître » :
+                      D – modèle ré-entraîné (Kadiga) A – spaCy seul 3a+3b – nos règles locales (version gelée)
+Organisation (ORG)                                Oui            Oui                                        Oui
+Lieu (LOC)                                        Oui            Oui                                        Oui
+Date (DATE)                                       Oui            Non                                        Oui
+Personne (PER)                                    Oui            Oui                                        Oui
+Formation (FORMATION)                             Oui            Non                                        Non
+  [OK ] page « À propos » : s'affiche sans erreur
+  [OK ] page « À propos » : aucun score affiché
+  [OK ] page À propos : « NER Djibouti »
+  [OK ] page À propos : « Traitement automatique des langues (TALN) »
+  [OK ] page À propos : « Master 2 IAMD – Université de Djibouti »
+  [OK ] page À propos : « Python, spaCy, Streamlit »
+  [OK ] page À propos : « Binôme 5 »
+  [OK ] page À propos : « Prototype de projet TALN – peut se tromper »
+  [OK ] page « Analyser un texte » : s'affiche sans erreur
+  [OK ] page « Analyser un texte » : aucun score affiché
+
+7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
+     D chargé en 5.1 s (source : cache disque)
+  [OK ] 63 valeurs comparées, 0 différence(s)
+
+Durée totale : 14 s | échecs : 0

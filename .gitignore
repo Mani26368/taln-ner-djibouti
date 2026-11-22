@@ -7,3 +7,6 @@ __pycache__/
 
 # Corpus complet (805 segments) : on garde seulement data/corpus_ner.csv
 data/corpus_bilingue_so.csv
+
+# Démo : modèle D ré-entraîné au premier lancement (trop gros pour Git)
+demo/.cache/

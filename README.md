@@ -31,6 +31,42 @@ python -m spacy download fr_core_news_sm
    - `kadiga/TP_NER_Djibouti_Binome5.ipynb` : le notebook de Kadiga (corpus Wikipédia / Journal officiel, systèmes A à D).
 3. Évaluer : `python src/evaluate.py` (démonstration du calcul précision / rappel / F1, exact et tolérant).
 
+## Lancer la démo
+
+Une application Streamlit (dossier `demo/`) permet d'essayer le système sur un texte, sans rien savoir de la programmation.
+Elle sert aussi de démonstration de 3 minutes. **C'est un prototype : il peut se tromper.**
+
+Depuis un dossier neuf (Windows : remplacer `source .venv/bin/activate` par `.venv\Scripts\activate`) :
+
+```bash
+git clone https://github.com/Mani26368/taln-ner-djibouti.git
+cd taln-ner-djibouti
+git checkout mako              # tant que la démo n'est pas fusionnée dans main
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m spacy download fr_core_news_sm
+streamlit run demo/app.py
+```
+
+Il faut internet **seulement pour l'installation**. Ensuite l'application fonctionne hors ligne (aucune police ni image en ligne ;
+les statistiques d'usage de Streamlit sont désactivées dans `.streamlit/config.toml`). Le navigateur s'ouvre sur `http://localhost:8501`.
+
+**Premier lancement : attendre environ 30 secondes.** Le système par défaut (D, le modèle ré-entraîné de Kadiga) n'est enregistré
+nulle part dans Git (un modèle spaCy est trop gros) : au premier lancement, il s'entraîne. L'application affiche un message
+d'attente (« Premier lancement : le modèle D est en cours d'entraînement… »). Il est ensuite gardé dans `demo/.cache/`
+(dossier ignoré par Git, environ 26 Mo), et les lancements suivants sont plus rapides.
+Temps mesurés sur l'ordinateur de Mako (Windows, du lancement de la commande jusqu'à la page d'accueil prête) :
+premier lancement 42,1 s et 36,6 s (2 essais) ; lancements suivants 17,7 s, 14,0 s et 12,1 s (3 essais). Ces durées varient d'un ordinateur à l'autre.
+
+- **Pages** (barre de gauche) : « Analyser un texte », « Catégories reconnues », « À propos ».
+- **Systèmes** : D par défaut ; « Options avancées » permet de choisir « A – spaCy seul » ou « 3a+3b – nos règles locales (version gelée) ».
+  Sur nos textes, D trouve peu de dates (la légende indique ce que le système PEUT produire, pas ce qu'il trouve toujours).
+- **Apparence** : couleurs, titre, phrase d'accueil et exemples sont dans `demo/theme.py` (valeurs marquées « À REMPLACER »).
+  `demo/maquette.png` ne sert que de référence visuelle : l'application ne l'utilise pas.
+- **Plan B** (si la démo en direct échoue) : `python demo/enregistrer_essais.py` écrit les résultats réels des 3 systèmes sur 3 exemples
+  dans `demo/essais_demo.txt` (déjà fourni). `python demo/tester_app.py` teste l'application et écrit `demo/test_application.txt`.
+
 ## Résultats
 À compléter avec les vrais chiffres (tableau précision / rappel / F1 par approche et par type d'entité).
 
@@ -42,6 +78,7 @@ kadiga/                              travail de Kadiga (son notebook, son corpus
 data/                                corpus La Nation annotés (dev, test, test2, test3) + description
 src/                                 code : évaluation exacte et tolérante, règles, systèmes de Kadiga, scripts de mesure
 results/                             tous les résultats chiffrés (le notebook final les lit)
+demo/                                application Streamlit (démo de 3 minutes) : voir « Lancer la démo »
 docs/                                guide d'annotation, sujet et cours de référence
 rapport/                             rapport (6 à 8 pages)
 slides/                              diapositives (8 à 10)
