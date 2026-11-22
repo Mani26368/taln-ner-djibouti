@@ -5,8 +5,9 @@ Les systèmes ne sont NI copiés NI modifiés : on importe
   - 3a+3b  : nos règles locales + filtres, version GELÉE 087deb3     (src/regles_locales.py)
   - D      : le modèle ré-entraîné de Kadiga                         (src/systemes_kadiga.py, entrainer_D)
 
-D n'est enregistré nulle part dans Git (un modèle spaCy est trop gros). Au PREMIER lancement, on le ré-entraîne
-(environ 30 secondes), puis on le garde dans demo/.cache/ (dossier ignoré par Git) : les lancements suivants sont rapides.
+D n'est enregistré nulle part dans Git (un modèle spaCy est trop gros). La PREMIÈRE fois qu'on l'utilise, on le ré-entraîne
+(environ 30 secondes), puis on le garde dans demo/.cache/ (dossier ignoré par Git) : les utilisations suivantes sont plus rapides.
+Le système par défaut de la démo est 3a+3b : il ne demande aucun entraînement.
 """
 import hashlib
 import shutil
@@ -27,12 +28,12 @@ DOSSIER_CACHE = Path(__file__).resolve().parent / ".cache" / "modele_D"
 MAX_CARACTERES = 3000            # limite choisie pour une démo (environ 500 mots)
 
 # clé interne -> nom affiché
-SYSTEMES = {
+SYSTEMES = {          # le premier est le système par défaut (menu « Options avancées »)
+    "3a+3b": "3a+3b – nos règles locales (version gelée)",
     "D": "D – modèle ré-entraîné (Kadiga)",
     "A": "A – spaCy seul",
-    "3a+3b": "3a+3b – nos règles locales (version gelée)",
 }
-SYSTEME_PAR_DEFAUT = "D"
+SYSTEME_PAR_DEFAUT = "3a+3b"
 
 # étiquettes des modèles -> nos types. MISC (« divers ») n'existe pas dans notre guide : on l'ignore.
 ETIQUETTE_VERS_TYPE = {"PER": "PER", "ORG": "ORG", "LOC": "LOC", "DATE": "DATE", "FORM": "FORMATION"}

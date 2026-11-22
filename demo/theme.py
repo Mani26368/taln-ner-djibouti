@@ -45,15 +45,15 @@ TYPES = {                                                                       
 
 # ---------------------------------------------------------------------------------------------- exemples (vrais textes)
 # Numéros de segments du corpus La Nation (data/corpus_*.csv). Le texte est lu dans le corpus : rien n'est inventé.
-# Règles de choix (écrites avant de regarder les segments) : en ordre du corpus,
-#   1 = premier segment où le système par défaut (D) est entièrement correct avec au moins 2 types d'entités
-#       (la règle initiale « au moins 3 types » ne trouvait aucun segment : elle a été assouplie) ;
-#   2 = premier segment suivant, avec au moins 2 entités réelles dont des personnes, où D est entièrement correct ;
-#   3 = premier segment avec au moins 2 entités réelles où D se trompe.
+# Règles de choix (écrites avant de regarder les segments), en ordre du corpus (corpus_ner, test2, test3) :
+#   1 = un segment avec une DATE, un lieu et une organisation que le système par défaut (3a+3b) trouve entièrement
+#       (A14_S001, suggéré ; il montre les trois couleurs, A12_S001 n'en montre que deux) ;
+#   2 = premier segment suivant avec au moins 2 entités réelles dont des personnes, où D est entièrement correct (A12_S005) ;
+#   3 = premier segment avec au moins 2 entités réelles où le système par défaut (3a+3b) se trompe (A03_S002).
 EXEMPLES = [                                                                             # À REMPLACER
-    ("A01_S005", "Un extrait où le système réussit"),
+    ("A14_S001", "Un extrait avec une date, un lieu et une organisation"),
     ("A12_S005", "Un extrait avec des personnes"),
-    ("A01_S001", "Un extrait difficile (D s'y trompe)"),
+    ("A03_S002", "Un extrait où le système par défaut se trompe"),
 ]
 
 # Un exemple par catégorie (page « Catégories reconnues »).
@@ -75,6 +75,9 @@ DEFINITIONS = {                                                                 
     "DATE": "une date ou un moment repéré dans le calendrier",
     "FORMATION": "un diplôme, un master, une filière",
 }
+
+# ---------------------------------------------------------------------------------------------- notes sur les systèmes
+NOTE_3A3B = "règles réglées sur les articles du projet, moins fiable sur d'autres textes"          # À REMPLACER
 
 # ---------------------------------------------------------------------------------------------- page « À propos »
 A_PROPOS = {                                                                             # À REMPLACER

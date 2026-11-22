@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION NER DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-22 à 21:09:20
+Fait le 2026-11-22 à 21:23:22
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       10.9  texte sombre sur surlignage ORG  (#14213D sur #BFD8F7)
@@ -43,41 +43,54 @@ Fait le 2026-11-22 à 21:09:20
 2. Hors ligne : recherche de ressources en ligne dans les fichiers de la démo
   [OK ] aucune URL de ressource en ligne (rien trouvé)
   [OK ] aucune police en ligne
-  [OK ] aucune photo dans l'application (la maquette .png n'est pas utilisée par l'application)
+  [OK ] aucune photo dans l'application
   [OK ] l'application ne charge pas la maquette
+  [OK ] le serveur reste sur l'adresse locale (pas de recherche d'adresse publique sur internet)
+  [OK ] statistiques d'usage de Streamlit désactivées
 
 3. Les 3 systèmes sur les 3 exemples (ce que l'écran affiche, comparé à analyser())
   [OK ] la page d'accueil s'affiche sans erreur
   [OK ] bandeau « Bienvenue sur NER Djibouti ! » présent
   [OK ] cartes « Votre texte » et « Résultats de l'analyse » présentes
   [OK ] bouton « Analyser le texte » présent
-  [OK ] système par défaut = D
-  [OK ] le bouton « Un extrait où le système réussit » remplit le texte du segment A01_S005
+  [OK ] système par défaut = 3a+3b
+  [OK ] 3a+3b est le premier du menu et le système par défaut
+  [OK ] D et A restent disponibles dans « Options avancées »
+  [OK ] le bouton « Un extrait avec une date, un lieu et une organisation » remplit le texte du segment A14_S001
 
-  [A01_S005] Un extrait où le système réussit
-  Texte : Cette visite constitue un temps fort dans les relations entre Djibouti et l'OIF.
-    D – modèle ré-entraîné (Kadiga) -> écran : ['Djibouti [LOC]', 'OIF [ORG]']
-  [OK ] A01_S005 / D : aucune erreur
-  [OK ] A01_S005 / D : l'écran affiche exactement les entités de analyser()
-  [OK ] A01_S005 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-  [OK ] A01_S005 / D : le résumé annonce 2 entité(s)
-  [OK ] A01_S005 / D : le tableau « entité / type » a 2 ligne(s)
-    A – spaCy seul -> écran : ['Djibouti [LOC]', 'OIF [ORG]']
-  [OK ] A01_S005 / A : aucune erreur
-  [OK ] A01_S005 / A : l'écran affiche exactement les entités de analyser()
-  [OK ] A01_S005 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
-  [OK ] A01_S005 / A : le résumé annonce 2 entité(s)
-  [OK ] A01_S005 / A : le tableau « entité / type » a 2 ligne(s)
-    3a+3b – nos règles locales (version gelée) -> écran : ['Djibouti [LOC]', 'OIF [ORG]']
-  [OK ] A01_S005 / 3a+3b : aucune erreur
-  [OK ] A01_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
-  [OK ] A01_S005 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
-  [OK ] A01_S005 / 3a+3b : le résumé annonce 2 entité(s)
-  [OK ] A01_S005 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
+  [A14_S001] Un extrait avec une date, un lieu et une organisation
+  Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxième édition du Challenge intercommunautaire culturel et sportif, placé sous l'égide du ministère de la Jeunesse et de la Culture.
+    3a+3b – nos règles locales (version gelée) -> écran : ['Ardo Bankoualé [LOC]', 'vendredi 14 août [DATE]', 'ministère de la Jeunesse et de la Culture [ORG]']
+  [OK ] A14_S001 / 3a+3b : aucune erreur
+  [OK ] A14_S001 / 3a+3b : l'écran affiche exactement les entités de analyser()
+  [OK ] A14_S001 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A14_S001 / 3a+3b : le résumé annonce 3 entité(s)
+  [OK ] A14_S001 / 3a+3b : le tableau « entité / type » a 3 ligne(s)
+  [OK ] A14_S001 : avec 3a+3b le résultat est exact
+  [OK ] A14_S001 : une DATE est surlignée (le violet apparaît) avec le système par défaut
+    D – modèle ré-entraîné (Kadiga) -> écran : ['Ardo Bankoualé [LOC]', '14 août [DATE]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
+  [OK ] A14_S001 / D : aucune erreur
+  [OK ] A14_S001 / D : l'écran affiche exactement les entités de analyser()
+  [OK ] A14_S001 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A14_S001 / D : le résumé annonce 4 entité(s)
+  [OK ] A14_S001 / D : le tableau « entité / type » a 4 ligne(s)
+    A – spaCy seul -> écran : ['Ardo Bankoualé [PER]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
+  [OK ] A14_S001 / A : aucune erreur
+  [OK ] A14_S001 / A : l'écran affiche exactement les entités de analyser()
+  [OK ] A14_S001 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
+  [OK ] A14_S001 / A : le résumé annonce 3 entité(s)
+  [OK ] A14_S001 / A : le tableau « entité / type » a 3 ligne(s)
   [OK ] le bouton « Un extrait avec des personnes » remplit le texte du segment A12_S005
 
   [A12_S005] Un extrait avec des personnes
   Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
+    3a+3b – nos règles locales (version gelée) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+  [OK ] A12_S005 / 3a+3b : aucune erreur
+  [OK ] A12_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
+  [OK ] A12_S005 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A12_S005 / 3a+3b : le résumé annonce 2 entité(s)
+  [OK ] A12_S005 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
+  [OK ] A12_S005 : avec 3a+3b le résultat est exact
     D – modèle ré-entraîné (Kadiga) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / D : aucune erreur
   [OK ] A12_S005 / D : l'écran affiche exactement les entités de analyser()
@@ -90,34 +103,29 @@ Fait le 2026-11-22 à 21:09:20
   [OK ] A12_S005 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
   [OK ] A12_S005 / A : le résumé annonce 2 entité(s)
   [OK ] A12_S005 / A : le tableau « entité / type » a 2 ligne(s)
-    3a+3b – nos règles locales (version gelée) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
-  [OK ] A12_S005 / 3a+3b : aucune erreur
-  [OK ] A12_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
-  [OK ] A12_S005 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
-  [OK ] A12_S005 / 3a+3b : le résumé annonce 2 entité(s)
-  [OK ] A12_S005 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
-  [OK ] le bouton « Un extrait difficile (D s'y trompe) » remplit le texte du segment A01_S001
+  [OK ] le bouton « Un extrait où le système par défaut se trompe » remplit le texte du segment A03_S002
 
-  [A01_S001] Un extrait difficile (D s'y trompe)
-  Texte : La Secrétaire générale de l'OIF, Louise Mushikiwabo, entame une visite officielle de trois jours à Djibouti, placée sous le signe du développement, de l'investissement et de l'emploi des jeunes.
-    D – modèle ré-entraîné (Kadiga) -> écran : ["Secrétaire générale de l'OIF [ORG]", 'Louise Mushikiwabo [PER]', 'Djibouti [LOC]']
-  [OK ] A01_S001 / D : aucune erreur
-  [OK ] A01_S001 / D : l'écran affiche exactement les entités de analyser()
-  [OK ] A01_S001 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-  [OK ] A01_S001 / D : le résumé annonce 3 entité(s)
-  [OK ] A01_S001 / D : le tableau « entité / type » a 3 ligne(s)
-    A – spaCy seul -> écran : ["Secrétaire générale de l'OIF [ORG]", 'Louise Mushikiwabo [PER]', 'Djibouti [LOC]']
-  [OK ] A01_S001 / A : aucune erreur
-  [OK ] A01_S001 / A : l'écran affiche exactement les entités de analyser()
-  [OK ] A01_S001 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
-  [OK ] A01_S001 / A : le résumé annonce 3 entité(s)
-  [OK ] A01_S001 / A : le tableau « entité / type » a 3 ligne(s)
-    3a+3b – nos règles locales (version gelée) -> écran : ['OIF [ORG]', 'Louise Mushikiwabo [PER]', 'Djibouti [LOC]']
-  [OK ] A01_S001 / 3a+3b : aucune erreur
-  [OK ] A01_S001 / 3a+3b : l'écran affiche exactement les entités de analyser()
-  [OK ] A01_S001 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
-  [OK ] A01_S001 / 3a+3b : le résumé annonce 3 entité(s)
-  [OK ] A01_S001 / 3a+3b : le tableau « entité / type » a 3 ligne(s)
+  [A03_S002] Un extrait où le système par défaut se trompe
+  Texte : Réunis en Assemblée générale extraordinaire au siège de la Fédération, ils ont voté à l'unanimité la révocation du Comité directeur et de son président, Souleiman Hassan Waberi.
+    3a+3b – nos règles locales (version gelée) -> écran : ['Réunis [LOC]', 'Comité directeur [ORG]', 'Souleiman Hassan Waberi [PER]']
+  [OK ] A03_S002 / 3a+3b : aucune erreur
+  [OK ] A03_S002 / 3a+3b : l'écran affiche exactement les entités de analyser()
+  [OK ] A03_S002 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A03_S002 / 3a+3b : le résumé annonce 3 entité(s)
+  [OK ] A03_S002 / 3a+3b : le tableau « entité / type » a 3 ligne(s)
+  [OK ] A03_S002 : avec 3a+3b le résultat est faux (exemple d'erreur voulu)
+    D – modèle ré-entraîné (Kadiga) -> écran : ['Réunis [LOC]', 'Assemblée générale [ORG]', 'Comité directeur et de son président [ORG]', 'Souleiman Hassan Waberi [PER]']
+  [OK ] A03_S002 / D : aucune erreur
+  [OK ] A03_S002 / D : l'écran affiche exactement les entités de analyser()
+  [OK ] A03_S002 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A03_S002 / D : le résumé annonce 4 entité(s)
+  [OK ] A03_S002 / D : le tableau « entité / type » a 4 ligne(s)
+    A – spaCy seul -> écran : ['Réunis [LOC]', 'Assemblée générale [ORG]', 'Fédération [LOC]', 'Comité directeur [ORG]', 'Souleiman Hassan Waberi [PER]']
+  [OK ] A03_S002 / A : aucune erreur
+  [OK ] A03_S002 / A : l'écran affiche exactement les entités de analyser()
+  [OK ] A03_S002 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
+  [OK ] A03_S002 / A : le résumé annonce 5 entité(s)
+  [OK ] A03_S002 / A : le tableau « entité / type » a 5 ligne(s)
 
 5. Cas limites
   [OK ] texte vide : message clair affiché
@@ -136,13 +144,20 @@ Fait le 2026-11-22 à 21:09:20
   [OK ] page Catégories : le type PER est présenté
   [OK ] page Catégories : le type FORMATION est présenté
   [OK ] page Catégories : exemple de FORMATION = « Master IAMD » (corpus de Kadiga)
-     Tableau « ce que chaque système sait reconnaître » :
-                      D – modèle ré-entraîné (Kadiga) A – spaCy seul 3a+3b – nos règles locales (version gelée)
-Organisation (ORG)                                Oui            Oui                                        Oui
-Lieu (LOC)                                        Oui            Oui                                        Oui
-Date (DATE)                                       Oui            Non                                        Oui
-Personne (PER)                                    Oui            Oui                                        Oui
-Formation (FORMATION)                             Oui            Non                                        Non
+  [OK ] page Catégories : sans D chargé, le tableau a 2 systèmes (3a+3b et A)
+  [OK ] page Catégories : un bouton propose d'ajouter D (chargement à la demande)
+  [OK ] page Catégories : phrase exacte sur 3a+3b : « règles réglées sur les articles du projet, moins fiable sur d'autres textes »
+     Recalcul séparé depuis results/ : D retrouve exactement 5 dates sur 20
+  [OK ] page Catégories : D « trouve peu de dates », chiffre affiché = chiffre recalculé (5 sur 20)
+  [OK ] page Catégories : le chargement de D à la demande s'exécute sans erreur
+  [OK ] page Catégories : après le clic, le tableau a 3 systèmes (D ajouté)
+     Tableau « ce que chaque système sait reconnaître » (avec D) :
+                      3a+3b – nos règles locales (version gelée) D – modèle ré-entraîné (Kadiga) A – spaCy seul
+Organisation (ORG)                                           Oui                             Oui            Oui
+Lieu (LOC)                                                   Oui                             Oui            Oui
+Date (DATE)                                                  Oui                             Oui            Non
+Personne (PER)                                               Oui                             Oui            Oui
+Formation (FORMATION)                                        Non                             Oui            Non
   [OK ] page « À propos » : s'affiche sans erreur
   [OK ] page « À propos » : aucun score affiché
   [OK ] page À propos : « NER Djibouti »
@@ -154,8 +169,12 @@ Formation (FORMATION)                             Oui            Non            
   [OK ] page « Analyser un texte » : s'affiche sans erreur
   [OK ] page « Analyser un texte » : aucun score affiché
 
+6 bis. Message d'attente pour la première utilisation de D
+  [OK ] le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application
+  [OK ] le README annonce l'attente d'environ 30 secondes pour D
+
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 5.1 s (source : cache disque)
+     D chargé en 1.9 s (source : cache disque)
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 14 s | échecs : 0
+Durée totale : 19 s | échecs : 0

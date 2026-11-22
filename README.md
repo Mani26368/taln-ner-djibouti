@@ -50,18 +50,25 @@ streamlit run demo/app.py
 ```
 
 Il faut internet **seulement pour l'installation**. Ensuite l'application fonctionne hors ligne (aucune police ni image en ligne ;
-les statistiques d'usage de Streamlit sont désactivées dans `.streamlit/config.toml`). Le navigateur s'ouvre sur `http://localhost:8501`.
+les statistiques d'usage de Streamlit sont désactivées dans `.streamlit/config.toml`). Le navigateur s'ouvre, et l'adresse locale est affichée dans le terminal.
 
-**Premier lancement : attendre environ 30 secondes.** Le système par défaut (D, le modèle ré-entraîné de Kadiga) n'est enregistré
-nulle part dans Git (un modèle spaCy est trop gros) : au premier lancement, il s'entraîne. L'application affiche un message
-d'attente (« Premier lancement : le modèle D est en cours d'entraînement… »). Il est ensuite gardé dans `demo/.cache/`
-(dossier ignoré par Git, environ 26 Mo), et les lancements suivants sont plus rapides.
-Temps mesurés sur l'ordinateur de Mako (Windows, du lancement de la commande jusqu'à la page d'accueil prête) :
-premier lancement 42,1 s et 36,6 s (2 essais) ; lancements suivants 17,7 s, 14,0 s et 12,1 s (3 essais). Ces durées varient d'un ordinateur à l'autre.
+**Démarrage.** Le système par défaut, **3a+3b** (nos règles locales, version gelée), ne demande aucun entraînement :
+la page d'accueil est prête 13,7 s à 18,4 s après la commande (3 essais ; sur d'autres démarrages mesurés pendant les essais,
+de 15,3 s à 37,1 s quand l'ordinateur était chargé).
+
+**Première utilisation du modèle D : attendre environ 30 secondes.** Le modèle D (le modèle ré-entraîné de Kadiga, à choisir dans
+« Options avancées ») n'est enregistré nulle part dans Git (un modèle spaCy est trop gros) : la première fois qu'on le choisit, il s'entraîne.
+L'application affiche un message d'attente (« Première utilisation du modèle D : il est en cours d'entraînement… »).
+Il est ensuite gardé dans `demo/.cache/` (dossier ignoré par Git, environ 26 Mo).
+Temps mesurés sur l'ordinateur de Mako (Windows) pour ce choix de D : première utilisation 25,2 s et 36,0 s (2 essais) ;
+utilisations suivantes 8,4 s, 1,8 s et 1,8 s (3 essais ; le premier incluait une lecture du disque à froid).
+Ces durées varient d'un ordinateur à l'autre.
 
 - **Pages** (barre de gauche) : « Analyser un texte », « Catégories reconnues », « À propos ».
-- **Systèmes** : D par défaut ; « Options avancées » permet de choisir « A – spaCy seul » ou « 3a+3b – nos règles locales (version gelée) ».
-  Sur nos textes, D trouve peu de dates (la légende indique ce que le système PEUT produire, pas ce qu'il trouve toujours).
+- **Systèmes** : **3a+3b** par défaut (règles réglées sur les articles du projet, moins fiable sur d'autres textes).
+  « Options avancées » permet de choisir « D – modèle ré-entraîné (Kadiga) » ou « A – spaCy seul ». D trouve peu de dates sur nos
+  segments de La Nation (les chiffres, lus dans `results/`, sont sur la page « Catégories reconnues »).
+  La légende indique ce que le système PEUT produire, pas ce qu'il trouve toujours.
 - **Apparence** : couleurs, titre, phrase d'accueil et exemples sont dans `demo/theme.py` (valeurs marquées « À REMPLACER »).
   `demo/maquette.png` ne sert que de référence visuelle : l'application ne l'utilise pas.
 - **Plan B** (si la démo en direct échoue) : `python demo/enregistrer_essais.py` écrit les résultats réels des 3 systèmes sur 3 exemples

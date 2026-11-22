@@ -127,9 +127,9 @@ def preparer_systeme(cle):
         return True
     zone = st.empty()
     if cle == "D" and not analyse.d_en_cache_disque():
-        zone.info("**Premier lancement : le modèle D est en cours d'entraînement (environ 30 secondes).** "
+        zone.info("**Première utilisation du modèle D : il est en cours d'entraînement (environ 30 secondes).** "
                   "Merci de patienter. Cela n'arrive qu'une fois : ensuite il est gardé sur cet ordinateur "
-                  "et le démarrage est plus rapide.")
+                  "et son chargement est plus rapide.")
         attente = "Entraînement du modèle D en cours (environ 30 secondes)…"
     elif cle == "D":
         zone.info("Chargement du modèle D en cours (quelques secondes)…")
@@ -242,12 +242,40 @@ def formations_predites_par_d():
     return total if trouve else None
 
 
+def dates_retrouvees_par_d():
+    """Ce que D a réellement retrouvé comme dates dans nos mesures (results/) :
+    [(jeu, trouvées exactement, à trouver)]. None si les fichiers sont absents."""
+    resultat = []
+    try:
+        e = pd.read_csv(RACINE / "results" / "test_externe_lanation.csv", encoding="utf-8-sig")
+        for perimetre, jeu in [("dev (84)", "dev"), ("test (42)", "test")]:
+            r = e[(e["système"].str.startswith("D –")) & (e["périmètre"] == perimetre) & (e["type"] == "DATE")].iloc[0]
+            resultat.append((jeu, int(r["VP"]), int(r["support"])))
+        t2 = pd.read_csv(RACINE / "results" / "test2_resultats.csv", encoding="utf-8-sig")
+        r = t2[t2["système"].str.startswith("Kadiga D") & (t2["type"] == "DATE")].iloc[0]
+        resultat.append(("test2", round(r["exact R"] * r["support (gold)"]), int(r["support (gold)"])))
+        t3 = pd.read_csv(RACINE / "results" / "test3.csv", encoding="utf-8-sig")
+        r = t3[t3["système"].str.startswith("Kadiga D") & (t3["type"] == "DATE")].iloc[0]
+        resultat.append(("test3", int(r["VP exact"]), int(r["support"])))
+    except (OSError, IndexError, KeyError):
+        return None
+    return resultat
+
+
+def ajouter_d_au_tableau():
+    st.session_state["inclure_D"] = True
+
+
 def page_categories():
     st.markdown(f'<div class="bandeau"><h1>Catégories reconnues</h1><p>Les cinq types d\'informations que l\'application peut chercher '
                 f'dans un texte, avec un exemple réel de chacun.</p></div>', unsafe_allow_html=True)
-    # La légende et le tableau ci-dessous sont lus dans les systèmes chargés : on les charge d'abord.
-    if not all(preparer_systeme(cle) for cle in analyse.SYSTEMES):
+    # La légende et le tableau ci-dessous sont lus dans les systèmes chargés. 3a+3b et A sont rapides à charger ;
+    # D demande un entraînement la première fois : on ne le charge que si l'utilisateur le demande (ou s'il est déjà prêt).
+    if not all(preparer_systeme(cle) for cle in ["3a+3b", "A"]):
         st.stop()
+    if analyse.est_charge("D") or st.session_state.get("inclure_D"):
+        if not preparer_systeme("D"):
+            st.stop()
     for code in analyse.ORDRE_TYPES:
         id_segment, entite = T.EXEMPLES_CATEGORIES[code]
         if code == "FORMATION":
@@ -265,9 +293,22 @@ def page_categories():
     st.caption("Lu dans le code des systèmes : un type est « Oui » seulement si le modèle ou ses règles peuvent l'étiqueter.")
     lignes = {}
     for cle, nom in analyse.SYSTEMES.items():
+        if not analyse.est_charge(cle):
+            continue
         possibles = analyse.types_possibles(cle)
         lignes[nom] = {NOM_COMPLET[t]: ("Oui" if t in possibles else "Non") for t in analyse.ORDRE_TYPES}
     st.dataframe(pd.DataFrame(lignes))
+    if not analyse.est_charge("D"):
+        st.button("Ajouter le modèle D au tableau (il se charge ; la première fois, environ 30 secondes)",
+                  key="ajouter_d", on_click=ajouter_d_au_tableau)
+    st.info(f"**3a+3b** (nos règles, système par défaut) : {T.NOTE_3A3B}.")
+    dates = dates_retrouvees_par_d()
+    if dates is not None:
+        trouvees, total = sum(d[1] for d in dates), sum(d[2] for d in dates)
+        detail = ", ".join(f"{v} sur {n}" for _jeu, v, n in dates)
+        st.info(f"**D** (modèle ré-entraîné de Kadiga) : il trouve peu de dates sur nos segments de La Nation. "
+                f"Dans nos mesures (dossier results/), sur {total} dates à trouver il en retrouve exactement {trouvees} "
+                f"(par groupe d'articles : {detail}).")
     n_form = formations_predites_par_d()
     if n_form is not None:
         st.info(f"Remarque : le système D peut étiqueter des formations, mais dans nos mesures sur des textes de La Nation "

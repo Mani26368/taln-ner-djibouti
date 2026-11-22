@@ -1,54 +1,61 @@
 ESSAIS DE LA DÉMONSTRATION NER DJIBOUTI (plan B)
-Fichier produit par demo/enregistrer_essais.py le 2026-11-22 à 21:09:01
+Fichier produit par demo/enregistrer_essais.py le 2026-11-22 à 21:22:56
 Python 3.12.10 | spaCy 3.8.18 | Windows
 Rien n'est inventé : les textes sont de vrais segments du journal La Nation (corpus du dépôt) ;
 les entités sont celles que renvoie la fonction analyser() de l'application. Prototype : peut se tromper.
 
 === 1. Chargement des systèmes (une seule fois par lancement) ===
-- D – modèle ré-entraîné (Kadiga) : chargé en 7.5 s (source : cache disque) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-- A – spaCy seul : chargé en 2.0 s (source : règles : aucune) ; types possibles : ['ORG', 'LOC', 'PER']
-- 3a+3b – nos règles locales (version gelée) : chargé en 1.8 s (source : règles locales) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER']
+- 3a+3b – nos règles locales (version gelée) : chargé en 7.2 s (source : règles locales) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER']
+- D – modèle ré-entraîné (Kadiga) : chargé en 1.4 s (source : cache disque) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+- A – spaCy seul : chargé en 1.5 s (source : règles : aucune) ; types possibles : ['ORG', 'LOC', 'PER']
 
 === 2. Les trois exemples, avec les trois systèmes ===
 
-[A01_S005] Un extrait où le système réussit
-Texte : Cette visite constitue un temps fort dans les relations entre Djibouti et l'OIF.
-  D – modèle ré-entraîné (Kadiga) -> 2 entité(s)
-      'Djibouti'                                    LOC        positions 62-70
-      'OIF'                                         ORG        positions 76-79
-  A – spaCy seul -> 2 entité(s)
-      'Djibouti'                                    LOC        positions 62-70
-      'OIF'                                         ORG        positions 76-79
-  3a+3b – nos règles locales (version gelée) -> 2 entité(s)
-      'Djibouti'                                    LOC        positions 62-70
-      'OIF'                                         ORG        positions 76-79
+[A14_S001] Un extrait avec une date, un lieu et une organisation
+Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxième édition du Challenge intercommunautaire culturel et sportif, placé sous l'égide du ministère de la Jeunesse et de la Culture.
+  3a+3b – nos règles locales (version gelée) -> 3 entité(s)
+      'Ardo Bankoualé'                              LOC        positions 14-28
+      'vendredi 14 août'                            DATE       positions 42-58
+      'ministère de la Jeunesse et de la Culture'   ORG        positions 155-196
+  D – modèle ré-entraîné (Kadiga) -> 4 entité(s)
+      'Ardo Bankoualé'                              LOC        positions 14-28
+      '14 août'                                     DATE       positions 51-58
+      'Challenge'                                   LOC        positions 83-92
+      'ministère de la Jeunesse et de la Culture'   ORG        positions 155-196
+  A – spaCy seul -> 3 entité(s)
+      'Ardo Bankoualé'                              PER        positions 14-28
+      'Challenge'                                   LOC        positions 83-92
+      'ministère de la Jeunesse et de la Culture'   ORG        positions 155-196
 
 [A12_S005] Un extrait avec des personnes
 Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
+  3a+3b – nos règles locales (version gelée) -> 2 entité(s)
+      'Mohamed Abdo'                                PER        positions 67-79
+      'Abdillahi Farah'                             PER        positions 125-140
   D – modèle ré-entraîné (Kadiga) -> 2 entité(s)
       'Mohamed Abdo'                                PER        positions 67-79
       'Abdillahi Farah'                             PER        positions 125-140
   A – spaCy seul -> 2 entité(s)
       'Mohamed Abdo'                                PER        positions 67-79
       'Abdillahi Farah'                             PER        positions 125-140
-  3a+3b – nos règles locales (version gelée) -> 2 entité(s)
-      'Mohamed Abdo'                                PER        positions 67-79
-      'Abdillahi Farah'                             PER        positions 125-140
 
-[A01_S001] Un extrait difficile (D s'y trompe)
-Texte : La Secrétaire générale de l'OIF, Louise Mushikiwabo, entame une visite officielle de trois jours à Djibouti, placée sous le signe du développement, de l'investissement et de l'emploi des jeunes.
-  D – modèle ré-entraîné (Kadiga) -> 3 entité(s)
-      "Secrétaire générale de l'OIF"                ORG        positions 3-31
-      'Louise Mushikiwabo'                          PER        positions 33-51
-      'Djibouti'                                    LOC        positions 99-107
-  A – spaCy seul -> 3 entité(s)
-      "Secrétaire générale de l'OIF"                ORG        positions 3-31
-      'Louise Mushikiwabo'                          PER        positions 33-51
-      'Djibouti'                                    LOC        positions 99-107
+[A03_S002] Un extrait où le système par défaut se trompe
+Texte : Réunis en Assemblée générale extraordinaire au siège de la Fédération, ils ont voté à l'unanimité la révocation du Comité directeur et de son président, Souleiman Hassan Waberi.
   3a+3b – nos règles locales (version gelée) -> 3 entité(s)
-      'OIF'                                         ORG        positions 28-31
-      'Louise Mushikiwabo'                          PER        positions 33-51
-      'Djibouti'                                    LOC        positions 99-107
+      'Réunis'                                      LOC        positions 0-6
+      'Comité directeur'                            ORG        positions 115-131
+      'Souleiman Hassan Waberi'                     PER        positions 153-176
+  D – modèle ré-entraîné (Kadiga) -> 4 entité(s)
+      'Réunis'                                      LOC        positions 0-6
+      'Assemblée générale'                          ORG        positions 10-28
+      'Comité directeur et de son président'        ORG        positions 115-151
+      'Souleiman Hassan Waberi'                     PER        positions 153-176
+  A – spaCy seul -> 5 entité(s)
+      'Réunis'                                      LOC        positions 0-6
+      'Assemblée générale'                          ORG        positions 10-28
+      'Fédération'                                  LOC        positions 59-69
+      'Comité directeur'                            ORG        positions 115-131
+      'Souleiman Hassan Waberi'                     PER        positions 153-176
 
 === 3. Cas limites : messages affichés à l'utilisateur ===
 - texte vide -> Le texte est vide. Écrivez ou collez un texte en français, puis cliquez sur « Analyser le texte ».

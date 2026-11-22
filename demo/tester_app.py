@@ -3,12 +3,14 @@
 Ce qui est vérifié :
   1. contraste du texte sur les fonds (lisibilité) ;      2. aucune ressource en ligne ;
   3. les 3 systèmes sur les 3 exemples : ce que l'écran affiche = ce que renvoie analyser() ;
+     le système par défaut (3a+3b) est exact sur les 2 premiers exemples et se trompe sur le 3e (voulu) ; le violet apparaît ;
   4. légende = types réellement produits par le système ;  5. texte vide, texte trop long, code HTML saisi, modèle manquant ;
-  6. les 3 pages s'affichent et n'affichent aucun score ;  7. D rechargé depuis le cache = D mesuré dans results/test3.csv.
+  6. les 3 pages s'affichent, sans score ; chiffres sur D recalculés séparément ;  7. D rechargé depuis le cache = D de results/test3.csv.
 
 Ce test ne remplace PAS un coup d'œil humain sur l'écran (couleurs, mise en page).
 Lancer, depuis la racine du dépôt :   python demo/tester_app.py
 """
+import html
 import re
 import sys
 import time
@@ -84,8 +86,12 @@ def test_hors_ligne():
                 trouve.append((f.name, m))
     verifier(not trouve, f"aucune URL de ressource en ligne ({trouve or 'rien trouvé'})")
     verifier("googleapis" not in (DOSSIER / "app.py").read_text(encoding="utf-8"), "aucune police en ligne")
-    verifier(not any((DOSSIER).glob("*.jpg")) and not any((DOSSIER).glob("*.jpeg")), "aucune photo dans l'application (la maquette .png n'est pas utilisée par l'application)")
+    verifier(not any(DOSSIER.glob("*.jpg")) and not any(DOSSIER.glob("*.jpeg")), "aucune photo dans l'application")
     verifier("maquette" not in (DOSSIER / "app.py").read_text(encoding="utf-8"), "l'application ne charge pas la maquette")
+    verifier('address = "localhost"' in (RACINE / ".streamlit" / "config.toml").read_text(encoding="utf-8"),
+             "le serveur reste sur l'adresse locale (pas de recherche d'adresse publique sur internet)")
+    verifier("gatherUsageStats = false" in (RACINE / ".streamlit" / "config.toml").read_text(encoding="utf-8"),
+             "statistiques d'usage de Streamlit désactivées")
 
 
 # ------------------------------------------------------------------------------------------------ outils AppTest
@@ -102,7 +108,6 @@ def tout_html(at):
 def entites_affichees(at):
     """Les entités surlignées à l'écran, lues dans le code HTML produit par l'application."""
     morceaux = re.findall(r'<mark class="ent ent-(\w+)" title="[^"]*">(.*?)<small>', tout_html(at))
-    import html
     return [(t, html.unescape(x)) for t, x in morceaux]
 
 
@@ -122,22 +127,38 @@ def lancer_analyse(at, texte, systeme):
     return at
 
 
+def gold_du_segment(id_segment):
+    """Les entités annotées à la main pour ce segment (data/annotations*.csv)."""
+    import csv
+    sortie = set()
+    for fichier in ["annotations.csv", "annotations_test2.csv", "annotations_test3.csv"]:
+        with open(RACINE / "data" / fichier, encoding="utf-8", newline="") as f:
+            for a in csv.DictReader(f):
+                if a["id_segment"] == id_segment:
+                    sortie.add((int(a["debut"]), int(a["fin"]), a["type"]))
+    return sortie
+
+
 # ------------------------------------------------------------------------------------------------ 3 et 4
 def test_exemples():
     note("\n3. Les 3 systèmes sur les 3 exemples (ce que l'écran affiche, comparé à analyser())")
     at = nouvelle_app()
     verifier(not at.exception, "la page d'accueil s'affiche sans erreur")
     verifier("Bienvenue sur NER Djibouti !" in tout_html(at), "bandeau « Bienvenue sur NER Djibouti ! » présent")
-    verifier("Votre texte" in tout_html(at) and "Résultats de l&#x27;analyse" in tout_html(at) or "Résultats de l'analyse" in tout_html(at),
+    verifier("Votre texte" in tout_html(at) and ("Résultats de l'analyse" in tout_html(at) or "Résultats de l&#x27;analyse" in tout_html(at)),
              "cartes « Votre texte » et « Résultats de l'analyse » présentes")
     verifier(any(b.label == "Analyser le texte" for b in at.button), "bouton « Analyser le texte » présent")
-    verifier(at.selectbox(key="systeme").value == "D", "système par défaut = D")
+    verifier(at.selectbox(key="systeme").value == "3a+3b", "système par défaut = 3a+3b")
+    verifier(analyse.SYSTEME_PAR_DEFAUT == "3a+3b" and list(analyse.SYSTEMES)[0] == "3a+3b",
+             "3a+3b est le premier du menu et le système par défaut")
+    verifier(list(analyse.SYSTEMES)[1:] == ["D", "A"], "D et A restent disponibles dans « Options avancées »")
     for id_segment, libelle in T.EXEMPLES:
         at.button(key=f"exemple_{id_segment}").click()
         at.run()
         texte = at.text_area(key="texte").value
         verifier(texte == analyse.lire_segment(id_segment), f"le bouton « {libelle} » remplit le texte du segment {id_segment}")
         note(f"\n  [{id_segment}] {libelle}\n  Texte : {texte}")
+        gold = gold_du_segment(id_segment)
         for cle, nom in analyse.SYSTEMES.items():
             lancer_analyse(at, texte, cle)
             attendu = [(e.type, e.texte) for e in analyse.analyser(texte, cle)]
@@ -147,12 +168,17 @@ def test_exemples():
             verifier(vu == attendu, f"{id_segment} / {cle} : l'écran affiche exactement les entités de analyser()")
             verifier(legende_affichee(at) == analyse.types_possibles(cle),
                      f"{id_segment} / {cle} : la légende = les types possibles du système {analyse.types_possibles(cle)}")
-            resume = re.search(r'<div class="resume">(.*?)</div></div>|<div class="resume">(.*)', tout_html(at), flags=re.S)
             verifier("Résumé" in tout_html(at) and (f"{len(attendu)} entité" in tout_html(at) or not attendu),
                      f"{id_segment} / {cle} : le résumé annonce {len(attendu)} entité(s)")
             lignes_tableau = len(at.dataframe[0].value) if at.dataframe else 0
             verifier(lignes_tableau == len(attendu), f"{id_segment} / {cle} : le tableau « entité / type » a {len(attendu)} ligne(s)")
-        at.selectbox(key="systeme").select("D")
+            if cle == "3a+3b":           # le système par défaut, comparé à la vérité terrain annotée à la main
+                exact = {(e.debut, e.fin, e.type) for e in analyse.analyser(texte, cle)} == gold
+                voulu = id_segment != T.EXEMPLES[-1][0]      # les 2 premiers exemples sont exacts, le dernier contient une erreur
+                verifier(exact == voulu, f"{id_segment} : avec 3a+3b le résultat est " + ("exact" if voulu else "faux (exemple d'erreur voulu)"))
+                if id_segment == T.EXEMPLES[0][0]:
+                    verifier("DATE" in [t for t, _ in vu], f"{id_segment} : une DATE est surlignée (le violet apparaît) avec le système par défaut")
+        at.selectbox(key="systeme").select("3a+3b")
 
 
 # ------------------------------------------------------------------------------------------------ 5
@@ -193,25 +219,68 @@ def test_cas_limites():
 
 
 # ------------------------------------------------------------------------------------------------ 6
+def chiffres_d_recalcules():
+    """Dates retrouvées exactement par D (et dates à trouver), recalculées ICI, séparément de l'application."""
+    import pandas as pd
+    e = pd.read_csv(RACINE / "results" / "test_externe_lanation.csv", encoding="utf-8-sig")
+    vp, sup = 0, 0
+    for per in ["dev (84)", "test (42)"]:
+        r = e[(e["système"].str.startswith("D –")) & (e["périmètre"] == per) & (e["type"] == "DATE")].iloc[0]
+        vp, sup = vp + int(r["VP"]), sup + int(r["support"])
+    t2 = pd.read_csv(RACINE / "results" / "test2_resultats.csv", encoding="utf-8-sig")
+    r2 = t2[t2["système"].str.startswith("Kadiga D") & (t2["type"] == "DATE")].iloc[0]
+    t3 = pd.read_csv(RACINE / "results" / "test3.csv", encoding="utf-8-sig")
+    r3 = t3[t3["système"].str.startswith("Kadiga D") & (t3["type"] == "DATE")].iloc[0]
+    vp += round(r2["exact R"] * r2["support (gold)"]) + int(r3["VP exact"])
+    sup += int(r2["support (gold)"]) + int(r3["support"])
+    return vp, sup
+
+
 def test_pages():
     note("\n6. Les trois pages")
     at = nouvelle_app()
-    for page in ["Catégories reconnues", "À propos", "Analyser un texte"]:
-        at.sidebar.radio(key="page").set_value(page)
-        at.run()
-        contenu = tout_html(at) + " ".join(x.value for x in at.info) + " ".join(str(d.value) for d in at.dataframe)
-        verifier(not at.exception, f"page « {page} » : s'affiche sans erreur")
-        verifier(not re.search(r"\bF1\b|précision|rappel|score", contenu, flags=re.I), f"page « {page} » : aucun score affiché")
-        if page == "Catégories reconnues":
-            for code in analyse.ORDRE_TYPES:
-                verifier(f"({code})" in contenu, f"page Catégories : le type {code} est présenté")
-            verifier("Master IAMD" in contenu, "page Catégories : exemple de FORMATION = « Master IAMD » (corpus de Kadiga)")
-            tab = at.dataframe[0].value
-            note("     Tableau « ce que chaque système sait reconnaître » :\n" + tab.to_string())
-        if page == "À propos":
-            for attendu in ["NER Djibouti", "Traitement automatique des langues (TALN)", "Master 2 IAMD – Université de Djibouti",
-                            "Python, spaCy, Streamlit", "Binôme 5", "Prototype de projet TALN – peut se tromper"]:
-                verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu} »")
+    memoire_D = analyse._MEMOIRE.pop("D", None)          # on simule « D pas encore chargé » pour tester le chargement à la demande
+    try:
+        for page in ["Catégories reconnues", "À propos", "Analyser un texte"]:
+            at.sidebar.radio(key="page").set_value(page)
+            at.run()
+            contenu = tout_html(at) + " ".join(x.value for x in at.info) + " ".join(str(d.value) for d in at.dataframe)
+            verifier(not at.exception, f"page « {page} » : s'affiche sans erreur")
+            verifier(not re.search(r"\bF1\b|précision|rappel|score", contenu, flags=re.I), f"page « {page} » : aucun score affiché")
+            if page == "Catégories reconnues":
+                for code in analyse.ORDRE_TYPES:
+                    verifier(f"({code})" in contenu, f"page Catégories : le type {code} est présenté")
+                verifier("Master IAMD" in contenu, "page Catégories : exemple de FORMATION = « Master IAMD » (corpus de Kadiga)")
+                verifier(len(at.dataframe[0].value.columns) == 2, "page Catégories : sans D chargé, le tableau a 2 systèmes (3a+3b et A)")
+                verifier(any(b.key == "ajouter_d" for b in at.button), "page Catégories : un bouton propose d'ajouter D (chargement à la demande)")
+                phrase = "règles réglées sur les articles du projet, moins fiable sur d'autres textes"
+                verifier(any(phrase in i.value for i in at.info), f"page Catégories : phrase exacte sur 3a+3b : « {phrase} »")
+                vp, sup = chiffres_d_recalcules()
+                note(f"     Recalcul séparé depuis results/ : D retrouve exactement {vp} dates sur {sup}")
+                verifier(any("peu de dates" in i.value and f"sur {sup} dates" in i.value and f"exactement {vp} " in i.value for i in at.info),
+                         f"page Catégories : D « trouve peu de dates », chiffre affiché = chiffre recalculé ({vp} sur {sup})")
+                at.button(key="ajouter_d").click()
+                at.run()
+                verifier(not at.exception, "page Catégories : le chargement de D à la demande s'exécute sans erreur")
+                tab = at.dataframe[0].value
+                verifier(len(tab.columns) == 3, "page Catégories : après le clic, le tableau a 3 systèmes (D ajouté)")
+                note("     Tableau « ce que chaque système sait reconnaître » (avec D) :\n" + tab.to_string())
+            if page == "À propos":
+                for attendu in ["NER Djibouti", "Traitement automatique des langues (TALN)", "Master 2 IAMD – Université de Djibouti",
+                                "Python, spaCy, Streamlit", "Binôme 5", "Prototype de projet TALN – peut se tromper"]:
+                    verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu} »")
+    finally:
+        if memoire_D is not None and "D" not in analyse._MEMOIRE:
+            analyse._MEMOIRE["D"] = memoire_D
+
+
+def test_messages():
+    note("\n6 bis. Message d'attente pour la première utilisation de D")
+    source = (DOSSIER / "app.py").read_text(encoding="utf-8")
+    verifier("environ 30 secondes" in source and "Première utilisation du modèle D" in source,
+             "le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application")
+    verifier("environ 30 secondes" in (RACINE / "README.md").read_text(encoding="utf-8"),
+             "le README annonce l'attente d'environ 30 secondes pour D")
 
 
 # ------------------------------------------------------------------------------------------------ 7
@@ -242,7 +311,7 @@ def main():
     debut = time.time()
     note("TEST DE L'APPLICATION NER DJIBOUTI (outil de test de Streamlit, sans navigateur)")
     note(f"Fait le {time.strftime('%Y-%m-%d à %H:%M:%S')}\n")
-    for t in [test_contraste, test_hors_ligne, test_exemples, test_cas_limites, test_pages, test_cache_D]:
+    for t in [test_contraste, test_hors_ligne, test_exemples, test_cas_limites, test_pages, test_messages, test_cache_D]:
         t()
     note(f"\nDurée totale : {time.time() - debut:.0f} s | échecs : {len(ECHECS)}")
     for e in ECHECS:
