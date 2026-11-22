@@ -45,6 +45,59 @@ def evaluer(gold, pred):
     return resultats
 
 
+def evaluer_tolerant(gold, pred):
+    """Score TOLÉRANT : une prédiction est juste si elle a le MÊME TYPE et si ses positions
+    CHEVAUCHENT (au moins 1 caractère) celles d'une entité réelle.
+
+    Un appariement un pour un : une entité réelle ne peut valider qu'une seule prédiction
+    (les couples qui se chevauchent le plus sont appariés d'abord). Les prédictions en trop
+    restent des fausses, les entités réelles sans partenaire restent des manquées.
+    Même format de sortie que evaluer(). Ne remplace PAS le score exact : on montre les deux.
+    """
+    assert len(gold) == len(pred), "Même nombre de textes attendu"
+    compte = defaultdict(lambda: [0, 0, 0])  # tp, fp, fn
+    for g_doc, p_doc in zip(gold, pred):
+        g, p = sorted(set(g_doc)), sorted(set(p_doc))
+        couples = []
+        for gi, ge in enumerate(g):
+            for pi, pe in enumerate(p):
+                recouvrement = min(ge[1], pe[1]) - max(ge[0], pe[0])
+                if ge[2] == pe[2] and recouvrement > 0:
+                    couples.append((-recouvrement, gi, pi))
+        pris_g, pris_p = set(), set()
+        for _, gi, pi in sorted(couples):
+            if gi in pris_g or pi in pris_p:
+                continue
+            pris_g.add(gi)
+            pris_p.add(pi)
+            compte[g[gi][2]][0] += 1
+        for pi, pe in enumerate(p):
+            if pi not in pris_p:
+                compte[pe[2]][1] += 1
+        for gi, ge in enumerate(g):
+            if gi not in pris_g:
+                compte[ge[2]][2] += 1
+    resultats = {}
+    total = [0, 0, 0]
+    for label, (tp, fp, fn) in sorted(compte.items()):
+        p_, r_, f_ = _prf(tp, fp, fn)
+        resultats[label] = (p_, r_, f_, tp + fn)
+        total[0] += tp
+        total[1] += fp
+        total[2] += fn
+    p_, r_, f_ = _prf(*total)
+    resultats["TOUT"] = (p_, r_, f_, total[0] + total[2])
+    return resultats
+
+
+def afficher_deux(exact, tolerant):
+    """Affiche côte à côte le score EXACT et le score TOLÉRANT (mêmes types, même ordre)."""
+    print(f"{'Type':<12}{'Exact P':>9}{'R':>6}{'F1':>6}   {'Tolérant P':>11}{'R':>6}{'F1':>6}{'Support':>9}")
+    for label, (p, r, f, s) in exact.items():
+        pt, rt, ft, _ = tolerant.get(label, (0.0, 0.0, 0.0, s))
+        print(f"{label:<12}{p:>9.2f}{r:>6.2f}{f:>6.2f}   {pt:>11.2f}{rt:>6.2f}{ft:>6.2f}{s:>9}")
+
+
 def erreurs(texte, g_doc, p_doc):
     """Liste les erreurs d'un texte : (genre, entité).
 
@@ -72,6 +125,9 @@ if __name__ == "__main__":
     gold = [[(3, 7, "ORG"), (16, 38, "ORG")]]
     pred = [[(3, 7, "ORG"), (16, 26, "ORG")]]  # frontière fausse sur la 2e entité
     afficher(evaluer(gold, pred))
+    print()
+    print("Exact et tolérant côte à côte (« Université » chevauche « Université de Djibouti ») :")
+    afficher_deux(evaluer(gold, pred), evaluer_tolerant(gold, pred))
     print()
     for genre, ent, mot in erreurs(texte, gold[0], pred[0]):
         print(genre, ent, repr(mot))

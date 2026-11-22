@@ -134,6 +134,40 @@ DECLENCHEURS_EVENEMENT = ["Mission", "Challenge", "Activités", "Festival", "For
 LIAISON_EVT = LIAISON + ["en"]
 TITRES_A_RETIRER = [t.lower() for t in CIVILITES + FONCTIONS + ["général", "générale", "adjoint", "adjointe"]]
 FILTRES = ["minuscule", "fonction", "mention_courte", "evenement", "titre_per", "debut_phrase", "domaines_ministre"]
+# 3b FINALE (gelée) : les 7 filtres ci-dessus + l'extension des noms de personnes.
+FILTRES_3B_FINAL = FILTRES + ["extension_per"]
+
+
+def _etendre_per(doc, entites, max_mots=2):
+    """Un PER s'étend aux mots voisins qui ressemblent à un nom : majuscule, ni mot vide, ni début de phrase,
+    et pas déjà dans une autre entité (« Mariam Hamadou » + « Ali » -> « Mariam Hamadou Ali »)."""
+    couvert = {i for e in entites for i in range(e.start, e.end)}
+
+    def candidat(i, a_gauche):
+        t = doc[i]
+        # À gauche, un mot en début de phrase n'est pas un prénom (« Selon Ahmed »). À droite, le mot est collé au
+        # nom (pas de point entre les deux) : on ignore la coupure de phrase, souvent fausse (vu sur le dev).
+        debut_de_phrase = a_gauche and t.is_sent_start
+        return t.is_alpha and t.is_title and not t.is_stop and not debut_de_phrase and i not in couvert
+
+    sortie = []
+    for ent in entites:
+        if ent.label_ != "PER":
+            sortie.append(ent)
+            continue
+        debut, fin = ent.start, ent.end
+        n = 0
+        while n < max_mots and debut > 0 and candidat(debut - 1, True):
+            debut -= 1
+            couvert.add(debut)
+            n += 1
+        n = 0
+        while n < max_mots and fin < len(doc) and candidat(fin, False):
+            couvert.add(fin)
+            fin += 1
+            n += 1
+        sortie.append(ent if (debut, fin) == (ent.start, ent.end) else spacy.tokens.Span(doc, debut, fin, label="PER"))
+    return sortie
 
 
 def _est_nom_propre_like(tok):
@@ -237,6 +271,8 @@ def creer_filtre_guide(nlp, name, actifs):
                 if debut != ent.start:
                     ent = spacy.tokens.Span(doc, debut, ent.end, label="PER")
             sortie.append(ent)
+        if "extension_per" in actifs:
+            sortie = _etendre_per(doc, sortie)
         doc.ents = sortie
         return doc
     return composant
