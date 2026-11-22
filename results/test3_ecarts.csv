@@ -1,0 +1,38 @@
+﻿système,id_segment,écart,entité,type,nature
+A : spaCy seul,A04_S006,"EN MOINS (dans le gold, non prédite)",BRICS,ORG,totalement manquée
+A : spaCy seul,A04_S020,"EN PLUS (prédite, absente du gold)",Washington,PER,sans équivalent dans le gold
+A : spaCy seul,A04_S020,"EN MOINS (dans le gold, non prédite)",Washington,LOC,totalement manquée
+A : spaCy seul,A04_S025,"EN PLUS (prédite, absente du gold)",Sud,LOC,sans équivalent dans le gold
+A : spaCy seul,A04_S052,"EN MOINS (dans le gold, non prédite)",BRICS,ORG,totalement manquée
+A : spaCy seul,A04_S062,"EN PLUS (prédite, absente du gold)",stratégie de,LOC,sans équivalent dans le gold
+A : spaCy seul,A05_S006,"EN MOINS (dans le gold, non prédite)",2013-2014,DATE,totalement manquée
+A : spaCy seul,A05_S022,"EN MOINS (dans le gold, non prédite)",2016,DATE,totalement manquée
+A : spaCy seul,A05_S027,"EN MOINS (dans le gold, non prédite)",Innovations for Defence Excellence,ORG,totalement manquée
+A : spaCy seul,A05_S027,"EN MOINS (dans le gold, non prédite)",mars 2026,DATE,totalement manquée
+A : spaCy seul,A05_S034,"EN MOINS (dans le gold, non prédite)",2022-2023,DATE,totalement manquée
+A : spaCy seul,A05_S056,"EN PLUS (prédite, absente du gold)",l'Arménie,LOC,frontière
+A : spaCy seul,A05_S056,"EN MOINS (dans le gold, non prédite)",Arménie,LOC,frontière
+A : spaCy seul,A06_S007,"EN PLUS (prédite, absente du gold)",États,LOC,sans équivalent dans le gold
+A : spaCy seul,A06_S018,"EN PLUS (prédite, absente du gold)",l'Afrique,LOC,frontière
+A : spaCy seul,A06_S018,"EN MOINS (dans le gold, non prédite)",Afrique,LOC,frontière
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A04_S006,"EN MOINS (dans le gold, non prédite)",BRICS,ORG,totalement manquée
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A04_S020,"EN PLUS (prédite, absente du gold)",Washington,PER,sans équivalent dans le gold
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A04_S020,"EN MOINS (dans le gold, non prédite)",Washington,LOC,totalement manquée
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A04_S025,"EN PLUS (prédite, absente du gold)",Sud,LOC,sans équivalent dans le gold
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A04_S052,"EN MOINS (dans le gold, non prédite)",BRICS,ORG,totalement manquée
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A05_S022,"EN MOINS (dans le gold, non prédite)",2016,DATE,totalement manquée
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A05_S027,"EN MOINS (dans le gold, non prédite)",Innovations for Defence Excellence,ORG,totalement manquée
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A05_S027,"EN MOINS (dans le gold, non prédite)",mars 2026,DATE,totalement manquée
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A05_S056,"EN PLUS (prédite, absente du gold)",l'Arménie,LOC,frontière
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A05_S056,"EN MOINS (dans le gold, non prédite)",Arménie,LOC,frontière
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A06_S007,"EN PLUS (prédite, absente du gold)",États,LOC,sans équivalent dans le gold
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A06_S018,"EN PLUS (prédite, absente du gold)",l'Afrique,LOC,frontière
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",A06_S018,"EN MOINS (dans le gold, non prédite)",Afrique,LOC,frontière
+Kadiga D : NER ré-entraîné,A04_S006,"EN MOINS (dans le gold, non prédite)",BRICS,ORG,totalement manquée
+Kadiga D : NER ré-entraîné,A04_S025,"EN PLUS (prédite, absente du gold)",Sud,LOC,sans équivalent dans le gold
+Kadiga D : NER ré-entraîné,A04_S052,"EN MOINS (dans le gold, non prédite)",BRICS,ORG,totalement manquée
+Kadiga D : NER ré-entraîné,A04_S062,"EN PLUS (prédite, absente du gold)",stratégie de,LOC,sans équivalent dans le gold
+Kadiga D : NER ré-entraîné,A05_S022,"EN PLUS (prédite, absente du gold)",Defence Procurement,ORG,sans équivalent dans le gold
+Kadiga D : NER ré-entraîné,A05_S027,"EN MOINS (dans le gold, non prédite)",Innovations for Defence Excellence,ORG,totalement manquée
+Kadiga D : NER ré-entraîné,A05_S027,"EN MOINS (dans le gold, non prédite)",mars 2026,DATE,totalement manquée
+Kadiga D : NER ré-entraîné,A06_S007,"EN PLUS (prédite, absente du gold)",États,LOC,sans équivalent dans le gold

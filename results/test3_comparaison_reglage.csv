@@ -1,0 +1,16 @@
+﻿système,jeu,segments,support (4 types),F1 exact (4 types),F1 tolérant (4 types),support (PER+ORG+LOC),F1 exact (PER+ORG+LOC),F1 tolérant (PER+ORG+LOC)
+A : spaCy seul,"dev (84 seg., réglage)",84,57,0.54,0.667,47,0.586,0.724
+A : spaCy seul,"test 1 (42 seg., vu)",42,27,0.491,0.667,24,0.519,0.704
+A : spaCy seul,"test 2 (42 seg., vu)",42,16,0.4,0.457,13,0.438,0.5
+A : spaCy seul,12 articles vus (168 seg.),168,100,0.505,0.633,84,0.545,0.683
+A : spaCy seul,corpus_test3 (JAMAIS VU),42,27,0.68,0.76,23,0.739,0.826
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3","dev (84 seg., réglage)",84,57,0.991,0.991,47,0.989,0.989
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3","test 1 (42 seg., vu)",42,27,0.909,0.945,24,0.898,0.939
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3","test 2 (42 seg., vu)",42,16,0.588,0.647,13,0.552,0.621
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",12 articles vus (168 seg.),168,100,0.902,0.922,84,0.89,0.913
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",corpus_test3 (JAMAIS VU),42,27,0.745,0.824,23,0.756,0.844
+Kadiga D : NER ré-entraîné,"dev (84 seg., réglage)",84,57,0.512,0.744,47,0.561,0.754
+Kadiga D : NER ré-entraîné,"test 1 (42 seg., vu)",42,27,0.481,0.741,24,0.52,0.76
+Kadiga D : NER ré-entraîné,"test 2 (42 seg., vu)",42,16,0.545,0.606,13,0.571,0.571
+Kadiga D : NER ré-entraîné,12 articles vus (168 seg.),168,100,0.509,0.722,84,0.552,0.729
+Kadiga D : NER ré-entraîné,corpus_test3 (JAMAIS VU),42,27,0.852,0.852,23,0.851,0.851

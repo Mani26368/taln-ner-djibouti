@@ -1,0 +1,22 @@
+﻿système,type,support,prédites,VP exact,exact P,exact R,exact F1,tolérant P,tolérant R,tolérant F1
+A : spaCy seul,PER,0,1,0,0.0,,,0.0,,
+A : spaCy seul,ORG,5,2,2,1.0,0.4,0.571,1.0,0.4,0.571
+A : spaCy seul,LOC,18,20,15,0.75,0.833,0.789,0.85,0.944,0.895
+A : spaCy seul,DATE,4,0,0,,0.0,0.0,,0.0,0.0
+A : spaCy seul,TOUT (PER+ORG+LOC+DATE),27,23,17,0.739,0.63,0.68,0.826,0.704,0.76
+A : spaCy seul,TOUT (PER+ORG+LOC),23,23,17,0.739,0.739,0.739,0.826,0.826,0.826
+A : spaCy seul,"FORMATION prédite (support 0, hors tableau)",0,0,0,,,,,,
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",PER,0,1,0,0.0,,,0.0,,
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",ORG,5,2,2,1.0,0.4,0.571,1.0,0.4,0.571
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",LOC,18,19,15,0.789,0.833,0.811,0.895,0.944,0.919
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",DATE,4,2,2,1.0,0.5,0.667,1.0,0.5,0.667
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",TOUT (PER+ORG+LOC+DATE),27,24,19,0.792,0.704,0.745,0.875,0.778,0.824
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3",TOUT (PER+ORG+LOC),23,22,17,0.773,0.739,0.756,0.864,0.826,0.844
+"3a+3b (= 3c) : règles + filtres, gelée 087deb3","FORMATION prédite (support 0, hors tableau)",0,0,0,,,,,,
+Kadiga D : NER ré-entraîné,PER,0,0,0,,,,,,
+Kadiga D : NER ré-entraîné,ORG,5,3,2,0.667,0.4,0.5,0.667,0.4,0.5
+Kadiga D : NER ré-entraîné,LOC,18,21,18,0.857,1.0,0.923,0.857,1.0,0.923
+Kadiga D : NER ré-entraîné,DATE,4,3,3,1.0,0.75,0.857,1.0,0.75,0.857
+Kadiga D : NER ré-entraîné,TOUT (PER+ORG+LOC+DATE),27,27,23,0.852,0.852,0.852,0.852,0.852,0.852
+Kadiga D : NER ré-entraîné,TOUT (PER+ORG+LOC),23,24,20,0.833,0.87,0.851,0.833,0.87,0.851
+Kadiga D : NER ré-entraîné,"FORMATION prédite (support 0, hors tableau)",0,0,0,,,,,,
