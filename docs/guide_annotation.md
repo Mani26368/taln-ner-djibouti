@@ -46,6 +46,7 @@ On annote le texte brut, à la main, sans modèle. Une entité = un début, une 
 - « Djibouti » est LOC partout (pays, ville ou gouvernement). « République de Djibouti » = 1 LOC.
 - « Théâtre des Salines » : lieu où se passe l'événement → LOC.
 - « école de la Zone portuaire Sud » → LOC = « Zone portuaire Sud » seulement (« école » est un nom commun).
+- Un nom commun descriptif (école, aéroport) n'est pas annoté ; on garde le nom propre : « aéroport international de Djibouti » → LOC = « Djibouti ».
 - Les adjectifs (« djiboutien ») ne sont pas annotés.
 
 **Dates**
