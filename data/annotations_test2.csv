@@ -1,0 +1,17 @@
+id_segment,split,texte,entite,type,debut,fin,a_verifier,remarque
+A07_S001,test2,L'Institut national de santé publique de Djibouti (INSPD) engage une nouvelle phase de sa lutte contre les moustiques et les maladies vectorielles.,Institut national de santé publique de Djibouti,ORG,2,49,non,
+A07_S001,test2,L'Institut national de santé publique de Djibouti (INSPD) engage une nouvelle phase de sa lutte contre les moustiques et les maladies vectorielles.,INSPD,ORG,51,56,non,
+A07_S052,test2,Cela montre qu'un Djibouti où ces maladies sont fortement réduites est possible.,Djibouti,LOC,18,26,non,
+A07_S061,test2,Des jeunes volontaires seront formés par les équipes de l'INSPD aux techniques de repérage et de traitement des gîtes larvaires.,INSPD,ORG,58,63,non,
+A07_S067,test2,Dr Maad : Nous ne partons pas de zéro.,Maad,PER,3,7,oui,Nom partiel après « Dr » (titre exclu du PER)
+A09_S001,test2,"En quelques décennies, le paysage sanitaire de Djibouti a profondément évolué.",Djibouti,LOC,47,55,non,
+A09_S068,test2,Est-ce aujourd'hui l'un des principaux défis sanitaires de Djibouti ?,Djibouti,LOC,59,67,non,
+A09_S101,test2,"En 2022, une stratégie nationale visant à réduire la mortalité maternelle, infantile et néonatale a également été développée.",2022,DATE,3,7,non,
+A13_S001,test2,"Gastronomie, musique, langue, traditions et bien-être : durant plusieurs semaines, l'Inde a fait rayonner sa diversité culturelle à travers une série d'événements organisés à Djibouti par son ambassade.",Inde,LOC,85,89,non,
+A13_S001,test2,"Gastronomie, musique, langue, traditions et bien-être : durant plusieurs semaines, l'Inde a fait rayonner sa diversité culturelle à travers une série d'événements organisés à Djibouti par son ambassade.",Djibouti,LOC,175,183,non,
+A13_S007,test2,"La deuxième étape, organisée le 10 septembre à India House, a donné une dimension plus large au festival.",10 septembre,DATE,32,44,non,
+A13_S007,test2,"La deuxième étape, organisée le 10 septembre à India House, a donné une dimension plus large au festival.",India House,LOC,47,58,oui,Site nommé (lieu de l'événement) : LOC par analogie avec Théâtre des Salines
+A13_S014,test2,"Le 18 septembre, l'ambassade a poursuivi cette dynamique avec la célébration de l'Hindi Diwas.",18 septembre,DATE,3,15,non,
+A13_S015,test2,"Plus de 80 invités, parmi lesquels des Djiboutiens, des membres de la diaspora et d'anciens bénéficiaires des programmes ITEC et ICCR, ont participé à cette rencontre organisée autour de la langue hindi.",ITEC,ORG,121,125,oui,Sigle d'un programme indien : ORG par analogie avec Programme élargi de vaccination
+A13_S015,test2,"Plus de 80 invités, parmi lesquels des Djiboutiens, des membres de la diaspora et d'anciens bénéficiaires des programmes ITEC et ICCR, ont participé à cette rencontre organisée autour de la langue hindi.",ICCR,ORG,129,133,oui,Sigle d'un organisme/programme indien : ORG par analogie avec Programme élargi de vaccination
+A13_S026,test2,"À travers cette succession de rendez-vous, l'ambassade de l'Inde a ainsi mis en avant plusieurs facettes de son patrimoine culturel.",ambassade de l'Inde,ORG,45,64,oui,"Ambassade + pays : ORG par analogie avec « ministère de… », l'Inde dedans non annoté"

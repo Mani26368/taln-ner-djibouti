@@ -9,8 +9,8 @@ Contrôles en plus :
 - pas de chevauchement entre deux entités d'un même segment (règle du guide)
 
 Affiche ensuite les comptes.
-Lancer : python src/verifier_annotations.py [fichier.csv]
-(sans argument, vérifie data/annotations.csv)
+Lancer : python src/verifier_annotations.py [annotations.csv] [corpus.csv]
+(sans argument : data/annotations.csv contre data/corpus_ner.csv)
 """
 import csv
 import sys
@@ -29,9 +29,11 @@ def lire(chemin):
 def main():
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    corpus = {r["id"]: r for r in lire(RACINE / "data" / "corpus_ner.csv")}
-    # Fichier à vérifier : argument facultatif (utile pour tester sur un fichier cassé)
+    # Arguments facultatifs : [fichier d'annotations] [fichier du corpus]
+    # (utile pour vérifier un fichier cassé, ou le second test : annotations_test2.csv corpus_test2.csv)
     fichier = Path(sys.argv[1]) if len(sys.argv) > 1 else RACINE / "data" / "annotations.csv"
+    fichier_corpus = Path(sys.argv[2]) if len(sys.argv) > 2 else RACINE / "data" / "corpus_ner.csv"
+    corpus = {r["id"]: r for r in lire(fichier_corpus)}
     lignes = lire(fichier)
     erreurs = []
     vus = set()
@@ -72,7 +74,7 @@ def main():
         sys.exit(1)
     print("0 erreur.\n")
 
-    splits = ["dev", "test"]
+    splits = list(dict.fromkeys(r["split"] for r in corpus.values()))
     print("Segments par split (dans le sous-corpus) :")
     for s in splits:
         total = sum(1 for r in corpus.values() if r["split"] == s)
@@ -81,13 +83,12 @@ def main():
 
     print("\nEntités par type et par split :")
     compte = Counter((l["type"], l["split"]) for l in lignes)
-    print(f"  {'Type':<10}{'dev':>6}{'test':>6}{'total':>7}")
+    print("  " + f"{'Type':<10}" + "".join(f"{s:>7}" for s in splits) + f"{'total':>7}")
     for t in TYPES:
-        d, te = compte[(t, "dev")], compte[(t, "test")]
-        print(f"  {t:<10}{d:>6}{te:>6}{d + te:>7}")
-    d = sum(compte[(t, "dev")] for t in TYPES)
-    te = sum(compte[(t, "test")] for t in TYPES)
-    print(f"  {'TOTAL':<10}{d:>6}{te:>6}{d + te:>7}")
+        vals = [compte[(t, s)] for s in splits]
+        print("  " + f"{t:<10}" + "".join(f"{v:>7}" for v in vals) + f"{sum(vals):>7}")
+    tot = [sum(compte[(t, s)] for t in TYPES) for s in splits]
+    print("  " + f"{'TOTAL':<10}" + "".join(f"{v:>7}" for v in tot) + f"{sum(tot):>7}")
 
     print(f"\nCas a_verifier = oui : {sum(1 for l in lignes if l['a_verifier'] == 'oui')}")
 
