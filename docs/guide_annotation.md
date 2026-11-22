@@ -36,6 +36,7 @@ On annote le texte brut, à la main, sans modèle. Une entité = un début, une 
 - Organe d'une organisation (« Comité directeur », « Comité ad hoc ») → ORG, `a_verifier = oui`.
 - ORG qui contient un lieu : une seule ORG, on n'annote pas le lieu dedans. « Coopérative artisanale des femmes d'Ardo », « Conseil régional de Tadjourah » → 1 ORG chacune.
 - « Programme élargi de vaccination » → ORG, `a_verifier = oui`.
+- Groupement d'États (« BRICS », « G20 ») → ORG, `a_verifier = oui`.
 - « Assemblée générale extraordinaire » est une réunion, donc un événement → non annoté.
 
 **Sigles** : deux annotations, même type, quand la forme longue et le sigle sont écrits.
@@ -54,8 +55,11 @@ On annote le texte brut, à la main, sans modèle. Une entité = un début, une 
 - Jour de semaine seul (« lundi ») → DATE.
 - « jeudi soir » → DATE entière, `a_verifier = oui`.
 - Pas de DATE pour les dates relatives sans repère : « cette année », « aujourd'hui », « l'an dernier ».
+- « fin de », « début de », « mi- » + date : exclus de la DATE. On annote « mars 2026 », pas « fin de mars 2026 ».
 
 **Événements** : hors types, donc non annotés (« Activités Estivales 2026 », « Challenge intercommunautaire culturel et sportif », « Mission économique de la Francophonie en Afrique de l'Est »). On n'annote rien à l'intérieur du nom de l'événement (règle « pas d'entité dans une entité »).
+
+**Hors types** : les textes officiels et les programmes de loi (« Defence Procurement Procedure ») ne sont pas annotés ; les notions géopolitiques (« Sud global ») non plus.
 
 **FORMATION** : le nom du diplôme ou de la filière, sans le verbe (« obtenir un master en droit » → « master en droit »). Si le corpus n'a aucun cas, on n'en invente pas.
 
