@@ -1,0 +1,7 @@
+﻿essai,F1 exact avant,F1 exact après,F1 tolérant avant,F1 tolérant après,segments changés,gardé,pourquoi
+a) modèle md,0.902,0.898,0.922,0.917,11,non,gain exact -0.004 < +0.02
+a) modèle lg,0.902,0.91,0.922,0.93,11,non,gain exact +0.008 < +0.02
+"b1) « Djibouti » (1re version : rattrapage AVANT le filtre, fautive)",0.902,0.897,0.922,0.916,1,non,gain exact -0.005 < +0.02; tolérant baisse de -0.005; change seulement 1 segment (règle pour un seul exemple)
+b2) « Djibouti » ne coupe pas une ORG (rattrapage APRÈS le filtre),0.902,0.902,0.922,0.922,0,non,gain exact +0.000 < +0.02; change seulement 0 segment (règle pour un seul exemple)
+c) année seule en contexte,0.902,0.907,0.922,0.927,1,non,gain exact +0.005 < +0.02; change seulement 1 segment (règle pour un seul exemple)
+d) noms d'habitants,0.902,0.911,0.922,0.931,2,non,gain exact +0.009 < +0.02
