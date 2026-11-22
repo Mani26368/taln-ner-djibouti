@@ -1,0 +1,5 @@
+﻿système,P micro,R micro,F1 micro,F1 macro,F1 ORG,F1 LOC,F1 PER,F1 DATE,F1 FORM
+A – spaCy seul,0.4,0.441,0.42,0.296,0.507,0.564,0.286,0.0,0.0
+B – + règles génériques,0.438,0.676,0.532,0.47,0.448,0.564,0.286,0.791,0.2
+C – + lexique local (train),0.467,0.735,0.571,0.502,0.493,0.65,0.308,0.791,0.2
+D – spaCy ré-entraîné (train),0.576,0.721,0.641,0.536,0.667,0.765,0.571,0.571,0.0
