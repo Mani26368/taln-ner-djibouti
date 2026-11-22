@@ -18,7 +18,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import systemes_kadiga as K
-from evaluate import evaluer
+from evaluate import evaluer, evaluer_tolerant
 
 RACINE = K.RACINE
 SORTIE = RACINE / "results"
@@ -55,14 +55,14 @@ def filtrer(par_id, ids, types):
 def mesurer(gold, pred, ids, types):
     """Évaluation avec src/evaluate.py. Retourne {type ou 'TOUT': (P, R, F1, support, VP, FP, FN)}."""
     g, p = filtrer(gold, ids, types), filtrer(pred, ids, types)
-    res = evaluer(g, p)
+    res, tol = evaluer(g, p), evaluer_tolerant(g, p)
     out = {}
     for label, (pr, ra, f1, sup) in res.items():
         vp = round(ra * sup) if sup else 0
         n_pred = sum(1 for liste in p for e in liste if (label == "TOUT" or e[2] == label))
-        out[label] = (pr, ra, f1, sup, vp, n_pred - vp, sup - vp)
+        out[label] = (pr, ra, f1, sup, vp, n_pred - vp, sup - vp) + tuple(tol.get(label, (0.0, 0.0, 0.0, 0))[:3])
     for t in types:                       # type absent partout (support 0 et rien prédit)
-        out.setdefault(t, (0.0, 0.0, 0.0, 0, 0, 0, 0))
+        out.setdefault(t, (0.0,) * 3 + (0,) * 4 + (0.0,) * 3)
     return out
 
 
@@ -131,12 +131,14 @@ def main():
             lignes_csv.append((K.NOMS[k], nom_portee, "TOUT (PER+ORG+LOC)") + trois["TOUT"])
         n_form = sum(1 for i in ids_all for e in preds[k][i] if e[2] == "FORMATION")
         lignes_csv.append((K.NOMS[k], "126 segments", "FORMATION (prédites, support 0 : hors tableau principal)",
-                           0.0, 0.0, 0.0, 0, 0, n_form, 0))
+                           0.0, 0.0, 0.0, 0, 0, n_form, 0, 0.0, 0.0, 0.0))
 
-    colonnes = ["système", "périmètre", "type", "précision", "rappel", "F1", "support", "VP", "FP", "FN"]
+    colonnes = ["système", "périmètre", "type", "précision", "rappel", "F1", "support", "VP", "FP", "FN",
+                "tolérant précision", "tolérant rappel", "tolérant F1"]
     SORTIE.mkdir(exist_ok=True)
     df = pd.DataFrame(lignes_csv, columns=colonnes)
-    df[["précision", "rappel", "F1"]] = df[["précision", "rappel", "F1"]].round(3)
+    num = ["précision", "rappel", "F1", "tolérant précision", "tolérant rappel", "tolérant F1"]
+    df[num] = df[num].round(3)
     df.to_csv(SORTIE / "test_externe_lanation.csv", index=False, encoding="utf-8-sig")
 
     print("\nRésultats sur les 126 segments (correspondance exacte, src/evaluate.py) :")

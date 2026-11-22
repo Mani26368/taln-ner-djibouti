@@ -1,0 +1,43 @@
+﻿système,type,support (gold),prédites,exact P,exact R,exact F1,tolérant P,tolérant R,tolérant F1
+A : spaCy seul,PER,1,3,0.0,0.0,0.0,0.0,0.0,0.0
+A : spaCy seul,ORG,6,4,0.5,0.333,0.4,0.75,0.5,0.6
+A : spaCy seul,LOC,6,12,0.417,0.833,0.556,0.417,0.833,0.556
+A : spaCy seul,DATE,3,0,0.0,0.0,0.0,0.0,0.0,0.0
+A : spaCy seul,TOUT PER+ORG+LOC,13,19,0.368,0.538,0.438,0.421,0.615,0.5
+A : spaCy seul,TOUT PER+ORG+LOC+DATE,16,19,0.368,0.438,0.4,0.421,0.5,0.457
+A : spaCy seul,"FORMATION prédite (support 0, hors tableau)",0,0,0.0,0.0,0.0,0.0,0.0,0.0
+3a : + règles locales,PER,1,4,0.25,1.0,0.4,0.25,1.0,0.4
+3a : + règles locales,ORG,6,4,0.5,0.333,0.4,0.75,0.5,0.6
+3a : + règles locales,LOC,6,12,0.417,0.833,0.556,0.417,0.833,0.556
+3a : + règles locales,DATE,3,2,1.0,0.667,0.8,1.0,0.667,0.8
+3a : + règles locales,TOUT PER+ORG+LOC,13,20,0.4,0.615,0.485,0.45,0.692,0.545
+3a : + règles locales,TOUT PER+ORG+LOC+DATE,16,22,0.455,0.625,0.526,0.5,0.688,0.579
+3a : + règles locales,"FORMATION prédite (support 0, hors tableau)",0,0,0.0,0.0,0.0,0.0,0.0,0.0
+3a+3b : + filtres (3b finale),PER,1,2,0.5,1.0,0.667,0.5,1.0,0.667
+3a+3b : + filtres (3b finale),ORG,6,4,0.5,0.333,0.4,0.75,0.5,0.6
+3a+3b : + filtres (3b finale),LOC,6,10,0.5,0.833,0.625,0.5,0.833,0.625
+3a+3b : + filtres (3b finale),DATE,3,2,1.0,0.667,0.8,1.0,0.667,0.8
+3a+3b : + filtres (3b finale),TOUT PER+ORG+LOC,13,16,0.5,0.615,0.552,0.562,0.692,0.621
+3a+3b : + filtres (3b finale),TOUT PER+ORG+LOC+DATE,16,18,0.556,0.625,0.588,0.611,0.688,0.647
+3a+3b : + filtres (3b finale),"FORMATION prédite (support 0, hors tableau)",0,0,0.0,0.0,0.0,0.0,0.0,0.0
+Kadiga B : règles génériques,PER,1,3,0.0,0.0,0.0,0.0,0.0,0.0
+Kadiga B : règles génériques,ORG,6,4,0.5,0.333,0.4,0.75,0.5,0.6
+Kadiga B : règles génériques,LOC,6,12,0.417,0.833,0.556,0.417,0.833,0.556
+Kadiga B : règles génériques,DATE,3,3,1.0,1.0,1.0,1.0,1.0,1.0
+Kadiga B : règles génériques,TOUT PER+ORG+LOC,13,19,0.368,0.538,0.438,0.421,0.615,0.5
+Kadiga B : règles génériques,TOUT PER+ORG+LOC+DATE,16,22,0.455,0.625,0.526,0.5,0.688,0.579
+Kadiga B : règles génériques,"FORMATION prédite (support 0, hors tableau)",0,0,0.0,0.0,0.0,0.0,0.0,0.0
+Kadiga C : + lexique de son train,PER,1,3,0.0,0.0,0.0,0.0,0.0,0.0
+Kadiga C : + lexique de son train,ORG,6,4,0.5,0.333,0.4,0.75,0.5,0.6
+Kadiga C : + lexique de son train,LOC,6,12,0.417,0.833,0.556,0.417,0.833,0.556
+Kadiga C : + lexique de son train,DATE,3,3,1.0,1.0,1.0,1.0,1.0,1.0
+Kadiga C : + lexique de son train,TOUT PER+ORG+LOC,13,19,0.368,0.538,0.438,0.421,0.615,0.5
+Kadiga C : + lexique de son train,TOUT PER+ORG+LOC+DATE,16,22,0.455,0.625,0.526,0.5,0.688,0.579
+Kadiga C : + lexique de son train,"FORMATION prédite (support 0, hors tableau)",0,0,0.0,0.0,0.0,0.0,0.0,0.0
+Kadiga D : NER ré-entraîné,PER,1,1,0.0,0.0,0.0,0.0,0.0,0.0
+Kadiga D : NER ré-entraîné,ORG,6,5,0.6,0.5,0.545,0.6,0.5,0.545
+Kadiga D : NER ré-entraîné,LOC,6,9,0.556,0.833,0.667,0.556,0.833,0.667
+Kadiga D : NER ré-entraîné,DATE,3,2,0.5,0.333,0.4,1.0,0.667,0.8
+Kadiga D : NER ré-entraîné,TOUT PER+ORG+LOC,13,15,0.533,0.615,0.571,0.533,0.615,0.571
+Kadiga D : NER ré-entraîné,TOUT PER+ORG+LOC+DATE,16,17,0.529,0.562,0.545,0.588,0.625,0.606
+Kadiga D : NER ré-entraîné,"FORMATION prédite (support 0, hors tableau)",0,0,0.0,0.0,0.0,0.0,0.0,0.0

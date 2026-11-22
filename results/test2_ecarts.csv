@@ -1,0 +1,105 @@
+﻿système,id_segment,écart,entité,type,début,fin,nature
+A : spaCy seul,A07_S001,"EN PLUS (prédite, absente du gold)",Institut national de santé publique,ORG,2,37,frontière (chevauche une entité réelle du même type)
+A : spaCy seul,A07_S001,"EN PLUS (prédite, absente du gold)",Djibouti,LOC,41,49,sans équivalent
+A : spaCy seul,A07_S001,"EN MOINS (dans le gold, non prédite)",Institut national de santé publique de Djibouti,ORG,2,49,frontière (une prédiction du même type la chevauche)
+A : spaCy seul,A07_S067,"EN MOINS (dans le gold, non prédite)",Maad,PER,3,7,totalement manquée
+A : spaCy seul,A09_S054,"EN PLUS (prédite, absente du gold)",Ministère pour apporter l'expertise technique,ORG,55,100,sans équivalent
+A : spaCy seul,A09_S101,"EN MOINS (dans le gold, non prédite)",2022,DATE,3,7,totalement manquée
+A : spaCy seul,A13_S007,"EN MOINS (dans le gold, non prédite)",10 septembre,DATE,32,44,totalement manquée
+A : spaCy seul,A13_S007,"EN MOINS (dans le gold, non prédite)",India House,LOC,47,58,totalement manquée
+A : spaCy seul,A13_S009,"EN PLUS (prédite, absente du gold)",biryani,LOC,88,95,sans équivalent
+A : spaCy seul,A13_S009,"EN PLUS (prédite, absente du gold)",samosas,LOC,97,104,sans équivalent
+A : spaCy seul,A13_S009,"EN PLUS (prédite, absente du gold)",chaat,PER,106,111,sans équivalent
+A : spaCy seul,A13_S009,"EN PLUS (prédite, absente du gold)",vada pao,PER,135,143,sans équivalent
+A : spaCy seul,A13_S014,"EN PLUS (prédite, absente du gold)",Hindi Diwas,PER,82,93,sans équivalent
+A : spaCy seul,A13_S014,"EN MOINS (dans le gold, non prédite)",18 septembre,DATE,3,15,totalement manquée
+A : spaCy seul,A13_S015,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,39,50,sans équivalent
+A : spaCy seul,A13_S015,"EN MOINS (dans le gold, non prédite)",ITEC,ORG,121,125,totalement manquée
+A : spaCy seul,A13_S015,"EN MOINS (dans le gold, non prédite)",ICCR,ORG,129,133,totalement manquée
+A : spaCy seul,A13_S017,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,20,31,sans équivalent
+A : spaCy seul,A13_S019,"EN PLUS (prédite, absente du gold)",Vande Mataram,LOC,76,89,sans équivalent
+A : spaCy seul,A13_S026,"EN PLUS (prédite, absente du gold)",Inde,LOC,60,64,sans équivalent
+A : spaCy seul,A13_S026,"EN MOINS (dans le gold, non prédite)",ambassade de l'Inde,ORG,45,64,totalement manquée
+3a : + règles locales,A07_S001,"EN PLUS (prédite, absente du gold)",Institut national de santé publique,ORG,2,37,frontière (chevauche une entité réelle du même type)
+3a : + règles locales,A07_S001,"EN PLUS (prédite, absente du gold)",Djibouti,LOC,41,49,sans équivalent
+3a : + règles locales,A07_S001,"EN MOINS (dans le gold, non prédite)",Institut national de santé publique de Djibouti,ORG,2,49,frontière (une prédiction du même type la chevauche)
+3a : + règles locales,A09_S054,"EN PLUS (prédite, absente du gold)",Ministère pour apporter l'expertise technique,ORG,55,100,sans équivalent
+3a : + règles locales,A09_S101,"EN MOINS (dans le gold, non prédite)",2022,DATE,3,7,totalement manquée
+3a : + règles locales,A13_S007,"EN MOINS (dans le gold, non prédite)",India House,LOC,47,58,totalement manquée
+3a : + règles locales,A13_S009,"EN PLUS (prédite, absente du gold)",biryani,LOC,88,95,sans équivalent
+3a : + règles locales,A13_S009,"EN PLUS (prédite, absente du gold)",samosas,LOC,97,104,sans équivalent
+3a : + règles locales,A13_S009,"EN PLUS (prédite, absente du gold)",chaat,PER,106,111,sans équivalent
+3a : + règles locales,A13_S009,"EN PLUS (prédite, absente du gold)",vada pao,PER,135,143,sans équivalent
+3a : + règles locales,A13_S014,"EN PLUS (prédite, absente du gold)",Hindi Diwas,PER,82,93,sans équivalent
+3a : + règles locales,A13_S015,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,39,50,sans équivalent
+3a : + règles locales,A13_S015,"EN MOINS (dans le gold, non prédite)",ITEC,ORG,121,125,totalement manquée
+3a : + règles locales,A13_S015,"EN MOINS (dans le gold, non prédite)",ICCR,ORG,129,133,totalement manquée
+3a : + règles locales,A13_S017,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,20,31,sans équivalent
+3a : + règles locales,A13_S019,"EN PLUS (prédite, absente du gold)",Vande Mataram,LOC,76,89,sans équivalent
+3a : + règles locales,A13_S026,"EN PLUS (prédite, absente du gold)",Inde,LOC,60,64,sans équivalent
+3a : + règles locales,A13_S026,"EN MOINS (dans le gold, non prédite)",ambassade de l'Inde,ORG,45,64,totalement manquée
+3a+3b : + filtres (3b finale),A07_S001,"EN PLUS (prédite, absente du gold)",Institut national de santé publique,ORG,2,37,frontière (chevauche une entité réelle du même type)
+3a+3b : + filtres (3b finale),A07_S001,"EN PLUS (prédite, absente du gold)",Djibouti,LOC,41,49,sans équivalent
+3a+3b : + filtres (3b finale),A07_S001,"EN MOINS (dans le gold, non prédite)",Institut national de santé publique de Djibouti,ORG,2,49,frontière (une prédiction du même type la chevauche)
+3a+3b : + filtres (3b finale),A09_S054,"EN PLUS (prédite, absente du gold)",Ministère pour apporter l'expertise technique,ORG,55,100,sans équivalent
+3a+3b : + filtres (3b finale),A09_S101,"EN MOINS (dans le gold, non prédite)",2022,DATE,3,7,totalement manquée
+3a+3b : + filtres (3b finale),A13_S007,"EN MOINS (dans le gold, non prédite)",India House,LOC,47,58,totalement manquée
+3a+3b : + filtres (3b finale),A13_S014,"EN PLUS (prédite, absente du gold)",Hindi Diwas,PER,82,93,sans équivalent
+3a+3b : + filtres (3b finale),A13_S015,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,39,50,sans équivalent
+3a+3b : + filtres (3b finale),A13_S015,"EN MOINS (dans le gold, non prédite)",ITEC,ORG,121,125,totalement manquée
+3a+3b : + filtres (3b finale),A13_S015,"EN MOINS (dans le gold, non prédite)",ICCR,ORG,129,133,totalement manquée
+3a+3b : + filtres (3b finale),A13_S017,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,20,31,sans équivalent
+3a+3b : + filtres (3b finale),A13_S019,"EN PLUS (prédite, absente du gold)",Vande Mataram,LOC,76,89,sans équivalent
+3a+3b : + filtres (3b finale),A13_S026,"EN PLUS (prédite, absente du gold)",Inde,LOC,60,64,sans équivalent
+3a+3b : + filtres (3b finale),A13_S026,"EN MOINS (dans le gold, non prédite)",ambassade de l'Inde,ORG,45,64,totalement manquée
+Kadiga B : règles génériques,A07_S001,"EN PLUS (prédite, absente du gold)",Institut national de santé publique,ORG,2,37,frontière (chevauche une entité réelle du même type)
+Kadiga B : règles génériques,A07_S001,"EN PLUS (prédite, absente du gold)",Djibouti,LOC,41,49,sans équivalent
+Kadiga B : règles génériques,A07_S001,"EN MOINS (dans le gold, non prédite)",Institut national de santé publique de Djibouti,ORG,2,49,frontière (une prédiction du même type la chevauche)
+Kadiga B : règles génériques,A07_S067,"EN MOINS (dans le gold, non prédite)",Maad,PER,3,7,totalement manquée
+Kadiga B : règles génériques,A09_S054,"EN PLUS (prédite, absente du gold)",Ministère pour apporter l'expertise technique,ORG,55,100,sans équivalent
+Kadiga B : règles génériques,A13_S007,"EN MOINS (dans le gold, non prédite)",India House,LOC,47,58,totalement manquée
+Kadiga B : règles génériques,A13_S009,"EN PLUS (prédite, absente du gold)",biryani,LOC,88,95,sans équivalent
+Kadiga B : règles génériques,A13_S009,"EN PLUS (prédite, absente du gold)",samosas,LOC,97,104,sans équivalent
+Kadiga B : règles génériques,A13_S009,"EN PLUS (prédite, absente du gold)",chaat,PER,106,111,sans équivalent
+Kadiga B : règles génériques,A13_S009,"EN PLUS (prédite, absente du gold)",vada pao,PER,135,143,sans équivalent
+Kadiga B : règles génériques,A13_S014,"EN PLUS (prédite, absente du gold)",Hindi Diwas,PER,82,93,sans équivalent
+Kadiga B : règles génériques,A13_S015,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,39,50,sans équivalent
+Kadiga B : règles génériques,A13_S015,"EN MOINS (dans le gold, non prédite)",ITEC,ORG,121,125,totalement manquée
+Kadiga B : règles génériques,A13_S015,"EN MOINS (dans le gold, non prédite)",ICCR,ORG,129,133,totalement manquée
+Kadiga B : règles génériques,A13_S017,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,20,31,sans équivalent
+Kadiga B : règles génériques,A13_S019,"EN PLUS (prédite, absente du gold)",Vande Mataram,LOC,76,89,sans équivalent
+Kadiga B : règles génériques,A13_S026,"EN PLUS (prédite, absente du gold)",Inde,LOC,60,64,sans équivalent
+Kadiga B : règles génériques,A13_S026,"EN MOINS (dans le gold, non prédite)",ambassade de l'Inde,ORG,45,64,totalement manquée
+Kadiga C : + lexique de son train,A07_S001,"EN PLUS (prédite, absente du gold)",Institut national de santé publique,ORG,2,37,frontière (chevauche une entité réelle du même type)
+Kadiga C : + lexique de son train,A07_S001,"EN PLUS (prédite, absente du gold)",Djibouti,LOC,41,49,sans équivalent
+Kadiga C : + lexique de son train,A07_S001,"EN MOINS (dans le gold, non prédite)",Institut national de santé publique de Djibouti,ORG,2,49,frontière (une prédiction du même type la chevauche)
+Kadiga C : + lexique de son train,A07_S067,"EN MOINS (dans le gold, non prédite)",Maad,PER,3,7,totalement manquée
+Kadiga C : + lexique de son train,A09_S054,"EN PLUS (prédite, absente du gold)",Ministère pour apporter l'expertise technique,ORG,55,100,sans équivalent
+Kadiga C : + lexique de son train,A13_S007,"EN MOINS (dans le gold, non prédite)",India House,LOC,47,58,totalement manquée
+Kadiga C : + lexique de son train,A13_S009,"EN PLUS (prédite, absente du gold)",biryani,LOC,88,95,sans équivalent
+Kadiga C : + lexique de son train,A13_S009,"EN PLUS (prédite, absente du gold)",samosas,LOC,97,104,sans équivalent
+Kadiga C : + lexique de son train,A13_S009,"EN PLUS (prédite, absente du gold)",chaat,PER,106,111,sans équivalent
+Kadiga C : + lexique de son train,A13_S009,"EN PLUS (prédite, absente du gold)",vada pao,PER,135,143,sans équivalent
+Kadiga C : + lexique de son train,A13_S014,"EN PLUS (prédite, absente du gold)",Hindi Diwas,PER,82,93,sans équivalent
+Kadiga C : + lexique de son train,A13_S015,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,39,50,sans équivalent
+Kadiga C : + lexique de son train,A13_S015,"EN MOINS (dans le gold, non prédite)",ITEC,ORG,121,125,totalement manquée
+Kadiga C : + lexique de son train,A13_S015,"EN MOINS (dans le gold, non prédite)",ICCR,ORG,129,133,totalement manquée
+Kadiga C : + lexique de son train,A13_S017,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,20,31,sans équivalent
+Kadiga C : + lexique de son train,A13_S019,"EN PLUS (prédite, absente du gold)",Vande Mataram,LOC,76,89,sans équivalent
+Kadiga C : + lexique de son train,A13_S026,"EN PLUS (prédite, absente du gold)",Inde,LOC,60,64,sans équivalent
+Kadiga C : + lexique de son train,A13_S026,"EN MOINS (dans le gold, non prédite)",ambassade de l'Inde,ORG,45,64,totalement manquée
+Kadiga D : NER ré-entraîné,A07_S067,"EN MOINS (dans le gold, non prédite)",Maad,PER,3,7,totalement manquée
+Kadiga D : NER ré-entraîné,A09_S054,"EN PLUS (prédite, absente du gold)",Ministère pour apporter l'expertise technique,ORG,55,100,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S007,"EN PLUS (prédite, absente du gold)",India House,ORG,47,58,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S007,"EN MOINS (dans le gold, non prédite)",10 septembre,DATE,32,44,totalement manquée
+Kadiga D : NER ré-entraîné,A13_S007,"EN MOINS (dans le gold, non prédite)",India House,LOC,47,58,totalement manquée
+Kadiga D : NER ré-entraîné,A13_S009,"EN PLUS (prédite, absente du gold)",vada pao,PER,135,143,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S014,"EN PLUS (prédite, absente du gold)","18 septembre, l'ambassade",DATE,3,28,frontière (chevauche une entité réelle du même type)
+Kadiga D : NER ré-entraîné,A13_S014,"EN MOINS (dans le gold, non prédite)",18 septembre,DATE,3,15,frontière (une prédiction du même type la chevauche)
+Kadiga D : NER ré-entraîné,A13_S015,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,39,50,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S015,"EN MOINS (dans le gold, non prédite)",ITEC,ORG,121,125,totalement manquée
+Kadiga D : NER ré-entraîné,A13_S015,"EN MOINS (dans le gold, non prédite)",ICCR,ORG,129,133,totalement manquée
+Kadiga D : NER ré-entraîné,A13_S017,"EN PLUS (prédite, absente du gold)",Djiboutiens,LOC,20,31,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S019,"EN PLUS (prédite, absente du gold)",Vande Mataram,LOC,76,89,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S026,"EN PLUS (prédite, absente du gold)",Inde,LOC,60,64,sans équivalent
+Kadiga D : NER ré-entraîné,A13_S026,"EN MOINS (dans le gold, non prédite)",ambassade de l'Inde,ORG,45,64,totalement manquée
