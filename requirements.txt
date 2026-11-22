@@ -1,0 +1,6 @@
+spacy>=3.7
+pandas
+matplotlib
+jupyter
+# Modèle spaCy à installer à part :
+# python -m spacy download fr_core_news_sm
