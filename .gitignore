@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
+
+# Corpus complet (805 segments) : on garde seulement data/corpus_ner.csv
+data/corpus_bilingue_so.csv
