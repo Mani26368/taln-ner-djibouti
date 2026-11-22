@@ -23,20 +23,28 @@ python -m spacy download fr_core_news_sm
 ```
 
 ## Reproduction
-1. Ouvrir le notebook dans `notebooks/` et l'exécuter dans l'ordre.
-2. Évaluer : `python src/evaluate.py` (démonstration du calcul précision / rappel / F1).
+1. **Notebook final (à lire en premier)** : `notebooks/NER_Djibouti_final.ipynb`. Le lire ou l'exécuter de haut en bas
+   (environ une minute). Choisir comme noyau l'environnement `.venv` (celui où `requirements.txt` et `fr_core_news_sm` sont installés).
+   Il lit les résultats dans `results/` ; l'interrupteur `RELANCER = False` évite de ré-entraîner le modèle D de Kadiga.
+2. Notebooks de travail (historique, non modifiés) :
+   - `travaux_individuels/mako_ner_baseline.ipynb` : le notebook de Mako (baseline, règles 3a, filtres 3b, essais 3c) ;
+   - `kadiga/TP_NER_Djibouti_Binome5.ipynb` : le notebook de Kadiga (corpus Wikipédia / Journal officiel, systèmes A à D).
+3. Évaluer : `python src/evaluate.py` (démonstration du calcul précision / rappel / F1, exact et tolérant).
 
 ## Résultats
 À compléter avec les vrais chiffres (tableau précision / rappel / F1 par approche et par type d'entité).
 
 ## Structure
 ```
-data/        échantillon des données + description
-notebooks/   notebook principal
-src/         évaluation (precision, rappel, F1)
-rapport/     rapport (6 à 8 pages)
-slides/      diapositives (8 à 10)
-docs/        sujet et cours de référence
+notebooks/NER_Djibouti_final.ipynb   notebook final (à lire en premier)
+travaux_individuels/                 notebook de travail de Mako
+kadiga/                              travail de Kadiga (son notebook, son corpus, ses résultats)
+data/                                corpus La Nation annotés (dev, test, test2, test3) + description
+src/                                 code : évaluation exacte et tolérante, règles, systèmes de Kadiga, scripts de mesure
+results/                             tous les résultats chiffrés (le notebook final les lit)
+docs/                                guide d'annotation, sujet et cours de référence
+rapport/                             rapport (6 à 8 pages)
+slides/                              diapositives (8 à 10)
 ```
 
 ## Auteures

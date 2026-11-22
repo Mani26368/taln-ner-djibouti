@@ -1,0 +1,37 @@
+﻿système,jeu,statut,type,support,prédites,VP exact,exact P,exact R,exact F1,tolérant P,tolérant R,tolérant F1
+A : spaCy seul,dev,optimiste (a servi à écrire les règles),PER,14,21,11,0.524,0.786,0.629,0.667,1.0,0.8
+A : spaCy seul,dev,optimiste (a servi à écrire les règles),ORG,17,19,11,0.579,0.647,0.611,0.684,0.765,0.722
+A : spaCy seul,dev,optimiste (a servi à écrire les règles),LOC,16,29,12,0.414,0.75,0.533,0.517,0.938,0.667
+A : spaCy seul,dev,optimiste (a servi à écrire les règles),DATE,10,0,0,,0.0,0.0,,0.0,0.0
+A : spaCy seul,dev,optimiste (a servi à écrire les règles),TOUT (PER+ORG+LOC+DATE),57,69,34,0.493,0.596,0.54,0.609,0.737,0.667
+A : spaCy seul,dev,optimiste (a servi à écrire les règles),TOUT (PER+ORG+LOC),47,69,34,0.493,0.723,0.586,0.609,0.894,0.724
+3a : + règles locales,dev,optimiste (a servi à écrire les règles),PER,14,15,12,0.8,0.857,0.828,0.933,1.0,0.966
+3a : + règles locales,dev,optimiste (a servi à écrire les règles),ORG,17,25,17,0.68,1.0,0.81,0.68,1.0,0.81
+3a : + règles locales,dev,optimiste (a servi à écrire les règles),LOC,16,30,16,0.533,1.0,0.696,0.533,1.0,0.696
+3a : + règles locales,dev,optimiste (a servi à écrire les règles),DATE,10,10,10,1.0,1.0,1.0,1.0,1.0,1.0
+3a : + règles locales,dev,optimiste (a servi à écrire les règles),TOUT (PER+ORG+LOC+DATE),57,80,55,0.688,0.965,0.803,0.713,1.0,0.832
+3a : + règles locales,dev,optimiste (a servi à écrire les règles),TOUT (PER+ORG+LOC),47,70,45,0.643,0.957,0.769,0.671,1.0,0.803
+"3a+3b : + filtres (3b finale, gelée 087deb3)",dev,optimiste (a servi à écrire les règles),PER,14,14,14,1.0,1.0,1.0,1.0,1.0,1.0
+"3a+3b : + filtres (3b finale, gelée 087deb3)",dev,optimiste (a servi à écrire les règles),ORG,17,17,17,1.0,1.0,1.0,1.0,1.0,1.0
+"3a+3b : + filtres (3b finale, gelée 087deb3)",dev,optimiste (a servi à écrire les règles),LOC,16,17,16,0.941,1.0,0.97,0.941,1.0,0.97
+"3a+3b : + filtres (3b finale, gelée 087deb3)",dev,optimiste (a servi à écrire les règles),DATE,10,10,10,1.0,1.0,1.0,1.0,1.0,1.0
+"3a+3b : + filtres (3b finale, gelée 087deb3)",dev,optimiste (a servi à écrire les règles),TOUT (PER+ORG+LOC+DATE),57,58,57,0.983,1.0,0.991,0.983,1.0,0.991
+"3a+3b : + filtres (3b finale, gelée 087deb3)",dev,optimiste (a servi à écrire les règles),TOUT (PER+ORG+LOC),47,48,47,0.979,1.0,0.989,0.979,1.0,0.989
+A : spaCy seul,test,optimiste (lu pendant le développement),PER,7,4,3,0.75,0.429,0.545,1.0,0.571,0.727
+A : spaCy seul,test,optimiste (lu pendant le développement),ORG,13,19,9,0.474,0.692,0.562,0.684,1.0,0.813
+A : spaCy seul,test,optimiste (lu pendant le développement),LOC,4,7,2,0.286,0.5,0.364,0.286,0.5,0.364
+A : spaCy seul,test,optimiste (lu pendant le développement),DATE,3,0,0,,0.0,0.0,,0.0,0.0
+A : spaCy seul,test,optimiste (lu pendant le développement),TOUT (PER+ORG+LOC+DATE),27,30,14,0.467,0.519,0.491,0.633,0.704,0.667
+A : spaCy seul,test,optimiste (lu pendant le développement),TOUT (PER+ORG+LOC),24,30,14,0.467,0.583,0.519,0.633,0.792,0.704
+3a : + règles locales,test,optimiste (lu pendant le développement),PER,7,6,5,0.833,0.714,0.769,1.0,0.857,0.923
+3a : + règles locales,test,optimiste (lu pendant le développement),ORG,13,18,13,0.722,1.0,0.839,0.722,1.0,0.839
+3a : + règles locales,test,optimiste (lu pendant le développement),LOC,4,9,4,0.444,1.0,0.615,0.444,1.0,0.615
+3a : + règles locales,test,optimiste (lu pendant le développement),DATE,3,3,3,1.0,1.0,1.0,1.0,1.0,1.0
+3a : + règles locales,test,optimiste (lu pendant le développement),TOUT (PER+ORG+LOC+DATE),27,36,25,0.694,0.926,0.794,0.722,0.963,0.825
+3a : + règles locales,test,optimiste (lu pendant le développement),TOUT (PER+ORG+LOC),24,33,22,0.667,0.917,0.772,0.697,0.958,0.807
+"3a+3b : + filtres (3b finale, gelée 087deb3)",test,optimiste (lu pendant le développement),PER,7,6,5,0.833,0.714,0.769,1.0,0.857,0.923
+"3a+3b : + filtres (3b finale, gelée 087deb3)",test,optimiste (lu pendant le développement),ORG,13,14,13,0.929,1.0,0.963,0.929,1.0,0.963
+"3a+3b : + filtres (3b finale, gelée 087deb3)",test,optimiste (lu pendant le développement),LOC,4,5,4,0.8,1.0,0.889,0.8,1.0,0.889
+"3a+3b : + filtres (3b finale, gelée 087deb3)",test,optimiste (lu pendant le développement),DATE,3,3,3,1.0,1.0,1.0,1.0,1.0,1.0
+"3a+3b : + filtres (3b finale, gelée 087deb3)",test,optimiste (lu pendant le développement),TOUT (PER+ORG+LOC+DATE),27,28,25,0.893,0.926,0.909,0.929,0.963,0.945
+"3a+3b : + filtres (3b finale, gelée 087deb3)",test,optimiste (lu pendant le développement),TOUT (PER+ORG+LOC),24,25,22,0.88,0.917,0.898,0.92,0.958,0.939
