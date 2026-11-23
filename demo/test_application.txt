@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 11:06:40
+Fait le 2026-11-23 à 11:35:05
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -223,27 +223,27 @@ Fait le 2026-11-23 à 11:06:40
   [OK ] page « À propos » : le clic sur le menu change bien de page
   [OK ] page « À propos » : le bandeau « Repère Djibouti » est présent
   [OK ] page « À propos » : aucun chiffre de performance affiché
-  [OK ] page À propos : « Repère Djibouti repère, dans un texte français, les personne »
-  [OK ] page À propos : « Prototype : il peut se tromper, surtout sur les noms locaux. »
-  [OK ] page À propos : « Tout fonctionne hors ligne : le texte saisi ne quitte pas l' »
-  [OK ] page À propos : « https://github.com/Mani26368/taln-ner-djibouti »
-  [OK ] page À propos : « limité à 3000 caractères »
-  [OK ] page À propos : « Prototype de projet TALN – peut se tromper »
-  [OK ] page À propos : « Projet : Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti »
-  [OK ] page À propos : « Réalisé par : Mako Mohamed Aden et Kadiga »
-  [OK ] page À propos : « Encadrant : Dr Houssein Ahmed Assowe »
-  [OK ] page À propos : « Formation : M2 IAMD, Université de Djibouti, cours TALN, 2026 »
-  [OK ] page À propos : les deux auteures ensemble, sans répartition des rôles
-  [OK ] page À propos : aucune phrase sur qui a fait quelle partie
-  [OK ] page À propos : le rôle de l'outil tient en 2 phrases
+  [OK ] carte d'introduction : petit titre « À PROPOS », titre « Repère Djibouti », une seule phrase
+  [OK ] 3 petites cartes côte à côte (grille qui s'empile sur téléphone)
+  [OK ] petite carte « Prototype » : « Il peut se tromper, surtout sur les noms locaux. »
+  [OK ] petite carte « Vie privée » : « Le texte saisi ne quitte pas l'ordinateur. »
+  [OK ] petite carte « Limite » : « 3000 caractères par analyse. »
+  [OK ] chaque petite carte a une icône simple
+  [OK ] carte « LE PROJET » : 4 informations en deux colonnes
+  [OK ] information du projet : Projet = Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti
+  [OK ] information du projet : Réalisé par = Mako Mohamed Aden et Kadiga Ali
+  [OK ] information du projet : Encadrant = Dr Houssein Ahmed Assowe
+  [OK ] information du projet : Formation = M2 IAMD, Université de Djibouti, cours TALN, 2026
+  [OK ] bouton « Voir le dépôt GitHub » vers https://github.com/Mani26368/taln-ner-djibouti
+  [OK ] pied de page « Prototype de projet TALN – peut se tromper. »
+  [OK ] aucune mention de qui a fait quelle partie
+  [OK ] page À propos : ne contient pas « spaCy »
   [OK ] page À propos : ne contient pas « 3a+3b »
   [OK ] page À propos : ne contient pas « modèle D »
-  [OK ] page À propos : ne contient pas « spaCy »
   [OK ] page À propos : ne contient pas « results/ »
-  [OK ] page À propos : ne contient pas « modèle »
   [OK ] page À propos : ne contient pas « jeux d'évaluation »
   [OK ] page À propos : ne contient pas « chiffre »
-  [OK ] page À propos : aucun autre terme technique (modèle, version, jeux d'évaluation, FORMATION)
+  [OK ] page À propos : aucun mot « modèle », aucune version, aucun score
   [OK ] page « Analyser » : s'affiche sans erreur
   [OK ] page « Analyser » : le clic sur le menu change bien de page
   [OK ] page « Analyser » : le bandeau « Repère Djibouti » est présent
@@ -258,7 +258,7 @@ Fait le 2026-11-23 à 11:06:40
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 24.0 s (source : entraîné (cache non enregistré))
+     D chargé en 24.3 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 53 s | contrôles OK : 199 | échecs : 0
+Durée totale : 41 s | contrôles OK : 199 | échecs : 0

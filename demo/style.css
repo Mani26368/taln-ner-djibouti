@@ -53,7 +53,7 @@ a { color: var(--bouton); }
 .st-key-contenu [data-testid="stHorizontalBlock"] { gap: 14px; }
 
 /* ---------- Cartes blanches ---------- */
-.st-key-carte_texte, .st-key-carte_annote, .st-key-carte_tableau, .st-key-carte_simple, .carte-type {
+.st-key-carte_texte, .st-key-carte_annote, .st-key-carte_tableau, .st-key-carte_simple, .st-key-carte_projet, .carte-propos, .petite-carte, .carte-type {
   background: var(--carte-fond); border: 1px solid var(--bord); border-radius: var(--rayon-carte); padding: 14px 16px; box-sizing: border-box;
   animation: fondu .3s ease-out both; }
 .st-key-carte_texte, .st-key-carte_annote { gap: .5rem; }
@@ -148,3 +148,21 @@ a { color: var(--bouton); }
 [data-testid="stMarkdownContainer"] .tableau-entites thead, [data-testid="stMarkdownContainer"] .tableau-entites tr { border: none; background: transparent; }
 .tableau-entites th:nth-child(n+2), .tableau-entites td:nth-child(n+2) { width: 14%; }
 .avertissement { margin-top: 4px; color: var(--texte-secondaire); font-size: 12px; }
+
+/* ---------- Page « À propos » : carte d'introduction, trois petites cartes, carte « Le projet » ---------- */
+.carte-propos .titre-propos { margin: 4px 0 6px; color: var(--bandeau); font-size: 28px; font-weight: 600; line-height: 1.2; }
+.texte-propos { color: var(--texte); font-size: 14px; line-height: 1.6; }
+.grille-cartes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.petite-carte { display: flex; flex-direction: column; gap: 6px; }
+.icone-propos { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 9px;
+  background: var(--fond-page); color: var(--bandeau); }
+.icone-propos svg { width: 20px; height: 20px; }
+.st-key-carte_projet { gap: .9rem; }
+.grille-infos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 32px; margin-top: 10px; }
+@media (max-width: 640px) { .grille-infos { grid-template-columns: minmax(0, 1fr); } }
+.info-libelle { color: var(--texte-secondaire); font-size: 12px; }
+.info-valeur { color: var(--texte); font-size: 15px; font-weight: 500; line-height: 1.4; }
+a[data-testid^="stBaseLinkButton"] { align-self: flex-start; padding: 8px 16px; border: none; border-radius: var(--rayon-petit);
+  background: var(--bouton); box-shadow: none; text-decoration: none; }
+a[data-testid^="stBaseLinkButton"], a[data-testid^="stBaseLinkButton"] p, a[data-testid^="stBaseLinkButton"] span { color: var(--blanc); font-size: 14px; font-weight: 500; }
+a[data-testid^="stBaseLinkButton"]:hover { filter: brightness(.9); }

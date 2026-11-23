@@ -292,16 +292,37 @@ def page_categories():
     st.markdown(avertissement(), unsafe_allow_html=True)
 
 
+ICONES_PROPOS = {   # icônes simples (traits), dessinées ici : aucun fichier ni service en ligne
+    "info": '<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="8" r="0.6"/>',
+    "cadenas": '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    "regle": '<path d="M4 8h16v8H4z"/><path d="M8 8v3M12 8v4M16 8v3"/>',
+}
+
+
+def icone_propos(nom):
+    return (f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" '
+            f'stroke-linejoin="round" aria-hidden="true">{ICONES_PROPOS[nom]}</svg>')
+
+
 def page_a_propos():
-    with st.container(key="carte_simple"):
-        st.markdown('<div class="etiquette">À propos</div>', unsafe_allow_html=True)
-        st.markdown(T.A_PROPOS_UTILITE)
-        st.markdown(f"- {T.A_PROPOS_PROTOTYPE}\n"
-                    f"- {T.A_PROPOS_HORS_LIGNE}\n"
-                    f"- Le texte est limité à {analyse.MAX_CARACTERES} caractères.")
-        for libelle, valeur in T.A_PROPOS_INFOS:
-            st.markdown(f"**{libelle}** : {valeur}")
-        st.markdown(f"**Dépôt** : [{T.DEPOT}]({T.DEPOT})")
+    # 1. carte d'introduction
+    st.markdown(f'<div class="carte-propos"><div class="etiquette">À propos</div>'
+                f'<div class="titre-propos">{html.escape(T.A_PROPOS_TITRE)}</div>'
+                f'<div class="texte-propos">{html.escape(T.A_PROPOS_INTRO)}</div></div>', unsafe_allow_html=True)
+    # 2. trois petites cartes côte à côte (les unes sous les autres sur téléphone)
+    cartes = ""
+    for titre, phrase, icone in T.A_PROPOS_CARTES:
+        phrase = phrase.replace("{limite}", str(analyse.MAX_CARACTERES))
+        cartes += (f'<div class="petite-carte"><div class="icone-propos">{icone_propos(icone)}</div>'
+                   f'<div class="etiquette">{html.escape(titre)}</div><div class="texte-propos">{html.escape(phrase)}</div></div>')
+    st.markdown(f'<div class="grille-cartes">{cartes}</div>', unsafe_allow_html=True)
+    # 3. carte « Le projet » : 4 informations en deux colonnes, puis le bouton du dépôt
+    with st.container(key="carte_projet"):
+        infos = "".join(f'<div class="info"><div class="info-libelle">{html.escape(libelle)}</div>'
+                        f'<div class="info-valeur">{html.escape(valeur)}</div></div>' for libelle, valeur in T.A_PROPOS_INFOS)
+        st.markdown(f'<div class="etiquette">Le projet</div><div class="grille-infos">{infos}</div>', unsafe_allow_html=True)
+        st.link_button(T.A_PROPOS_BOUTON, T.DEPOT, type="primary")
+    # 4. pied de page
     st.markdown(avertissement(), unsafe_allow_html=True)
 
 

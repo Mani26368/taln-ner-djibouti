@@ -80,15 +80,21 @@ DEFINITIONS = {                                                                 
 }
 
 # ---------------------------------------------------------------------------------------------- page « À propos »
-# Page simple pour un utilisateur normal : aucun terme technique (ni modèle, ni système, ni chiffre).
-A_PROPOS_UTILITE = ("Repère Djibouti repère, dans un texte français, les personnes, les lieux, les organisations, "
-                    "les dates et les formations. Il a été pensé pour des textes de Djibouti, comme les articles de presse.")   # À REMPLACER
-A_PROPOS_PROTOTYPE = "Prototype : il peut se tromper, surtout sur les noms locaux."                                              # À REMPLACER
-A_PROPOS_HORS_LIGNE = "Tout fonctionne hors ligne : le texte saisi ne quitte pas l'ordinateur."                                  # À REMPLACER
+# Page simple pour un utilisateur normal : aucun terme technique (ni modèle, ni système, ni chiffre de performance).
+A_PROPOS_TITRE = "Repère Djibouti"                                                                                               # À REMPLACER
+A_PROPOS_INTRO = ("Repère les personnes, les lieux, les organisations et les dates dans un texte français, "
+                  "pensé pour les textes de Djibouti.")                                                                          # À REMPLACER
+# Trois petites cartes : (titre, phrase, icône). {limite} est remplacé par la limite de caractères de l'application.
+A_PROPOS_CARTES = [                                                                                                              # À REMPLACER
+    ("Prototype", "Il peut se tromper, surtout sur les noms locaux.", "info"),
+    ("Vie privée", "Le texte saisi ne quitte pas l'ordinateur.", "cadenas"),
+    ("Limite", "{limite} caractères par analyse.", "regle"),
+]
 # Informations du projet (les deux auteures ensemble, sans dire qui a fait quelle partie).
 A_PROPOS_INFOS = [                                                                                                               # À REMPLACER
     ("Projet", "Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti"),
-    ("Réalisé par", "Mako Mohamed Aden et Kadiga"),
+    ("Réalisé par", "Mako Mohamed Aden et Kadiga Ali"),
     ("Encadrant", "Dr Houssein Ahmed Assowe"),
     ("Formation", "M2 IAMD, Université de Djibouti, cours TALN, 2026"),
 ]
+A_PROPOS_BOUTON = "Voir le dépôt GitHub"                                                                                         # À REMPLACER

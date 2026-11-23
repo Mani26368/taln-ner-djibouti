@@ -375,22 +375,32 @@ def test_pages():
                 verifier(not re.search(r"results/|3a\+3b|modèle D|ré-entraîné|dates à trouver|Oui|Non", contenu),
                          "page Catégories : aucun terme technique (systèmes, results/, tableau Oui/Non)")
             if page == "À propos":
-                for attendu in [T.A_PROPOS_UTILITE, T.A_PROPOS_PROTOTYPE, T.A_PROPOS_HORS_LIGNE, T.DEPOT,
-                                f"limité à {analyse.MAX_CARACTERES} caractères", "Prototype de projet TALN – peut se tromper"]:
-                    verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu[:60]} »")
+                texte = html.unescape(contenu)
+                verifier(f'class="etiquette">À propos<' in texte and T.A_PROPOS_TITRE in texte and T.A_PROPOS_INTRO in texte
+                         and T.A_PROPOS_INTRO == "Repère les personnes, les lieux, les organisations et les dates dans un texte français, pensé pour les textes de Djibouti.",
+                         "carte d'introduction : petit titre « À PROPOS », titre « Repère Djibouti », une seule phrase")
+                verifier(texte.count('class="petite-carte"') == 3 and 'class="grille-cartes"' in texte, "3 petites cartes côte à côte (grille qui s'empile sur téléphone)")
+                for titre, phrase in [("Prototype", "Il peut se tromper, surtout sur les noms locaux."),
+                                      ("Vie privée", "Le texte saisi ne quitte pas l'ordinateur."),
+                                      ("Limite", f"{analyse.MAX_CARACTERES} caractères par analyse.")]:
+                    verifier(f'<div class="etiquette">{titre}</div><div class="texte-propos">{phrase}</div>' in texte, f"petite carte « {titre} » : « {phrase} »")
+                verifier(texte.count('class="icone-propos"') == 3 and texte.count("<svg") >= 3, "chaque petite carte a une icône simple")
+                verifier('class="etiquette">Le projet<' in texte and texte.count('class="info"') == 4 and 'class="grille-infos"' in texte,
+                         "carte « LE PROJET » : 4 informations en deux colonnes")
                 for libelle, valeur in [("Projet", "Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti"),
-                                        ("Réalisé par", "Mako Mohamed Aden et Kadiga"), ("Encadrant", "Dr Houssein Ahmed Assowe"),
+                                        ("Réalisé par", "Mako Mohamed Aden et Kadiga Ali"), ("Encadrant", "Dr Houssein Ahmed Assowe"),
                                         ("Formation", "M2 IAMD, Université de Djibouti, cours TALN, 2026")]:
-                    verifier(f"**{libelle}** : " + valeur.replace("'", "&#x27;") in contenu or f"**{libelle}** : " + valeur in contenu,
-                             f"page À propos : « {libelle} : {valeur} »")
-                verifier("Mako Mohamed Aden et Kadiga" in contenu and re.search(r"Mako[^.]*Kadiga", contenu) is not None,
-                         "page À propos : les deux auteures ensemble, sans répartition des rôles")
-                verifier(not re.search(r"(a fait|a réalisé|a écrit|s'est occupée|chargée)", contenu), "page À propos : aucune phrase sur qui a fait quelle partie")
-                verifier(len(T.A_PROPOS_UTILITE.split(". ")) == 2, "page À propos : le rôle de l'outil tient en 2 phrases")
-                for interdit in ["3a+3b", "modèle D", "spaCy", "results/", "modèle", "jeux d'évaluation", "chiffre"]:
-                    verifier(interdit not in contenu, f"page À propos : ne contient pas « {interdit} »")
-                verifier(not re.search(r"fr_core_news|version \d|FORMATION|Limites|Modèle de langue|jeux d'évaluation|Catégories »", contenu),
-                         "page À propos : aucun autre terme technique (modèle, version, jeux d'évaluation, FORMATION)")
+                    verifier(f'<div class="info-libelle">{libelle}</div><div class="info-valeur">{valeur}</div>' in texte,
+                             f"information du projet : {libelle} = {valeur}")
+                liens = at.get("link_button")
+                verifier(len(liens) == 1 and liens[0].proto.url == "https://github.com/Mani26368/taln-ner-djibouti"
+                         and liens[0].proto.label == "Voir le dépôt GitHub",
+                         "bouton « Voir le dépôt GitHub » vers https://github.com/Mani26368/taln-ner-djibouti")
+                verifier("Prototype de projet TALN – peut se tromper." in texte, "pied de page « Prototype de projet TALN – peut se tromper. »")
+                verifier(not re.search(r"(a fait|a réalisé|a écrit|s'est occupée|chargée|partie)", texte), "aucune mention de qui a fait quelle partie")
+                for interdit in ["spaCy", "3a+3b", "modèle D", "results/", "jeux d'évaluation", "chiffre"]:
+                    verifier(interdit not in texte, f"page À propos : ne contient pas « {interdit} »")
+                verifier(not re.search(r"mod[eè]le|fr_core_news|version \d|F1", texte, flags=re.I), "page À propos : aucun mot « modèle », aucune version, aucun score")
     finally:
         if memoire_D is not None and "D" not in analyse._MEMOIRE:
             analyse._MEMOIRE["D"] = memoire_D
