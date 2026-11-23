@@ -3,16 +3,25 @@
 Master 2 IAMD — Université de Djibouti — Module TALN (Dr Houssein Ahmed Assowe) — Novembre 2026
 
 ## Question
-Peut-on extraire automatiquement les institutions, lieux, formations, dates et personnes dans des textes français locaux (Djibouti) ?
+Peut-on extraire automatiquement les institutions, lieux, personnes, dates et formations dans des textes français locaux (Djibouti) ?
+On compare une baseline (spaCy seul) à plusieurs façons de l'adapter, avec une évaluation exacte (début, fin ET type) et une évaluation tolérante.
 
 ## Approches comparées
-| Approche | Description |
-|---|---|
-| Baseline | spaCy `fr_core_news_sm` + règles `EntityRuler` |
-| Approche 2 | Lexique local enrichi (à compléter) |
+| Approche | Description | Auteure |
+|---|---|---|
+| **A** (baseline) | spaCy `fr_core_news_sm` seul | commune |
+| **B** | A + `EntityRuler` à règles génériques | Kadiga |
+| **C** | B + lexique local construit sur le train de son corpus | Kadiga |
+| **D** | NER de spaCy ré-entraîné sur son corpus | Kadiga |
+| **3a** | A + règles locales (`EntityRuler`, titre + nom) écrites sur le dev | Mako |
+| **3b** | 3a + filtres appliqués après spaCy, selon le guide d'annotation | Mako |
+| **3c** | essais d'amélioration (modèles `md` et `lg`, règle « Djibouti », année seule, noms d'habitants) : **aucun retenu**, donc 3c = 3a+3b (`results/essais_3c.csv`) | Mako |
 
 ## Données
-À compléter : provenance, nombre de textes annotés, types d'entités, séparation, limites. Voir `data/README.md`.
+- **La Nation** (`data/`) : segments de 15 articles de presse du journal *La Nation* (Djibouti), annotés à la main avec `docs/guide_annotation.md`,
+  répartis en 4 jeux : `dev`, `test`, `test2`, `test3`. Rôle de chaque jeu et format des fichiers : `data/README.md`.
+- **Corpus de Kadiga** (`data/corpus_kadiga/`) : phrases de textes publics (Wikipédia, Journal officiel, rapports Hcéres). Description : `data/corpus_kadiga/README.md`.
+- Données publiques seulement ; pas de données personnelles. Les deux corpus ne sont **jamais mélangés** dans les évaluations.
 
 ## Installation
 ```bash
@@ -21,15 +30,25 @@ source .venv/bin/activate        # Windows : .venv\Scripts\activate
 pip install -r requirements.txt
 python -m spacy download fr_core_news_sm
 ```
+Sous Windows, la variante PowerShell sans activer le venv et la précaution sur les chemins trop longs sont dans « Lancer la démo » ci-dessous.
 
 ## Reproduction
-1. **Notebook final (à lire en premier)** : `notebooks/NER_Djibouti_final.ipynb`. Le lire ou l'exécuter de haut en bas
-   (environ une minute). Choisir comme noyau l'environnement `.venv` (celui où `requirements.txt` et `fr_core_news_sm` sont installés).
-   Il lit les résultats dans `results/` ; l'interrupteur `RELANCER = False` évite de ré-entraîner le modèle D de Kadiga.
-2. Notebooks de travail (historique, non modifiés) :
-   - `travaux_individuels/mako_ner_baseline.ipynb` : le notebook de Mako (baseline, règles 3a, filtres 3b, essais 3c) ;
-   - `kadiga/TP_NER_Djibouti_Binome5.ipynb` : le notebook de Kadiga (corpus Wikipédia / Journal officiel, systèmes A à D).
-3. Évaluer : `python src/evaluate.py` (démonstration du calcul précision / rappel / F1, exact et tolérant).
+1. **Notebook final** : `notebooks/NER_Djibouti_final.ipynb`. Le lire ou l'exécuter de haut en bas (environ une minute). Choisir comme noyau
+   l'environnement `.venv`. Il importe le code de `src/` et lit les résultats dans `results/` ; l'interrupteur `RELANCER = False`
+   évite de ré-entraîner le modèle D de Kadiga.
+2. **Les résultats** de `results/` ont été produits par les scripts de `src/` :
+
+   | Script | Rôle |
+   |---|---|
+   | `src/evaluate.py` | score exact et score tolérant (précision, rappel, F1) |
+   | `src/regles_locales.py` | règles 3a et filtres 3b (version gelée) |
+   | `src/regles_3c.py`, `src/essais_3c.py` | essais 3c |
+   | `src/systemes_kadiga.py` | systèmes A, B, C, D de Kadiga, repris à l'identique |
+   | `src/evaluer_lanation.py` | systèmes de Kadiga sur La Nation |
+   | `src/mesurer_test2.py`, `src/mesurer_test3.py`, `src/scores_dev_test1.py` | mesures sur test2, test3, dev et test |
+   | `src/preparer_*.py`, `src/verifier_annotations.py` | sélection des segments et contrôle des annotations |
+
+   Les scripts `preparer_*.py` partent du corpus complet des articles, qui n'est **pas** dans le dépôt (seuls les segments utiles y sont).
 
 ## Lancer la démo
 
@@ -92,83 +111,22 @@ utilisations suivantes 2,5 s, 1,9 s et 1,9 s (3 essais). Ces durées varient bea
   dans `demo/essais_demo.txt` (déjà fourni). `python demo/tester_app.py` teste l'application et écrit `demo/test_application.txt`.
 
 ## Résultats
-À compléter avec les vrais chiffres (tableau précision / rappel / F1 par approche et par type d'entité).
+Tous les chiffres sont dans `results/` et sont affichés, jeu par jeu, dans la section 6 du notebook final.
+Le jeu `test3` (articles jamais regardés avant la mesure) est la seule mesure honnête ; les autres jeux ont servi à régler ou ont été regardés.
+Le surapprentissage de 3a+3b est étudié dans la section 8 du notebook.
 
 ## Structure
 ```
+README.md, requirements.txt, .gitignore
 notebooks/NER_Djibouti_final.ipynb   notebook final (à lire en premier)
-travaux_individuels/                 notebook de travail de Mako
-kadiga/                              travail de Kadiga (son notebook, son corpus, ses résultats)
-data/                                corpus La Nation annotés (dev, test, test2, test3) + description
+data/                                corpus La Nation + annotations ; data/corpus_kadiga/ : corpus de Kadiga
 src/                                 code : évaluation exacte et tolérante, règles, systèmes de Kadiga, scripts de mesure
 results/                             tous les résultats chiffrés (le notebook final les lit)
-demo/                                application Streamlit (démo de 3 minutes) : voir « Lancer la démo »
+demo/                                application Streamlit « Repère Djibouti » (démo de 3 minutes)
 docs/                                guide d'annotation, sujet et cours de référence
-rapport/                             rapport (6 à 8 pages)
-slides/                              diapositives (8 à 10)
+.streamlit/config.toml               configuration de la démo
 ```
+Le travail individuel (notebooks de Mako et de Kadiga) reste dans l'historique et dans les branches `mako` et `kadiga`.
 
 ## Auteures
 Mako Mohamed Aden et Kadiga — M2 IAMD, Université de Djibouti.
-
----
-
-# Guide pour Kadiga : ajouter ton notebook sur GitHub
-
-Chacune travaille sur **sa propre branche** : Mako sur `mako`, Kadiga sur `kadiga`. Personne ne travaille directement sur `main`. À la fin, on rassemble tout dans `main`.
-
-> Une branche, c'est ta copie de travail du projet. Tu peux y modifier des fichiers sans casser ceux de l'autre.
-
-## Avant de commencer (une seule fois)
-1. Avoir un compte GitHub et **accepter l'invitation** reçue par e-mail (« Mani26368 vous invite à collaborer »).
-2. Avoir **Git** installé. Vérifier dans PowerShell : `git --version`.
-3. Dire à Git qui tu es :
-   ```powershell
-   git config --global user.name "Kadiga"
-   git config --global user.email "ton-email@exemple.com"
-   ```
-
-## Étape 1 — Récupérer le projet (une seule fois)
-```powershell
-git clone https://github.com/Mani26368/taln-ner-djibouti.git
-cd taln-ner-djibouti
-```
-
-## Étape 2 — Passer sur ta branche
-La branche `kadiga` est déjà créée par Mako.
-```powershell
-git checkout kadiga
-```
-Vérifier : `git branch` doit afficher `* kadiga`.
-
-## Étape 3 — Ajouter tes fichiers
-- Copier ton **notebook** (`.ipynb`) dans le dossier `notebooks/`.
-- Copier tes **textes et annotations** dans `data/` (et compléter `data/README.md`).
-- Avant d'enregistrer le notebook : dans Jupyter/Colab, faire **Exécuter toutes les cellules** pour que les résultats soient visibles.
-- Ne pas mettre de mots de passe, de clés, ni de données personnelles.
-
-## Étape 4 — Envoyer sur GitHub
-Taper les commandes **une par une** (pas de `&&` dans PowerShell) :
-```powershell
-git status
-git add notebooks data
-git commit -m "Ajout du notebook NER et des données"
-git push -u origin kadiga
-```
-La première fois, GitHub peut ouvrir une fenêtre de connexion : accepter.
-
-## Étape 5 — Prévenir Mako
-Envoyer un message « C'est poussé sur la branche kadiga ». Mako ouvre une **Pull Request** (`kadiga` vers `main`) sur GitHub pour rassembler les deux parties.
-
-## Pour continuer à travailler plus tard
-Toujours dans cet ordre :
-```powershell
-git checkout kadiga
-git pull
-```
-puis modifier, puis refaire `git add`, `git commit`, `git push`.
-
-## Si ça bloque
-- « Permission denied » ou « 403 » : l'invitation n'est pas acceptée, ou Mako ne t'a pas encore ajoutée comme collaboratrice.
-- « branch kadiga not found » : lancer d'abord `git fetch`, puis `git checkout kadiga`.
-- Autre message d'erreur : copier-coller le message à Mako.

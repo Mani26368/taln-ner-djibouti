@@ -207,7 +207,7 @@ def page_analyser():
 
 
 def lire_phrase_kadiga(id_phrase):
-    with open(RACINE / "kadiga" / "data" / "corpus" / "sentences.csv", encoding="utf-8", newline="") as f:
+    with open(RACINE / "data" / "corpus_kadiga" / "sentences.csv", encoding="utf-8", newline="") as f:
         for ligne in csv.DictReader(f):
             if ligne["id"] == id_phrase:
                 return ligne["text"]

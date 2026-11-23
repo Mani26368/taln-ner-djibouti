@@ -1,8 +1,8 @@
-"""Systèmes A, B, C, D de Kadiga, repris À L'IDENTIQUE depuis kadiga/TP_NER_Djibouti_Binome5.ipynb.
+"""Systèmes A, B, C, D de Kadiga, repris À L'IDENTIQUE depuis le notebook de Kadiga (TP_NER_Djibouti_Binome5.ipynb, branche « kadiga » du dépôt).
 
 Rien n'est modifié par rapport au notebook : mêmes règles, même lexique (construit sur SON train),
 mêmes paramètres (graine 42, 40 époques max, patience 6, lots de 8, dropout 0.3).
-Ce module ne lit que kadiga/data/corpus et n'écrit rien dans kadiga/.
+Ce module ne lit que data/corpus_kadiga (son corpus et son tableau de résultats) et n'écrit rien dans le dépôt.
 
   A : spaCy fr_core_news_sm seul
   B : A + EntityRuler (règles génériques, avant le NER)
@@ -19,7 +19,7 @@ from spacy.training import Example
 from spacy.util import fix_random_seed
 
 RACINE = Path(__file__).resolve().parent.parent
-CORPUS_KADIGA = RACINE / "kadiga" / "data" / "corpus"
+CORPUS_KADIGA = RACINE / "data" / "corpus_kadiga"
 SEED = 42
 LABELS = ["ORG", "LOC", "PER", "DATE", "FORM"]
 MODELE = "fr_core_news_sm"
@@ -251,7 +251,7 @@ def verifier_contre_kadiga(systemes, test=None):
     """Compare le tableau recalculé au fichier de Kadiga. Retourne (ok, tableau_recalculé, tableau_kadiga, écarts)."""
     test = test if test is not None else charger("test")
     recalcule = tableau_comparatif(systemes, test)
-    ref = pd.read_csv(RACINE / "kadiga" / "results" / "tableau_comparatif.csv", encoding="utf-8-sig")
+    ref = pd.read_csv(RACINE / "data" / "corpus_kadiga" / "tableau_comparatif_kadiga.csv", encoding="utf-8-sig")
     num = list(ref.columns[1:])
     ecarts = (recalcule[num] - ref[num]).abs().round(3)
     ok = list(recalcule["système"]) == list(ref["système"]) and float(ecarts.max().max()) == 0.0

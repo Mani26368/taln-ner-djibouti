@@ -65,7 +65,7 @@ EXEMPLES = [                                                                    
 
 # Un exemple par catégorie (page « Catégories reconnues »).
 #   (identifiant du segment, texte de l'entité) pour La Nation : l'entité doit exister dans les annotations du dépôt.
-#   FORMATION : La Nation n'en contient aucune ; l'exemple vient du corpus de Kadiga (kadiga/data/corpus).
+#   FORMATION : La Nation n'en contient aucune ; l'exemple vient du corpus de Kadiga (data/corpus_kadiga).
 EXEMPLES_CATEGORIES = {                                                                  # À REMPLACER
     "ORG": ("A03_S001", "Fédération djiboutienne de football"),
     "LOC": ("A14_S011", "Tadjourah"),

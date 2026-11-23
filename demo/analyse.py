@@ -74,8 +74,8 @@ def _spacy_ou_erreur(construire):
 def _empreinte_D():
     """Résumé de tout ce dont dépend D : si l'un change, le cache est périmé."""
     h = hashlib.sha256()
-    for chemin in [RACINE / "kadiga" / "data" / "corpus" / "sentences.csv",
-                   RACINE / "kadiga" / "data" / "corpus" / "entities.csv",
+    for chemin in [RACINE / "data" / "corpus_kadiga" / "sentences.csv",
+                   RACINE / "data" / "corpus_kadiga" / "entities.csv",
                    RACINE / "src" / "systemes_kadiga.py"]:
         h.update(chemin.read_bytes())
     h.update(f"spacy {spacy.__version__}|{spacy.util.get_package_version(MODELE_SPACY)}|"
@@ -98,7 +98,7 @@ def _construire_D():
             return spacy.load(DOSSIER_CACHE), "cache disque"
         train, val = K.charger("train"), K.charger("val")
     except FileNotFoundError as e:
-        raise ErreurDemo("Les fichiers du corpus de Kadiga sont introuvables (dossier kadiga/data/corpus). "
+        raise ErreurDemo("Les fichiers du corpus de Kadiga sont introuvables (dossier data/corpus_kadiga). "
                          "Vérifiez que le dépôt est complet.") from e
     nlp, _courbe = _spacy_ou_erreur(lambda: K.entrainer_D(train, val, verbeux=False))
     source = "entraîné"

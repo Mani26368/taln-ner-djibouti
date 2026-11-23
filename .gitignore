@@ -5,7 +5,7 @@ __pycache__/
 .env
 .DS_Store
 
-# Corpus complet (805 segments) : on garde seulement data/corpus_ner.csv
+# Corpus complet des articles (805 segments) : on garde seulement les segments utiles (data/corpus_*.csv)
 data/corpus_bilingue_so.csv
 
 # Démo : modèle D ré-entraîné au premier lancement (trop gros pour Git)

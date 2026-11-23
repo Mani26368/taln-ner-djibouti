@@ -102,7 +102,7 @@ def main():
     ok, recalcule, ref, ecarts = K.verifier_contre_kadiga(systemes)
     pd.set_option("display.width", 220)
     print("\nTableau recalculé sur le TEST de Kadiga :\n", recalcule.to_string(index=False))
-    print("\nTableau de Kadiga (kadiga/results/tableau_comparatif.csv) :\n", ref.to_string(index=False))
+    print("\nTableau de Kadiga (data/corpus_kadiga/tableau_comparatif_kadiga.csv) :\n", ref.to_string(index=False))
     print("\nÉcart absolu maximal :", float(ecarts.max().max()))
     if not ok:
         print("\n>>> ÉCHEC : le script ne redonne pas le tableau de Kadiga. ARRÊT (aucune mesure sur La Nation).")
