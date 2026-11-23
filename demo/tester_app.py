@@ -381,7 +381,7 @@ def test_pages():
                          "carte d'introduction : petit titre « À PROPOS », titre « Repère Djibouti », une seule phrase")
                 verifier(texte.count('class="petite-carte"') == 3 and 'class="grille-cartes"' in texte, "3 petites cartes côte à côte (grille qui s'empile sur téléphone)")
                 for titre, phrase in [("Prototype", "Il peut se tromper, surtout sur les noms locaux."),
-                                      ("Vie privée", "Le texte saisi ne quitte pas l'ordinateur."),
+                                      ("Vie privée", "Le texte saisi est analysé sur le moment et n'est pas enregistré."),
                                       ("Limite", f"{analyse.MAX_CARACTERES} caractères par analyse.")]:
                     verifier(f'<div class="etiquette">{titre}</div><div class="texte-propos">{phrase}</div>' in texte, f"petite carte « {titre} » : « {phrase} »")
                 verifier(texte.count('class="icone-propos"') == 3 and texte.count("<svg") >= 3, "chaque petite carte a une icône simple")

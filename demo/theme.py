@@ -87,7 +87,7 @@ A_PROPOS_INTRO = ("Repère les personnes, les lieux, les organisations et les da
 # Trois petites cartes : (titre, phrase, icône). {limite} est remplacé par la limite de caractères de l'application.
 A_PROPOS_CARTES = [                                                                                                              # À REMPLACER
     ("Prototype", "Il peut se tromper, surtout sur les noms locaux.", "info"),
-    ("Vie privée", "Le texte saisi ne quitte pas l'ordinateur.", "cadenas"),
+    ("Vie privée", "Le texte saisi est analysé sur le moment et n'est pas enregistré.", "cadenas"),
     ("Limite", "{limite} caractères par analyse.", "regle"),
 ]
 # Informations du projet (les deux auteures ensemble, sans dire qui a fait quelle partie).

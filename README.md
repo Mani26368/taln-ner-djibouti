@@ -27,8 +27,8 @@ On compare une baseline (spaCy seul) à plusieurs façons de l'adapter, avec une
 ```bash
 python -m venv .venv
 source .venv/bin/activate        # Windows : .venv\Scripts\activate
-pip install -r requirements.txt
-python -m spacy download fr_core_news_sm
+pip install -r requirements.txt   # installe aussi le modèle fr_core_news_sm 3.8.0 (internet nécessaire)
+python -m spacy download fr_core_news_sm   # facultatif : secours si le modèle manque
 ```
 Sous Windows, la variante PowerShell sans activer le venv et la précaution sur les chemins trop longs sont dans « Lancer la démo » ci-dessous.
 
