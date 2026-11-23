@@ -336,23 +336,6 @@ def test_cas_limites():
 
 
 # ------------------------------------------------------------------------------------------------ 6
-def chiffres_d_recalcules():
-    """Dates retrouvées exactement par D (et dates à trouver), recalculées ICI, séparément de l'application."""
-    import pandas as pd
-    e = pd.read_csv(RACINE / "results" / "test_externe_lanation.csv", encoding="utf-8-sig")
-    vp, sup = 0, 0
-    for per in ["dev (84)", "test (42)"]:
-        r = e[(e["système"].str.startswith("D –")) & (e["périmètre"] == per) & (e["type"] == "DATE")].iloc[0]
-        vp, sup = vp + int(r["VP"]), sup + int(r["support"])
-    t2 = pd.read_csv(RACINE / "results" / "test2_resultats.csv", encoding="utf-8-sig")
-    r2 = t2[t2["système"].str.startswith("Kadiga D") & (t2["type"] == "DATE")].iloc[0]
-    t3 = pd.read_csv(RACINE / "results" / "test3.csv", encoding="utf-8-sig")
-    r3 = t3[t3["système"].str.startswith("Kadiga D") & (t3["type"] == "DATE")].iloc[0]
-    vp += round(r2["exact R"] * r2["support (gold)"]) + int(r3["VP exact"])
-    sup += int(r2["support (gold)"]) + int(r3["support"])
-    return vp, sup
-
-
 def aller_a(at, indice):
     at.button(key=f"nav_{indice}").click()
     at.run()
@@ -376,22 +359,16 @@ def test_pages():
                     verifier(f"({code})" in contenu, f"page Catégories : le type {code} est présenté")
                 verifier("Master IAMD" in contenu and T.ORIGINE_FORMATION in contenu,
                          "page Catégories : exemple de FORMATION « Master IAMD » avec son origine (corpus de ressources, phrase de cours)")
-                verifier("**D** (modèle ré-entraîné)" in contenu, "page Catégories : « D (modèle ré-entraîné) » sans nom d'auteur")
                 verifier("corpus de Kadiga" not in contenu and "de Kadiga" not in contenu, "page Catégories : plus de « Kadiga »")
-                verifier(len(at.dataframe[0].value.columns) == 2, "page Catégories : sans D chargé, le tableau a 2 systèmes (3a+3b et A)")
-                verifier(any(b.key == "ajouter_d" for b in at.button), "page Catégories : un bouton propose d'ajouter D (chargement à la demande)")
-                phrase = "règles réglées sur les articles du projet, moins fiable sur d'autres textes"
-                verifier(any(phrase in i.value for i in at.info), f"page Catégories : phrase exacte sur 3a+3b : « {phrase} »")
-                vp, sup = chiffres_d_recalcules()
-                note(f"     Recalcul séparé depuis results/ : D retrouve exactement {vp} dates sur {sup}")
-                verifier(any("peu de dates" in i.value and f"sur {sup} dates" in i.value and f"exactement {vp} " in i.value for i in at.info),
-                         f"page Catégories : D « trouve peu de dates », chiffre affiché = chiffre recalculé ({vp} sur {sup})")
-                at.button(key="ajouter_d").click()
-                at.run()
-                verifier(not at.exception, "page Catégories : le chargement de D à la demande s'exécute sans erreur")
-                tab = at.dataframe[0].value
-                verifier(len(tab.columns) == 3, "page Catégories : après le clic, le tableau a 3 systèmes (D ajouté)")
-                note("     Tableau « ce que chaque système sait reconnaître » (avec D) :\n" + tab.to_string())
+                # page simple pour un utilisateur normal : seulement les 5 types et leurs exemples
+                verifier(len(at.dataframe) == 0, "page Catégories : aucun tableau (la comparaison des systèmes n'est pas dans l'application)")
+                verifier(len(at.info) == 0 and len(at.warning) == 0, "page Catégories : aucun encadré (3a+3b, D, formations)")
+                verifier(not any(b.key == "ajouter_d" for b in at.button), "page Catégories : pas de bouton pour ajouter le modèle D")
+                verifier(contenu.count('class="carte-type"') == len(analyse.ORDRE_TYPES) == 5,
+                         "page Catégories : exactement 5 cartes, une par type, chacune avec son exemple surligné")
+                verifier(all(f'ent ent-{code}"' in contenu for code in analyse.ORDRE_TYPES), "page Catégories : un exemple surligné pour chacun des 5 types")
+                verifier(not re.search(r"results/|3a\+3b|modèle D|ré-entraîné|dates à trouver|Oui|Non", contenu),
+                         "page Catégories : aucun terme technique (systèmes, results/, tableau Oui/Non)")
             if page == "À propos":
                 import spacy
                 version = spacy.util.get_package_version("fr_core_news_sm")

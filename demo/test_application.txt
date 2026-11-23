@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 10:03:17
+Fait le 2026-11-23 à 10:15:41
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -211,22 +211,13 @@ Fait le 2026-11-23 à 10:03:17
   [OK ] page Catégories : le type PER est présenté
   [OK ] page Catégories : le type FORMATION est présenté
   [OK ] page Catégories : exemple de FORMATION « Master IAMD » avec son origine (corpus de ressources, phrase de cours)
-  [OK ] page Catégories : « D (modèle ré-entraîné) » sans nom d'auteur
   [OK ] page Catégories : plus de « Kadiga »
-  [OK ] page Catégories : sans D chargé, le tableau a 2 systèmes (3a+3b et A)
-  [OK ] page Catégories : un bouton propose d'ajouter D (chargement à la demande)
-  [OK ] page Catégories : phrase exacte sur 3a+3b : « règles réglées sur les articles du projet, moins fiable sur d'autres textes »
-     Recalcul séparé depuis results/ : D retrouve exactement 5 dates sur 20
-  [OK ] page Catégories : D « trouve peu de dates », chiffre affiché = chiffre recalculé (5 sur 20)
-  [OK ] page Catégories : le chargement de D à la demande s'exécute sans erreur
-  [OK ] page Catégories : après le clic, le tableau a 3 systèmes (D ajouté)
-     Tableau « ce que chaque système sait reconnaître » (avec D) :
-                      3a+3b – nos règles locales (version gelée) D – modèle ré-entraîné A – spaCy seul
-Organisation (ORG)                                           Oui                    Oui            Oui
-Lieu (LOC)                                                   Oui                    Oui            Oui
-Date (DATE)                                                  Oui                    Oui            Non
-Personne (PER)                                               Oui                    Oui            Oui
-Formation (FORMATION)                                        Non                    Oui            Non
+  [OK ] page Catégories : aucun tableau (la comparaison des systèmes n'est pas dans l'application)
+  [OK ] page Catégories : aucun encadré (3a+3b, D, formations)
+  [OK ] page Catégories : pas de bouton pour ajouter le modèle D
+  [OK ] page Catégories : exactement 5 cartes, une par type, chacune avec son exemple surligné
+  [OK ] page Catégories : un exemple surligné pour chacun des 5 types
+  [OK ] page Catégories : aucun terme technique (systèmes, results/, tableau Oui/Non)
   [OK ] page « À propos » : s'affiche sans erreur
   [OK ] page « À propos » : le clic sur le menu change bien de page
   [OK ] page « À propos » : le bandeau « Repère Djibouti » est présent
@@ -260,7 +251,7 @@ Formation (FORMATION)                                        Non                
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 47.2 s (source : entraîné (cache non enregistré))
+     D chargé en 23.1 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 102 s | contrôles OK : 193 | échecs : 0
+Durée totale : 36 s | contrôles OK : 192 | échecs : 0

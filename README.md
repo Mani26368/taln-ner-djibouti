@@ -105,8 +105,9 @@ utilisations suivantes 2,5 s, 1,9 s et 1,9 s (3 essais). Ces durées varient bea
 - **Pages** (navigation en haut à droite du bandeau bleu) : « Analyser », « Catégories », « À propos ».
 - **Systèmes** : **3a+3b** par défaut (règles réglées sur les articles du projet, moins fiable sur d'autres textes).
   Le repli « Options avancées » (sous le bouton « Analyser le texte ») permet de choisir « D – modèle ré-entraîné » ou « A – spaCy seul ».
-  D trouve peu de dates sur nos segments de La Nation (les chiffres, lus dans `results/`, sont sur la page « Catégories »).
-  Le tableau de la page « Catégories » indique ce que chaque système PEUT produire, pas ce qu'il trouve toujours.
+  La comparaison des systèmes (chiffres, forces et limites) n'est pas dans l'application : elle est dans le rapport, les slides
+  et le notebook final.
+- **Page « Catégories »** : les 5 types (organisation, lieu, date, personne, formation), chacun avec une définition et un exemple surligné.
 - **Résultat** : à gauche la carte « Votre texte » (avec trois pilules d'exemples : une date, des personnes, un cas difficile) ; à droite la carte
   « Texte annoté » (entités surlignées en pastel, petite étiquette de type en exposant, légende des 4 types ; avant l'analyse, une phrase
   d'exemple en grisé). Dessous : une ligne de 5 petites cartes (Entités, Organisations, Lieux, Dates, Personnes ; « – » si le système
