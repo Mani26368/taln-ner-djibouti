@@ -1,4 +1,4 @@
-"""Apparence et textes de « Repère Djibouti ». Changez ici les valeurs marquées « À REMPLACER ».
+"""Apparence et textes de « NER-djib ». Changez ici les valeurs marquées « À REMPLACER ».
 
 Les COULEURS sont ici ; la MISE EN FORME (tailles, espaces, formes) est dans demo/style.css, qui utilise ces couleurs.
 Design sobre : bandeau bleu foncé, fond clair, cartes blanches, police Inter (fichier local, voir demo/assets/fonts/).
@@ -6,13 +6,12 @@ Ce fichier ne contient AUCUN code d'analyse et AUCUN chiffre de performance : se
 """
 
 # ---------------------------------------------------------------------------------------------- textes
-TITRE = "Repère Djibouti"                                                                # À REMPLACER
+TITRE = "NER-djib"                                                                       # À REMPLACER
 PHRASE = "Personnes, lieux, organisations et dates de vos textes"                       # À REMPLACER
 AVERTISSEMENT = "Prototype de projet TALN – peut se tromper."                            # À REMPLACER
-NOTE_EXTRAITS = ("Extrait du corpus de travail du projet : le système le connaît mieux "
-                 "que des textes nouveaux.")                                             # À REMPLACER
-LEGENDE_ERREUR = ("Avec le système par défaut (3a+3b), « Washington » est pris à tort pour une personne (PER) : "
-                  "c'est un lieu. C'est une erreur du système.")                         # À REMPLACER
+NOTE_EXTRAITS = "Extrait d'un article de La Nation."                                   # À REMPLACER
+LEGENDE_ERREUR = ("Ici, « Washington » est pris à tort pour une personne (PER) : "
+                  "c'est un lieu. C'est une erreur de l'application.")                 # À REMPLACER
 DEPOT = "https://github.com/Mani26368/taln-ner-djibouti"                                 # À REMPLACER
 
 # Phrase d'exemple, affichée en grisé avant la première analyse : phrase illustrative, ABRÉGÉE d'après le segment A02_S001
@@ -55,9 +54,11 @@ EXEMPLES = [                                                                    
     ("A12_S005", "Des personnes"),
     ("A04_S020", "Un cas difficile"),
 ]
+# Nom de la méthode affiché sous le texte annoté (clé interne -> texte). Les clés internes ne changent pas.
+METHODES_COURT = {"3a+3b": "règles + lexique locaux", "D": "modèle ré-entraîné", "A": "spaCy seul"}
 EXEMPLE_ACCUEIL = "A01_S002"      # extrait de La Nation analysé dès l'ouverture de la page (il contient les 4 types)
 ETAPES = [("1", "Collez un texte"), ("2", "Cliquez sur Analyser"), ("3", "Lisez les entités et téléchargez le CSV")]
-PIED = "Prototype de projet TALN · M2 IAMD · Université de Djibouti"
+PIED = "NER-djib · Prototype de projet TALN · M2 IAMD · Université de Djibouti"
 EXEMPLE_ERREUR = "A04_S020"       # celui qui affiche LEGENDE_ERREUR
 
 # Un exemple par catégorie (page « Catégories »).
@@ -71,7 +72,7 @@ EXEMPLES_CATEGORIES = {                                                         
     "DATE": ("A02_S001", "lundi 5 octobre"),
     "FORMATION": ("ENS-02", "Master IAMD"),      # corpus de ressources
 }
-ORIGINE_FORMATION = "exemple tiré du corpus de ressources (phrase synthétique de cours, ENS-02)"
+ORIGINE_FORMATION = "exemple tiré d'une phrase de cours écrite pour le projet"
 
 # Définitions simples (reprises du guide d'annotation, docs/guide_annotation.md).
 DEFINITIONS = {                                                                          # À REMPLACER
@@ -84,8 +85,8 @@ DEFINITIONS = {                                                                 
 
 # ---------------------------------------------------------------------------------------------- page « À propos »
 # Page simple pour un utilisateur normal : aucun terme technique (ni modèle, ni système, ni chiffre de performance).
-A_PROPOS_TITRE = "Repère Djibouti"                                                                                               # À REMPLACER
-A_PROPOS_INTRO = ("Repère les personnes, les lieux, les organisations et les dates dans un texte français, "
+A_PROPOS_TITRE = "NER-djib"                                                                                               # À REMPLACER
+A_PROPOS_INTRO = ("Trouve les personnes, les lieux, les organisations et les dates dans un texte français, "
                   "pensé pour les textes de Djibouti.")                                                                          # À REMPLACER
 # Trois petites cartes : (titre, phrase, icône). {limite} est remplacé par la limite de caractères de l'application.
 A_PROPOS_CARTES = [                                                                                                              # À REMPLACER

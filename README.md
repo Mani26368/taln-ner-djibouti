@@ -1,6 +1,6 @@
 # NER propre à Djibouti — Projet TALN (Binôme 5)
 
-- Application en ligne : https://repere-djibouti.streamlit.app/
+- Application en ligne : https://ner-djib.streamlit.app/
 - Dépôt : https://github.com/Mani26368/taln-ner-djibouti
 
 Master 2 IAMD — Université de Djibouti — Module TALN (Dr Houssein Ahmed Assowe) — Novembre 2026
@@ -60,7 +60,7 @@ Sous Windows, la variante PowerShell sans activer le venv et la précaution sur 
 
 ## Lancer la démo
 
-**Repère Djibouti** est une application Streamlit (dossier `demo/`) : on colle un texte français et elle souligne les personnes, lieux,
+**NER-djib** est une application Streamlit (dossier `demo/`) : on colle un texte français et elle souligne les personnes, lieux,
 organisations et dates. Elle sert aussi de démonstration de 3 minutes. Son nom technique est « reconnaissance d'entités nommées (NER) ».
 **C'est un prototype : il peut se tromper.**
 
@@ -137,7 +137,7 @@ notebooks/NER_Djibouti_final.ipynb   notebook final (à lire en premier)
 data/                                corpus La Nation + annotations ; data/corpus_kadiga/ : corpus de Kadiga
 src/                                 code : évaluation exacte et tolérante, règles, systèmes de Kadiga, scripts de mesure
 results/                             tous les résultats chiffrés (le notebook final les lit)
-demo/                                application Streamlit « Repère Djibouti » (démo de 3 minutes)
+demo/                                application Streamlit « NER-djib » (démo de 3 minutes)
 docs/                                guide d'annotation, sujet et cours de référence
 .streamlit/config.toml               configuration de la démo
 ```

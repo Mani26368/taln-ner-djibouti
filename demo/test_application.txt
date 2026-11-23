@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 16:43:29
+Fait le 2026-11-23 à 17:15:26
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -84,8 +84,8 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] palette de la maquette : bandeau #13255C, bouton #1E3FAE, fond #F4F6FA, cartes blanches bordure #E2E6EF, texte #1B2336, secondaire #5B6783
   [OK ] pastels et couleurs de texte : ORG, LOC, DATE, PER, FORMATION
   [OK ] cartes : coins arrondis de 12 px
-  [OK ] bandeau : « Repère Djibouti » et la phrase de la maquette
-  [OK ] titre de page = « Repère Djibouti »
+  [OK ] bandeau : « NER-djib » et la phrase de la maquette
+  [OK ] titre de page = « NER-djib »
   [OK ] 3 pilules d'exemples : ['Une date', 'Des personnes', 'Un cas difficile'] = A14_S001 (date), A12_S005 (personnes), A04_S020 (erreur Washington)
   [OK ] pas de barre latérale (masquée) ; contenu centré sous le bandeau
   [OK ] traduction automatique du navigateur empêchée : lang="fr", translate="no", meta google notranslate (script de app.py)
@@ -94,7 +94,7 @@ Fait le 2026-11-23 à 16:43:29
 
 4. Page Analyser : mise en page, exemples, systèmes
   [OK ] la page d'accueil s'affiche sans erreur
-  [OK ] bandeau : « Repère Djibouti » et la phrase
+  [OK ] bandeau : « NER-djib » et la phrase
   [OK ] bouton « Analyser le texte » présent
   [OK ] système par défaut = 3a+3b
   [OK ] 3a+3b par défaut ; D et A restent dans « Options avancées »
@@ -105,6 +105,7 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] à l'ouverture : l'extrait est déjà analysé (entités surlignées, comme le fait l'analyse)
   [OK ] à l'ouverture : petites cartes de chiffres et tableau déjà affichés
   [OK ] bande « Comment ça marche » : les 3 étapes
+  [OK ] texte affiché à l'ouverture : aucun identifiant ni terme interne ; « Méthode utilisée : règles + lexique locaux »
   [OK ] pied de page : « Prototype de projet TALN · M2 IAMD · Université de Djibouti » et lien GitHub
   [OK ] aperçu avant analyse : texte en gris, surlignages en pleine couleur (pas d'opacité qui les délave)
   [OK ] 3 boutons d'exemples : ['Une date', 'Des personnes', 'Un cas difficile']
@@ -114,7 +115,7 @@ Fait le 2026-11-23 à 16:43:29
 
   [A14_S001] Une date
   Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxième édition du Challenge intercommunautaire culturel et sportif, placé sous l'égide du ministère de la Jeunesse et de la Culture.
-    3a+3b – nos règles locales (version gelée) -> écran : ['Ardo Bankoualé [LOC]', 'vendredi 14 août [DATE]', 'ministère de la Jeunesse et de la Culture [ORG]']
+    Règles + lexique locaux (recommandé) -> écran : ['Ardo Bankoualé [LOC]', 'vendredi 14 août [DATE]', 'ministère de la Jeunesse et de la Culture [ORG]']
   [OK ] A14_S001 / 3a+3b : aucune erreur
   [OK ] A14_S001 / 3a+3b : l'écran affiche exactement les entités de analyser()
   [OK ] A14_S001 / 3a+3b : cartes Entités (3), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
@@ -123,14 +124,14 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] A14_S001 / 3a+3b : bouton « Télécharger en CSV » présent
   [OK ] A14_S001 : avec 3a+3b le résultat est exact
   [OK ] A14_S001 : une DATE est soulignée avec le système par défaut
-    D – modèle ré-entraîné -> écran : ['Ardo Bankoualé [LOC]', '14 août [DATE]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
+    Modèle ré-entraîné -> écran : ['Ardo Bankoualé [LOC]', '14 août [DATE]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
   [OK ] A14_S001 / D : aucune erreur
   [OK ] A14_S001 / D : l'écran affiche exactement les entités de analyser()
   [OK ] A14_S001 / D : cartes Entités (4), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
   [OK ] A14_S001 / D : tableau « Texte repéré, Type, Début, Fin » identique aux entités (4 ligne(s))
   [OK ] A14_S001 / D : la phrase d'exemple en grisé disparaît après l'analyse
   [OK ] A14_S001 / D : bouton « Télécharger en CSV » présent
-    A – spaCy seul -> écran : ['Ardo Bankoualé [PER]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
+    spaCy seul -> écran : ['Ardo Bankoualé [PER]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
   [OK ] A14_S001 / A : aucune erreur
   [OK ] A14_S001 / A : l'écran affiche exactement les entités de analyser()
   [OK ] A14_S001 / A : cartes Entités (3), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
@@ -142,7 +143,7 @@ Fait le 2026-11-23 à 16:43:29
 
   [A12_S005] Des personnes
   Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
-    3a+3b – nos règles locales (version gelée) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+    Règles + lexique locaux (recommandé) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / 3a+3b : aucune erreur
   [OK ] A12_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
   [OK ] A12_S005 / 3a+3b : cartes Entités (2), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
@@ -150,14 +151,14 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] A12_S005 / 3a+3b : la phrase d'exemple en grisé disparaît après l'analyse
   [OK ] A12_S005 / 3a+3b : bouton « Télécharger en CSV » présent
   [OK ] A12_S005 : avec 3a+3b le résultat est exact
-    D – modèle ré-entraîné -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+    Modèle ré-entraîné -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / D : aucune erreur
   [OK ] A12_S005 / D : l'écran affiche exactement les entités de analyser()
   [OK ] A12_S005 / D : cartes Entités (2), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
   [OK ] A12_S005 / D : tableau « Texte repéré, Type, Début, Fin » identique aux entités (2 ligne(s))
   [OK ] A12_S005 / D : la phrase d'exemple en grisé disparaît après l'analyse
   [OK ] A12_S005 / D : bouton « Télécharger en CSV » présent
-    A – spaCy seul -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
+    spaCy seul -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / A : aucune erreur
   [OK ] A12_S005 / A : l'écran affiche exactement les entités de analyser()
   [OK ] A12_S005 / A : cartes Entités (2), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
@@ -169,7 +170,7 @@ Fait le 2026-11-23 à 16:43:29
 
   [A04_S020] Un cas difficile
   Texte : Leur présence au sommet de New Delhi pouvait ainsi être interprétée comme la manifestation d'une diplomatie de diversification plutôt que comme un repositionnement stratégique contre Washington.
-    3a+3b – nos règles locales (version gelée) -> écran : ['New Delhi [LOC]', 'Washington [PER]']
+    Règles + lexique locaux (recommandé) -> écran : ['New Delhi [LOC]', 'Washington [PER]']
   [OK ] A04_S020 / 3a+3b : aucune erreur
   [OK ] A04_S020 / 3a+3b : l'écran affiche exactement les entités de analyser()
   [OK ] A04_S020 / 3a+3b : cartes Entités (2), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
@@ -178,14 +179,14 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] A04_S020 / 3a+3b : bouton « Télécharger en CSV » présent
   [OK ] A04_S020 : avec 3a+3b le résultat est faux (exemple d'erreur voulu)
   [OK ] A04_S020 : « Washington » est pris pour une PERSONNE par 3a+3b (l'erreur voulue)
-    D – modèle ré-entraîné -> écran : ['New Delhi [LOC]', 'Washington [LOC]']
+    Modèle ré-entraîné -> écran : ['New Delhi [LOC]', 'Washington [LOC]']
   [OK ] A04_S020 / D : aucune erreur
   [OK ] A04_S020 / D : l'écran affiche exactement les entités de analyser()
   [OK ] A04_S020 / D : cartes Entités (2), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
   [OK ] A04_S020 / D : tableau « Texte repéré, Type, Début, Fin » identique aux entités (2 ligne(s))
   [OK ] A04_S020 / D : la phrase d'exemple en grisé disparaît après l'analyse
   [OK ] A04_S020 / D : bouton « Télécharger en CSV » présent
-    A – spaCy seul -> écran : ['New Delhi [LOC]', 'Washington [PER]']
+    spaCy seul -> écran : ['New Delhi [LOC]', 'Washington [PER]']
   [OK ] A04_S020 / A : aucune erreur
   [OK ] A04_S020 / A : l'écran affiche exactement les entités de analyser()
   [OK ] A04_S020 / A : cartes Entités (2), Organisations, Lieux, Dates, Personnes ; « – » pour un type que le système ne produit pas
@@ -200,13 +201,13 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] texte vide : pas d'erreur technique
   [OK ] texte de 3001 caractères : message « trop long » affiché
   [OK ] du code HTML saisi par l'utilisateur est affiché comme du texte, jamais exécuté
-  [OK ] modèle manquant : message d'erreur clair avec la commande d'installation
+  [OK ] modèle manquant : message d'erreur clair, sans nom technique
   [OK ] modèle manquant : pas de page d'erreur technique
 
 6. Les trois pages (navigation dans le bandeau)
   [OK ] page « Catégories » : s'affiche sans erreur
   [OK ] page « Catégories » : le clic sur le menu change bien de page
-  [OK ] page « Catégories » : le bandeau « Repère Djibouti » est présent
+  [OK ] page « Catégories » : le bandeau « NER-djib » est présent
   [OK ] page « Catégories » : aucun chiffre de performance affiché
   [OK ] page « Catégories » : aucun nom d'auteur (les noms sont seulement dans À propos)
   [OK ] page Catégories : le type ORG est présenté
@@ -224,9 +225,9 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] page Catégories : aucun terme technique (systèmes, results/, tableau Oui/Non)
   [OK ] page « À propos » : s'affiche sans erreur
   [OK ] page « À propos » : le clic sur le menu change bien de page
-  [OK ] page « À propos » : le bandeau « Repère Djibouti » est présent
+  [OK ] page « À propos » : le bandeau « NER-djib » est présent
   [OK ] page « À propos » : aucun chiffre de performance affiché
-  [OK ] carte d'introduction : petit titre « À PROPOS », titre « Repère Djibouti », une seule phrase
+  [OK ] carte d'introduction : petit titre « À PROPOS », titre « NER-djib », une seule phrase
   [OK ] 3 petites cartes côte à côte (grille qui s'empile sur téléphone)
   [OK ] petite carte « Prototype » : « Il peut se tromper, surtout sur les noms locaux. »
   [OK ] petite carte « Vie privée » : « Le texte saisi est analysé sur le moment et n'est pas enregistré. »
@@ -249,19 +250,19 @@ Fait le 2026-11-23 à 16:43:29
   [OK ] page À propos : aucun mot « modèle », aucune version, aucun score
   [OK ] page « Analyser » : s'affiche sans erreur
   [OK ] page « Analyser » : le clic sur le menu change bien de page
-  [OK ] page « Analyser » : le bandeau « Repère Djibouti » est présent
+  [OK ] page « Analyser » : le bandeau « NER-djib » est présent
   [OK ] page « Analyser » : aucun chiffre de performance affiché
   [OK ] page « Analyser » : aucun nom d'auteur (les noms sont seulement dans À propos)
 
 6 bis. Message d'attente, README, dépendances
-  [OK ] le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application
+  [OK ] le message d'attente « Première utilisation du modèle ré-entraîné … environ 30 secondes » est dans l'application
   [OK ] le README annonce l'attente d'environ 30 secondes pour D
-  [OK ] le README présente l'application sous le nom « Repère Djibouti »
+  [OK ] le README présente l'application sous le nom « NER-djib »
   [OK ] le README donne la variante PowerShell (sans activer le venv) et la ligne Set-ExecutionPolicy
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 26.6 s (source : entraîné (cache non enregistré))
+     D chargé en 33.5 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 43 s | contrôles OK : 202 | échecs : 0
+Durée totale : 55 s | contrôles OK : 203 | échecs : 0

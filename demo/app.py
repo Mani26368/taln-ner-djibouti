@@ -1,4 +1,4 @@
-"""Application « Repère Djibouti » (Streamlit) : démonstration pour des utilisateurs non techniques.
+"""Application « NER-djib » (Streamlit) : démonstration pour des utilisateurs non techniques.
 
 Lancer, depuis la racine du dépôt :   streamlit run demo/app.py
 Fonctionne SANS internet : aucune police, image ou script en ligne (la police Inter est un fichier local).
@@ -141,7 +141,7 @@ def chiffres(entites, systeme):
         if t in possibles:
             valeur, aide = str(n), ""
         else:
-            valeur, aide = "–", ' title="Ce système ne sait pas repérer ce type."'
+            valeur, aide = "–", ' title="Cette méthode ne repère pas ce type."'
         cartes.append(f'<div class="chiffre chiffre-{t}"{aide}><div class="nom">{html.escape(T.TYPES[t]["pluriel"])}</div>'
                       f'<div class="valeur">{valeur}</div></div>')
     return f'<div class="chiffres">{"".join(cartes)}</div>'
@@ -175,15 +175,15 @@ def preparer_systeme(cle):
         return True
     zone = st.empty()
     if cle == "D" and not analyse.d_en_cache_disque():
-        zone.info("**Première utilisation du modèle D : il est en cours d'entraînement (environ 30 secondes).** "
+        zone.info("**Première utilisation du modèle ré-entraîné : il est en cours d'entraînement (environ 30 secondes).** "
                   "Merci de patienter. Cela n'arrive qu'une fois : ensuite il est gardé sur cet ordinateur "
                   "et son chargement est plus rapide.")
-        attente = "Entraînement du modèle D en cours (environ 30 secondes)…"
+        attente = "Entraînement du modèle ré-entraîné en cours (environ 30 secondes)…"
     elif cle == "D":
-        zone.info("Chargement du modèle D en cours (quelques secondes)…")
-        attente = "Chargement du modèle D…"
+        zone.info("Chargement du modèle ré-entraîné en cours (quelques secondes)…")
+        attente = "Chargement du modèle ré-entraîné…"
     else:
-        attente = f"Chargement du système « {analyse.SYSTEMES[cle]} »…"
+        attente = f"Chargement de la méthode « {analyse.SYSTEMES[cle]} »…"
     try:
         with st.spinner(attente):
             analyse.charger_systeme(cle)
@@ -193,7 +193,7 @@ def preparer_systeme(cle):
         return False
     except Exception as e:                                   # imprévu : message clair, pas de page blanche
         zone.empty()
-        st.error(f"Impossible de charger le système « {analyse.SYSTEMES[cle]} ». Détail technique : {e}")
+        st.error(f"Impossible de charger la méthode « {analyse.SYSTEMES[cle]} ». Réessayez ou choisissez une autre méthode.")
         return False
     zone.empty()
     return True
@@ -232,14 +232,14 @@ def page_analyser():
             with st.container(key="pilules", horizontal=True):
                 for id_segment, libelle in T.EXEMPLES:
                     st.button(libelle, key=f"exemple_{id_segment}", on_click=choisir_exemple, args=(id_segment,),
-                              help=f"Segment {id_segment} du corpus La Nation")
+                              help="Extrait d'un article de La Nation")
             if st.session_state.get("exemple_actif"):
-                st.caption(f"Extrait affiché : {st.session_state['exemple_actif']} (journal La Nation). {T.NOTE_EXTRAITS}")
+                st.caption(T.NOTE_EXTRAITS)
             if st.session_state.get("exemple_actif") == T.EXEMPLE_ERREUR:
                 st.caption(T.LEGENDE_ERREUR)
             clic = st.button("Analyser le texte", type="primary", key="analyser", width="stretch")
             with st.expander("Options avancées", expanded=False):
-                st.selectbox("Système d'analyse", options=list(analyse.SYSTEMES), key="systeme",
+                st.selectbox("Méthode d'analyse", options=list(analyse.SYSTEMES), key="systeme",
                              format_func=lambda k: analyse.SYSTEMES[k])
             if st.session_state.get("avertissement"):
                 st.warning(st.session_state["avertissement"])
@@ -270,7 +270,7 @@ def page_analyser():
                             f'<div class="note-exemple">Exemple : votre texte apparaîtra ainsi</div>', unsafe_allow_html=True)
             else:
                 st.markdown(f'<div class="texte-annote">{surligner(res["texte"], res["entites"])}</div>', unsafe_allow_html=True)
-                st.caption(f"Système utilisé : {analyse.SYSTEMES[res['systeme']]}")
+                st.caption(f"Méthode utilisée : {T.METHODES_COURT[res['systeme']]}")
 
     st.markdown(comment_ca_marche(), unsafe_allow_html=True)
 
@@ -285,7 +285,7 @@ def page_analyser():
                                        mime="text/csv", key="telecharger", type="tertiary")
                 st.markdown(tableau_html(res["entites"]), unsafe_allow_html=True)
             else:
-                st.info("Aucune entité n'a été trouvée dans ce texte par ce système.")
+                st.info("Aucune entité n'a été trouvée dans ce texte avec cette méthode.")
     st.markdown(avertissement(), unsafe_allow_html=True)
 
 
@@ -294,7 +294,7 @@ def lire_phrase_ressources(id_phrase):
         for ligne in csv.DictReader(f):
             if ligne["id"] == id_phrase:
                 return ligne["text"]
-    raise analyse.ErreurDemo(f"Phrase introuvable dans le corpus de ressources : {id_phrase}")
+    raise analyse.ErreurDemo("Cet exemple est introuvable.")
 
 
 def page_categories():
@@ -305,7 +305,7 @@ def page_categories():
         if code == "FORMATION":
             phrase, origine = lire_phrase_ressources(id_segment), T.ORIGINE_FORMATION
         else:
-            phrase, origine = analyse.lire_segment(id_segment), f"extrait réel de La Nation ({id_segment})"
+            phrase, origine = analyse.lire_segment(id_segment), "extrait d'un article de La Nation"
         debut = phrase.find(entite)
         extrait = surligner(phrase, [analyse.Entite(debut, debut + len(entite), code, entite)]) if debut >= 0 else html.escape(phrase)
         st.markdown(f'<div class="carte-type"><h4><i class="puce puce-{code}"></i>{html.escape(NOM_COMPLET[code])}</h4>'

@@ -1,4 +1,4 @@
-"""Teste VRAIMENT l'application « Repère Djibouti » (outil de test de Streamlit, sans navigateur) et écrit demo/test_application.txt.
+"""Teste VRAIMENT l'application « NER-djib » (outil de test de Streamlit, sans navigateur) et écrit demo/test_application.txt.
 
 Ce qui est vérifié :
   1. contraste des couleurs de demo/theme.py ;
@@ -133,9 +133,9 @@ def test_design():
     verifier(all(T.TYPES[k]["fond"].upper() == f and (t is None or T.TYPES[k]["texte"].upper() == t) for k, (f, t) in fonds.items()),
              "pastels et couleurs de texte : ORG, LOC, DATE, PER, FORMATION")
     verifier("--rayon-carte: 12px" in css, "cartes : coins arrondis de 12 px")
-    verifier(T.TITRE == "Repère Djibouti" and T.PHRASE == "Personnes, lieux, organisations et dates de vos textes",
-             "bandeau : « Repère Djibouti » et la phrase de la maquette")
-    verifier("page_title=T.TITRE" in (DOSSIER / "app.py").read_text(encoding="utf-8"), "titre de page = « Repère Djibouti »")
+    verifier(T.TITRE == "NER-djib" and T.PHRASE == "Personnes, lieux, organisations et dates de vos textes",
+             "bandeau : « NER-djib » et la phrase de la maquette")
+    verifier("page_title=T.TITRE" in (DOSSIER / "app.py").read_text(encoding="utf-8"), "titre de page = « NER-djib »")
     verifier([libelle for _, libelle in T.EXEMPLES] == ATTENDU_EXEMPLES and [i for i, _ in T.EXEMPLES] == ["A14_S001", "A12_S005", "A04_S020"],
              f"3 pilules d'exemples : {ATTENDU_EXEMPLES} = A14_S001 (date), A12_S005 (personnes), A04_S020 (erreur Washington)")
     verifier(".st-key-contenu" in css and "[data-testid=\"stSidebar\"]" in css and "display: none" in css,
@@ -232,7 +232,7 @@ def test_exemples():
     at = nouvelle_app()
     verifier(not at.exception, "la page d'accueil s'affiche sans erreur")
     contenu = tout_html(at)
-    verifier("Repère Djibouti" in contenu and html.escape(T.PHRASE) in contenu, "bandeau : « Repère Djibouti » et la phrase")
+    verifier("NER-djib" in contenu and html.escape(T.PHRASE) in contenu, "bandeau : « NER-djib » et la phrase")
     verifier(any(b.label == "Analyser le texte" for b in at.button), "bouton « Analyser le texte » présent")
     verifier(at.selectbox(key="systeme").value == "3a+3b", "système par défaut = 3a+3b")
     verifier(list(analyse.SYSTEMES)[:1] == ["3a+3b"] and list(analyse.SYSTEMES)[1:] == ["D", "A"],
@@ -253,6 +253,13 @@ def test_exemples():
              "à l'ouverture : petites cartes de chiffres et tableau déjà affichés")
     verifier("Comment ça marche" in contenu and all(html.escape(t) in contenu for _n, t in T.ETAPES),
              "bande « Comment ça marche » : les 3 étapes")
+    visible = html.unescape(re.sub(r"<style.*?</style>|<script.*?</script>", "", contenu, flags=re.S))
+    visible += " ".join(c.value for c in at.caption) + " " + " ".join(b.help or "" for b in at.button) + " " + " ".join(sb.label for sb in at.selectbox)
+    visible += " " + " ".join(str(o) for sb in at.selectbox for o in sb.options)
+    interdits = ["A01_S002", "gelée", "figée", "3a+3b", "3a", "3b", "Système utilisé", "Système d'analyse", "Repère", "repere"]
+    verifier(not [m for m in interdits if re.search(r"(?<![\w-])" + re.escape(m) + r"(?![\w-])", visible)]
+             and "Méthode utilisée : règles + lexique locaux" in visible and "Extrait d'un article de La Nation." in visible,
+             "texte affiché à l'ouverture : aucun identifiant ni terme interne ; « Méthode utilisée : règles + lexique locaux »")
     verifier(html.escape(T.PIED) in contenu and f'href="{T.DEPOT}"' in contenu,
              "pied de page : « Prototype de projet TALN · M2 IAMD · Université de Djibouti » et lien GitHub")
     css_apercu = (DOSSIER / "style.css").read_text(encoding="utf-8")
@@ -334,13 +341,13 @@ def test_cas_limites():
     sauvegarde, memoire = analyse._construire, dict(analyse._MEMOIRE)
     try:
         def sans_modele(cle):
-            raise analyse.ModeleManquant("Le modèle de langue « fr_core_news_sm » n'est pas installé sur cet ordinateur. "
-                                         "Installez-le avec la commande : python -m spacy download fr_core_news_sm")
+            raise analyse.ModeleManquant("Le modèle de langue français n'est pas installé sur cet ordinateur. "
+                                         "Suivez les instructions d'installation du dépôt, puis relancez l'application.")
         analyse._construire = sans_modele
         analyse._MEMOIRE.clear()
         at = nouvelle_app()
-        verifier(any("python -m spacy download fr_core_news_sm" in e.value for e in at.error),
-                 "modèle manquant : message d'erreur clair avec la commande d'installation")
+        verifier(any("n'est pas installé" in e.value and "fr_core_news" not in e.value for e in at.error),
+                 "modèle manquant : message d'erreur clair, sans nom technique")
         verifier(not at.exception, "modèle manquant : pas de page d'erreur technique")
     finally:
         analyse._construire = sauvegarde
@@ -364,14 +371,14 @@ def test_pages():
             contenu = tout_html(at) + " ".join(x.value for x in at.info) + " ".join(str(d.value) for d in at.dataframe)
             verifier(not at.exception, f"page « {page} » : s'affiche sans erreur")
             verifier(at.session_state["page"] == page, f"page « {page} » : le clic sur le menu change bien de page")
-            verifier("Repère Djibouti" in contenu, f"page « {page} » : le bandeau « Repère Djibouti » est présent")
+            verifier("NER-djib" in contenu, f"page « {page} » : le bandeau « NER-djib » est présent")
             verifier(not re.search(r"\bF1\b|précision|rappel|score", contenu, flags=re.I), f"page « {page} » : aucun chiffre de performance affiché")
             if page != "À propos":
                 verifier(not re.search(r"Kadiga|Mako|Houssein", contenu), f"page « {page} » : aucun nom d'auteur (les noms sont seulement dans À propos)")
             if page == "Catégories":
                 for code in analyse.ORDRE_TYPES:
                     verifier(f"({code})" in contenu, f"page Catégories : le type {code} est présenté")
-                verifier("Master IAMD" in contenu and T.ORIGINE_FORMATION in contenu,
+                verifier("Master IAMD" in contenu and html.escape(T.ORIGINE_FORMATION) in contenu,
                          "page Catégories : exemple de FORMATION « Master IAMD » avec son origine (corpus de ressources, phrase de cours)")
                 verifier("corpus de Kadiga" not in contenu and "de Kadiga" not in contenu, "page Catégories : plus de « Kadiga »")
                 # page simple pour un utilisateur normal : seulement les 5 types et leurs exemples
@@ -386,8 +393,8 @@ def test_pages():
             if page == "À propos":
                 texte = html.unescape(contenu)
                 verifier(f'class="etiquette">À propos<' in texte and T.A_PROPOS_TITRE in texte and T.A_PROPOS_INTRO in texte
-                         and T.A_PROPOS_INTRO == "Repère les personnes, les lieux, les organisations et les dates dans un texte français, pensé pour les textes de Djibouti.",
-                         "carte d'introduction : petit titre « À PROPOS », titre « Repère Djibouti », une seule phrase")
+                         and T.A_PROPOS_INTRO == "Trouve les personnes, les lieux, les organisations et les dates dans un texte français, pensé pour les textes de Djibouti.",
+                         "carte d'introduction : petit titre « À PROPOS », titre « NER-djib », une seule phrase")
                 verifier(texte.count('class="petite-carte"') == 3 and 'class="grille-cartes"' in texte, "3 petites cartes côte à côte (grille qui s'empile sur téléphone)")
                 for titre, phrase in [("Prototype", "Il peut se tromper, surtout sur les noms locaux."),
                                       ("Vie privée", "Le texte saisi est analysé sur le moment et n'est pas enregistré."),
@@ -418,11 +425,11 @@ def test_pages():
 def test_messages():
     note("\n6 bis. Message d'attente, README, dépendances")
     source = (DOSSIER / "app.py").read_text(encoding="utf-8")
-    verifier("environ 30 secondes" in source and "Première utilisation du modèle D" in source,
-             "le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application")
+    verifier("environ 30 secondes" in source and "Première utilisation du modèle ré-entraîné" in source,
+             "le message d'attente « Première utilisation du modèle ré-entraîné … environ 30 secondes » est dans l'application")
     readme = (RACINE / "README.md").read_text(encoding="utf-8")
     verifier("environ 30 secondes" in readme, "le README annonce l'attente d'environ 30 secondes pour D")
-    verifier("Repère Djibouti" in readme, "le README présente l'application sous le nom « Repère Djibouti »")
+    verifier("NER-djib" in readme, "le README présente l'application sous le nom « NER-djib »")
     verifier("Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass" in readme and "-m streamlit run demo/app.py" in readme,
              "le README donne la variante PowerShell (sans activer le venv) et la ligne Set-ExecutionPolicy")
     verifier("streamlit>=1.67.0,<2" in (RACINE / "requirements.txt").read_text(encoding="utf-8"), "requirements.txt : streamlit>=1.67.0,<2")

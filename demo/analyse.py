@@ -29,9 +29,9 @@ MAX_CARACTERES = 3000            # limite choisie pour une démo (environ 500 mo
 
 # clé interne -> nom affiché
 SYSTEMES = {          # le premier est le système par défaut (menu « Options avancées »)
-    "3a+3b": "3a+3b – nos règles locales (version gelée)",
-    "D": "D – modèle ré-entraîné",
-    "A": "A – spaCy seul",
+    "3a+3b": "Règles + lexique locaux (recommandé)",
+    "D": "Modèle ré-entraîné",
+    "A": "spaCy seul",
 }
 SYSTEME_PAR_DEFAUT = "3a+3b"
 
@@ -66,8 +66,8 @@ def _spacy_ou_erreur(construire):
     except OSError as e:
         if "E050" in str(e) or MODELE_SPACY in str(e):
             raise ModeleManquant(
-                f"Le modèle de langue « {MODELE_SPACY} » n'est pas installé sur cet ordinateur. "
-                f"Installez-le avec la commande : python -m spacy download {MODELE_SPACY}") from e
+                "Le modèle de langue français n'est pas installé sur cet ordinateur. "
+                "Suivez les instructions d'installation du dépôt, puis relancez l'application.") from e
         raise
 
 
@@ -98,7 +98,7 @@ def _construire_D():
             return spacy.load(DOSSIER_CACHE), "cache disque"
         train, val = K.charger("train"), K.charger("val")
     except FileNotFoundError as e:
-        raise ErreurDemo("Les fichiers du corpus de Kadiga sont introuvables (dossier data/corpus_kadiga). "
+        raise ErreurDemo("Des données nécessaires à cette méthode sont introuvables. "
                          "Vérifiez que le dépôt est complet.") from e
     nlp, _courbe = _spacy_ou_erreur(lambda: K.entrainer_D(train, val, verbeux=False))
     source = "entraîné"
@@ -122,7 +122,7 @@ def _construire(cle):
         return _spacy_ou_erreur(lambda: R.construire(groupes=list(R.GROUPES), filtres=list(R.FILTRES_3B_FINAL))), "règles locales"
     if cle == "D":
         return _construire_D()
-    raise ErreurDemo(f"Système inconnu : {cle}")
+    raise ErreurDemo("Méthode inconnue : choisissez une méthode de la liste.")
 
 
 _MEMOIRE = {}    # cle -> (nlp, secondes, source) : chaque système n'est chargé qu'UNE fois par lancement
@@ -193,4 +193,4 @@ def lire_segment(id_segment):
             for ligne in csv.DictReader(f):
                 if ligne["id"] == id_segment:
                     return ligne["fr"]
-    raise ErreurDemo(f"Segment introuvable dans le corpus : {id_segment}")
+    raise ErreurDemo("Cet extrait est introuvable.")
