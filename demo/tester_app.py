@@ -245,6 +245,9 @@ def test_exemples():
              and entites_affichees(at) == [(t, x) for x, t in T.ENTITES_EXEMPLE],
              "avant l'analyse : phrase d'exemple déjà annotée, en grisé, avec « Exemple : votre texte apparaîtra ainsi »")
     verifier(ligne_de_chiffres(at) is None and tableau_affiche(at) is None, "avant l'analyse : pas de chiffres ni de tableau")
+    css_apercu = (DOSSIER / "style.css").read_text(encoding="utf-8")
+    verifier("opacity" not in re.search(r"\.texte-annote\.exemple[^}]*\}", css_apercu).group(0) and ".texte-annote.exemple .ent" in css_apercu,
+             "aperçu avant analyse : texte en gris, surlignages en pleine couleur (pas d'opacité qui les délave)")
     libelles = [b.label for b in at.button if b.key and b.key.startswith("exemple_")]
     verifier(libelles == ATTENDU_EXEMPLES, f"3 boutons d'exemples : {libelles}")
     verifier(not any(c.value == T.LEGENDE_ERREUR for c in at.caption), "la légende de l'erreur n'est pas affichée avant le choix de l'exemple d'erreur")
@@ -370,14 +373,14 @@ def test_pages():
                 verifier(not re.search(r"results/|3a\+3b|modèle D|ré-entraîné|dates à trouver|Oui|Non", contenu),
                          "page Catégories : aucun terme technique (systèmes, results/, tableau Oui/Non)")
             if page == "À propos":
-                import spacy
-                version = spacy.util.get_package_version("fr_core_news_sm")
-                for attendu in ["Repère Djibouti", "reconnaissance d'entités nommées (NER)", "Traitement automatique des langues (TALN)",
-                                "Python, spaCy, Streamlit", "Binôme 5, M2 IAMD",
-                                "Prototype de projet TALN – peut se tromper", "Modèle de langue", "Limites", "Dépôt",
-                                f"fr_core_news_sm", f"version {version}", T.DEPOT,
-                                "moins fiable sur d'autres textes", "ne quitte pas l'ordinateur"]:
-                    verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu} »")
+                for attendu in [T.A_PROPOS_UTILITE, T.A_PROPOS_PROTOTYPE, T.A_PROPOS_HORS_LIGNE, T.A_PROPOS_PROJET, T.DEPOT,
+                                f"limité à {analyse.MAX_CARACTERES} caractères", "Prototype de projet TALN – peut se tromper"]:
+                    verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu[:60]} »")
+                verifier(len(T.A_PROPOS_UTILITE.split(". ")) == 2, "page À propos : le rôle de l'outil tient en 2 phrases")
+                for interdit in ["3a+3b", "modèle D", "spaCy", "results/"]:
+                    verifier(interdit not in contenu, f"page À propos : ne contient pas « {interdit} »")
+                verifier(not re.search(r"fr_core_news|version \d|FORMATION|Limites|Modèle de langue|jeux d'évaluation|Catégories »", contenu),
+                         "page À propos : aucun autre terme technique (modèle, version, jeux d'évaluation, FORMATION)")
     finally:
         if memoire_D is not None and "D" not in analyse._MEMOIRE:
             analyse._MEMOIRE["D"] = memoire_D

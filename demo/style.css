@@ -98,7 +98,8 @@ a { color: var(--bouton); }
 .legende { display: flex; gap: 5px; font-size: 11px; }
 .legende span { padding: 2px 8px; border-radius: 6px; }
 .texte-annote { color: var(--texte); font-size: 14px; line-height: 2.1; white-space: pre-wrap; }
-.texte-annote.exemple { opacity: .6; }
+.texte-annote.exemple { color: var(--texte-secondaire); }   /* texte gris ; les surlignages gardent leurs vraies couleurs */
+.texte-annote.exemple .ent { color: var(--texte); }
 .texte-annote.sans-cadre { font-size: 13px; line-height: 2; }
 .note-exemple { margin-top: 8px; color: var(--texte-secondaire); font-size: 12px; }
 .ent { padding: 2px 6px; border-radius: 5px; color: var(--texte); background: var(--couleur); }

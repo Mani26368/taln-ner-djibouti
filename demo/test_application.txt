@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 10:15:41
+Fait le 2026-11-23 à 10:40:10
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -103,6 +103,7 @@ Fait le 2026-11-23 à 10:15:41
   [OK ] carte « Texte annoté » : légende des 4 types (ORG, LOC, DATE, PER)
   [OK ] avant l'analyse : phrase d'exemple déjà annotée, en grisé, avec « Exemple : votre texte apparaîtra ainsi »
   [OK ] avant l'analyse : pas de chiffres ni de tableau
+  [OK ] aperçu avant analyse : texte en gris, surlignages en pleine couleur (pas d'opacité qui les délave)
   [OK ] 3 boutons d'exemples : ['Une date', 'Des personnes', 'Un cas difficile']
   [OK ] la légende de l'erreur n'est pas affichée avant le choix de l'exemple d'erreur
   [OK ] le bouton « Une date » remplit le texte du segment A14_S001
@@ -223,20 +224,19 @@ Fait le 2026-11-23 à 10:15:41
   [OK ] page « À propos » : le bandeau « Repère Djibouti » est présent
   [OK ] page « À propos » : aucun chiffre de performance affiché
   [OK ] page « À propos » : aucun nom d'auteur
-  [OK ] page À propos : « Repère Djibouti »
-  [OK ] page À propos : « reconnaissance d'entités nommées (NER) »
-  [OK ] page À propos : « Traitement automatique des langues (TALN) »
-  [OK ] page À propos : « Python, spaCy, Streamlit »
+  [OK ] page À propos : « Repère Djibouti repère, dans un texte français, les personne »
+  [OK ] page À propos : « Prototype : il peut se tromper, surtout sur les noms locaux. »
+  [OK ] page À propos : « Tout fonctionne hors ligne : le texte saisi ne quitte pas l' »
   [OK ] page À propos : « Binôme 5, M2 IAMD »
-  [OK ] page À propos : « Prototype de projet TALN – peut se tromper »
-  [OK ] page À propos : « Modèle de langue »
-  [OK ] page À propos : « Limites »
-  [OK ] page À propos : « Dépôt »
-  [OK ] page À propos : « fr_core_news_sm »
-  [OK ] page À propos : « version 3.8.0 »
   [OK ] page À propos : « https://github.com/Mani26368/taln-ner-djibouti »
-  [OK ] page À propos : « moins fiable sur d'autres textes »
-  [OK ] page À propos : « ne quitte pas l'ordinateur »
+  [OK ] page À propos : « limité à 3000 caractères »
+  [OK ] page À propos : « Prototype de projet TALN – peut se tromper »
+  [OK ] page À propos : le rôle de l'outil tient en 2 phrases
+  [OK ] page À propos : ne contient pas « 3a+3b »
+  [OK ] page À propos : ne contient pas « modèle D »
+  [OK ] page À propos : ne contient pas « spaCy »
+  [OK ] page À propos : ne contient pas « results/ »
+  [OK ] page À propos : aucun autre terme technique (modèle, version, jeux d'évaluation, FORMATION)
   [OK ] page « Analyser » : s'affiche sans erreur
   [OK ] page « Analyser » : le clic sur le menu change bien de page
   [OK ] page « Analyser » : le bandeau « Repère Djibouti » est présent
@@ -251,7 +251,7 @@ Fait le 2026-11-23 à 10:15:41
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 23.1 s (source : entraîné (cache non enregistré))
+     D chargé en 26.7 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 36 s | contrôles OK : 192 | échecs : 0
+Durée totale : 48 s | contrôles OK : 192 | échecs : 0

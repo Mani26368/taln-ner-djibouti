@@ -79,16 +79,10 @@ DEFINITIONS = {                                                                 
     "FORMATION": "un diplôme, un master, une filière",
 }
 
-# ---------------------------------------------------------------------------------------------- notes sur les systèmes
-NOTE_3A3B = "règles réglées sur les articles du projet, moins fiable sur d'autres textes"          # À REMPLACER
-
 # ---------------------------------------------------------------------------------------------- page « À propos »
-A_PROPOS = {                                                                             # À REMPLACER
-    "Nom": "Repère Djibouti",
-    "Nom technique": "reconnaissance d'entités nommées (NER)",
-    "Domaine": "Traitement automatique des langues (TALN)",
-    "Objectif": ("Montrer comment un programme peut repérer, dans un texte français, les personnes, les lieux, "
-                 "les organisations, les dates et les formations."),
-    "Technologies": "Python, spaCy, Streamlit",
-    "Projet": "Binôme 5, M2 IAMD",
-}
+# Page simple pour un utilisateur normal : aucun terme technique (ni modèle, ni système, ni chiffre).
+A_PROPOS_UTILITE = ("Repère Djibouti repère, dans un texte français, les personnes, les lieux, les organisations, "
+                    "les dates et les formations. Il a été pensé pour des textes de Djibouti, comme les articles de presse.")   # À REMPLACER
+A_PROPOS_PROTOTYPE = "Prototype : il peut se tromper, surtout sur les noms locaux."                                              # À REMPLACER
+A_PROPOS_HORS_LIGNE = "Tout fonctionne hors ligne : le texte saisi ne quitte pas l'ordinateur."                                  # À REMPLACER
+A_PROPOS_PROJET = "Binôme 5, M2 IAMD"                                                                                            # À REMPLACER

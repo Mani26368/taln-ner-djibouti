@@ -12,7 +12,6 @@ import html
 import sys
 from pathlib import Path
 
-import spacy
 import streamlit as st
 
 DOSSIER = Path(__file__).resolve().parent
@@ -296,26 +295,12 @@ def page_categories():
 def page_a_propos():
     with st.container(key="carte_simple"):
         st.markdown('<div class="etiquette">À propos</div>', unsafe_allow_html=True)
-        for cle, valeur in T.A_PROPOS.items():
-            st.markdown(f"**{cle}** : {valeur}")
-        version_modele = spacy.util.get_package_version(analyse.MODELE_SPACY)
-        st.markdown("### Modèle de langue")
-        st.markdown(f"Le modèle spaCy utilisé est **`{analyse.MODELE_SPACY}`** (version {version_modele}, spaCy {spacy.__version__}) : "
-                    "un petit modèle français généraliste. Le système par défaut (3a+3b) s'appuie sur lui et lui ajoute des règles locales ; "
-                    "le modèle D est le même modèle ré-entraîné sur le corpus de ressources (textes officiels).")
-        st.markdown("### Limites")
-        st.markdown(
-            "- C'est un prototype : il se trompe parfois, par exemple en prenant un lieu pour une personne.\n"
-            f"- Système par défaut (3a+3b) : {T.NOTE_3A3B}.\n"
-            "- Le modèle spaCy n'a pas été entraîné sur la presse de Djibouti et ne sait pas repérer les dates : "
-            "les dates viennent de nos règles.\n"
-            "- Le modèle D trouve peu de dates sur nos segments de La Nation (les chiffres sont sur la page « Catégories »).\n"
-            "- Les jeux d'évaluation sont petits (moins de 60 entités par jeu) : un seul changement déplace les résultats de plusieurs points. "
-            "Aucun chiffre de performance n'est affiché ici pour cette raison.\n"
-            "- Aucun texte de La Nation ne contient de formation (diplôme, master) : cette catégorie n'a pas été vérifiée sur de vrais cas de La Nation.\n"
-            f"- Le texte est limité à {analyse.MAX_CARACTERES} caractères. Tout fonctionne hors ligne : le texte saisi ne quitte pas l'ordinateur.")
-        st.markdown("### Dépôt")
-        st.markdown(f"[{T.DEPOT}]({T.DEPOT})")
+        st.markdown(T.A_PROPOS_UTILITE)
+        st.markdown(f"- {T.A_PROPOS_PROTOTYPE}\n"
+                    f"- {T.A_PROPOS_HORS_LIGNE}\n"
+                    f"- Le texte est limité à {analyse.MAX_CARACTERES} caractères.")
+        st.markdown(f"**Projet** : {T.A_PROPOS_PROJET}")
+        st.markdown(f"**Dépôt** : [{T.DEPOT}]({T.DEPOT})")
     st.markdown(avertissement(), unsafe_allow_html=True)
 
 
