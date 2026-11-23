@@ -53,6 +53,27 @@ def injecter_css():
     st.html(f"<style>{variables_css()}\n{style}</style>")
 
 
+# Empêche la traduction automatique du navigateur (Chrome, Edge) : elle modifie le texte de la page pendant que Streamlit
+# la met à jour, ce qui provoque l'erreur « NotFoundError : removeChild » et un affichage cassé (« Analyseur », etc.).
+# Streamlit déclare la page en anglais (lang="en") ; on la déclare en français et on interdit la traduction.
+SCRIPT_SANS_TRADUCTION = """<script>
+(function () {
+  var racine = document.documentElement;
+  racine.setAttribute("lang", "fr");
+  racine.setAttribute("translate", "no");
+  racine.classList.add("notranslate");
+  if (document.body) { document.body.setAttribute("translate", "no"); }
+  var meta = document.querySelector('meta[name="google"]');
+  if (!meta) { meta = document.createElement("meta"); meta.setAttribute("name", "google"); document.head.appendChild(meta); }
+  meta.setAttribute("content", "notranslate");
+})();
+</script>"""
+
+
+def empecher_traduction():
+    st.html(SCRIPT_SANS_TRADUCTION, unsafe_allow_javascript=True)
+
+
 def aller(page):
     st.session_state["page"] = page
 
@@ -375,7 +396,8 @@ def page_a_propos():
 # ------------------------------------------------------------------------------------------------ assemblage
 st.session_state.setdefault("page", PAGES[0])
 injecter_css()
-page = st.session_state["page"]
+empecher_traduction()
+page =st.session_state["page"]
 bandeau(page)
 with st.container(key="contenu"):
     {"Analyser": page_analyser, "Catégories": page_categories, "À propos": page_a_propos}[page]()

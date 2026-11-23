@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 09:49:51
+Fait le 2026-11-23 à 10:03:17
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -88,6 +88,7 @@ Fait le 2026-11-23 à 09:49:51
   [OK ] titre de page = « Repère Djibouti »
   [OK ] 3 pilules d'exemples : ['Une date', 'Des personnes', 'Un cas difficile'] = A14_S001 (date), A12_S005 (personnes), A04_S020 (erreur Washington)
   [OK ] pas de barre latérale (masquée) ; contenu centré sous le bandeau
+  [OK ] traduction automatique du navigateur empêchée : lang="fr", translate="no", meta google notranslate (script de app.py)
   [OK ] le fichier maquette n'est pas dans le dépôt (docs/ suivi par Git)
   [OK ] theme.py : aucun nom d'auteur dans les textes de l'application
 
@@ -259,7 +260,7 @@ Formation (FORMATION)                                        Non                
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 1.2 s (source : cache disque)
+     D chargé en 47.2 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 17 s | contrôles OK : 192 | échecs : 0
+Durée totale : 102 s | contrôles OK : 193 | échecs : 0

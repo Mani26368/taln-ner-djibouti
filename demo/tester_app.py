@@ -140,6 +140,10 @@ def test_design():
              f"3 pilules d'exemples : {ATTENDU_EXEMPLES} = A14_S001 (date), A12_S005 (personnes), A04_S020 (erreur Washington)")
     verifier(".st-key-contenu" in css and "[data-testid=\"stSidebar\"]" in css and "display: none" in css,
              "pas de barre latérale (masquée) ; contenu centré sous le bandeau")
+    src = (DOSSIER / "app.py").read_text(encoding="utf-8")
+    verifier('setAttribute("lang", "fr")' in src and 'setAttribute("translate", "no")' in src and '"notranslate"' in src
+             and 'meta.setAttribute("name", "google")' in src and "unsafe_allow_javascript=True" in src and "empecher_traduction()" in src,
+             "traduction automatique du navigateur empêchée : lang=\"fr\", translate=\"no\", meta google notranslate (script de app.py)")
     suivis = subprocess.run(["git", "ls-files", "docs"], cwd=RACINE, capture_output=True, text=True).stdout
     verifier("maquette" not in suivis.lower(), "le fichier maquette n'est pas dans le dépôt (docs/ suivi par Git)")
     verifier("Kadiga" not in (DOSSIER / "theme.py").read_text(encoding="utf-8").replace("data/corpus_kadiga", ""),
