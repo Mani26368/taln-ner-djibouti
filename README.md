@@ -1,5 +1,8 @@
 # NER propre à Djibouti — Projet TALN (Binôme 5)
 
+- Application en ligne : https://repere-djibouti.streamlit.app/
+- Dépôt : https://github.com/Mani26368/taln-ner-djibouti
+
 Master 2 IAMD — Université de Djibouti — Module TALN (Dr Houssein Ahmed Assowe) — Novembre 2026
 
 ## Question
