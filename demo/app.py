@@ -299,7 +299,8 @@ def page_a_propos():
         st.markdown(f"- {T.A_PROPOS_PROTOTYPE}\n"
                     f"- {T.A_PROPOS_HORS_LIGNE}\n"
                     f"- Le texte est limité à {analyse.MAX_CARACTERES} caractères.")
-        st.markdown(f"**Projet** : {T.A_PROPOS_PROJET}")
+        for libelle, valeur in T.A_PROPOS_INFOS:
+            st.markdown(f"**{libelle}** : {valeur}")
         st.markdown(f"**Dépôt** : [{T.DEPOT}]({T.DEPOT})")
     st.markdown(avertissement(), unsafe_allow_html=True)
 

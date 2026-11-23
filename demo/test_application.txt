@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 10:40:10
+Fait le 2026-11-23 à 11:06:40
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -90,7 +90,7 @@ Fait le 2026-11-23 à 10:40:10
   [OK ] pas de barre latérale (masquée) ; contenu centré sous le bandeau
   [OK ] traduction automatique du navigateur empêchée : lang="fr", translate="no", meta google notranslate (script de app.py)
   [OK ] le fichier maquette n'est pas dans le dépôt (docs/ suivi par Git)
-  [OK ] theme.py : aucun nom d'auteur dans les textes de l'application
+  [OK ] theme.py : les noms d'auteurs sont seulement dans A_PROPOS_INFOS (page À propos)
 
 4. Page Analyser : mise en page, exemples, systèmes
   [OK ] la page d'accueil s'affiche sans erreur
@@ -205,7 +205,7 @@ Fait le 2026-11-23 à 10:40:10
   [OK ] page « Catégories » : le clic sur le menu change bien de page
   [OK ] page « Catégories » : le bandeau « Repère Djibouti » est présent
   [OK ] page « Catégories » : aucun chiffre de performance affiché
-  [OK ] page « Catégories » : aucun nom d'auteur
+  [OK ] page « Catégories » : aucun nom d'auteur (les noms sont seulement dans À propos)
   [OK ] page Catégories : le type ORG est présenté
   [OK ] page Catégories : le type LOC est présenté
   [OK ] page Catégories : le type DATE est présenté
@@ -223,25 +223,32 @@ Fait le 2026-11-23 à 10:40:10
   [OK ] page « À propos » : le clic sur le menu change bien de page
   [OK ] page « À propos » : le bandeau « Repère Djibouti » est présent
   [OK ] page « À propos » : aucun chiffre de performance affiché
-  [OK ] page « À propos » : aucun nom d'auteur
   [OK ] page À propos : « Repère Djibouti repère, dans un texte français, les personne »
   [OK ] page À propos : « Prototype : il peut se tromper, surtout sur les noms locaux. »
   [OK ] page À propos : « Tout fonctionne hors ligne : le texte saisi ne quitte pas l' »
-  [OK ] page À propos : « Binôme 5, M2 IAMD »
   [OK ] page À propos : « https://github.com/Mani26368/taln-ner-djibouti »
   [OK ] page À propos : « limité à 3000 caractères »
   [OK ] page À propos : « Prototype de projet TALN – peut se tromper »
+  [OK ] page À propos : « Projet : Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti »
+  [OK ] page À propos : « Réalisé par : Mako Mohamed Aden et Kadiga »
+  [OK ] page À propos : « Encadrant : Dr Houssein Ahmed Assowe »
+  [OK ] page À propos : « Formation : M2 IAMD, Université de Djibouti, cours TALN, 2026 »
+  [OK ] page À propos : les deux auteures ensemble, sans répartition des rôles
+  [OK ] page À propos : aucune phrase sur qui a fait quelle partie
   [OK ] page À propos : le rôle de l'outil tient en 2 phrases
   [OK ] page À propos : ne contient pas « 3a+3b »
   [OK ] page À propos : ne contient pas « modèle D »
   [OK ] page À propos : ne contient pas « spaCy »
   [OK ] page À propos : ne contient pas « results/ »
+  [OK ] page À propos : ne contient pas « modèle »
+  [OK ] page À propos : ne contient pas « jeux d'évaluation »
+  [OK ] page À propos : ne contient pas « chiffre »
   [OK ] page À propos : aucun autre terme technique (modèle, version, jeux d'évaluation, FORMATION)
   [OK ] page « Analyser » : s'affiche sans erreur
   [OK ] page « Analyser » : le clic sur le menu change bien de page
   [OK ] page « Analyser » : le bandeau « Repère Djibouti » est présent
   [OK ] page « Analyser » : aucun chiffre de performance affiché
-  [OK ] page « Analyser » : aucun nom d'auteur
+  [OK ] page « Analyser » : aucun nom d'auteur (les noms sont seulement dans À propos)
 
 6 bis. Message d'attente, README, dépendances
   [OK ] le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application
@@ -251,7 +258,7 @@ Fait le 2026-11-23 à 10:40:10
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 26.7 s (source : entraîné (cache non enregistré))
+     D chargé en 24.0 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 48 s | contrôles OK : 192 | échecs : 0
+Durée totale : 53 s | contrôles OK : 199 | échecs : 0

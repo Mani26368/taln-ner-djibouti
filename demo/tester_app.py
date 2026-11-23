@@ -146,8 +146,9 @@ def test_design():
              "traduction automatique du navigateur empêchée : lang=\"fr\", translate=\"no\", meta google notranslate (script de app.py)")
     suivis = subprocess.run(["git", "ls-files", "docs"], cwd=RACINE, capture_output=True, text=True).stdout
     verifier("maquette" not in suivis.lower(), "le fichier maquette n'est pas dans le dépôt (docs/ suivi par Git)")
-    verifier("Kadiga" not in (DOSSIER / "theme.py").read_text(encoding="utf-8").replace("data/corpus_kadiga", ""),
-             "theme.py : aucun nom d'auteur dans les textes de l'application")
+    theme_sans_infos = re.sub(r"A_PROPOS_INFOS = \[.*?\n\]\n", "", (DOSSIER / "theme.py").read_text(encoding="utf-8"), flags=re.S).replace("data/corpus_kadiga", "")
+    verifier("Kadiga" not in theme_sans_infos and "Mako" not in theme_sans_infos,
+             "theme.py : les noms d'auteurs sont seulement dans A_PROPOS_INFOS (page À propos)")
 
 
 # ------------------------------------------------------------------------------------------------ outils AppTest
@@ -356,7 +357,8 @@ def test_pages():
             verifier(at.session_state["page"] == page, f"page « {page} » : le clic sur le menu change bien de page")
             verifier("Repère Djibouti" in contenu, f"page « {page} » : le bandeau « Repère Djibouti » est présent")
             verifier(not re.search(r"\bF1\b|précision|rappel|score", contenu, flags=re.I), f"page « {page} » : aucun chiffre de performance affiché")
-            verifier(not re.search(r"Kadiga|Mako", contenu), f"page « {page} » : aucun nom d'auteur")
+            if page != "À propos":
+                verifier(not re.search(r"Kadiga|Mako|Houssein", contenu), f"page « {page} » : aucun nom d'auteur (les noms sont seulement dans À propos)")
             if page == "Catégories":
                 for code in analyse.ORDRE_TYPES:
                     verifier(f"({code})" in contenu, f"page Catégories : le type {code} est présenté")
@@ -373,11 +375,19 @@ def test_pages():
                 verifier(not re.search(r"results/|3a\+3b|modèle D|ré-entraîné|dates à trouver|Oui|Non", contenu),
                          "page Catégories : aucun terme technique (systèmes, results/, tableau Oui/Non)")
             if page == "À propos":
-                for attendu in [T.A_PROPOS_UTILITE, T.A_PROPOS_PROTOTYPE, T.A_PROPOS_HORS_LIGNE, T.A_PROPOS_PROJET, T.DEPOT,
+                for attendu in [T.A_PROPOS_UTILITE, T.A_PROPOS_PROTOTYPE, T.A_PROPOS_HORS_LIGNE, T.DEPOT,
                                 f"limité à {analyse.MAX_CARACTERES} caractères", "Prototype de projet TALN – peut se tromper"]:
                     verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu[:60]} »")
+                for libelle, valeur in [("Projet", "Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti"),
+                                        ("Réalisé par", "Mako Mohamed Aden et Kadiga"), ("Encadrant", "Dr Houssein Ahmed Assowe"),
+                                        ("Formation", "M2 IAMD, Université de Djibouti, cours TALN, 2026")]:
+                    verifier(f"**{libelle}** : " + valeur.replace("'", "&#x27;") in contenu or f"**{libelle}** : " + valeur in contenu,
+                             f"page À propos : « {libelle} : {valeur} »")
+                verifier("Mako Mohamed Aden et Kadiga" in contenu and re.search(r"Mako[^.]*Kadiga", contenu) is not None,
+                         "page À propos : les deux auteures ensemble, sans répartition des rôles")
+                verifier(not re.search(r"(a fait|a réalisé|a écrit|s'est occupée|chargée)", contenu), "page À propos : aucune phrase sur qui a fait quelle partie")
                 verifier(len(T.A_PROPOS_UTILITE.split(". ")) == 2, "page À propos : le rôle de l'outil tient en 2 phrases")
-                for interdit in ["3a+3b", "modèle D", "spaCy", "results/"]:
+                for interdit in ["3a+3b", "modèle D", "spaCy", "results/", "modèle", "jeux d'évaluation", "chiffre"]:
                     verifier(interdit not in contenu, f"page À propos : ne contient pas « {interdit} »")
                 verifier(not re.search(r"fr_core_news|version \d|FORMATION|Limites|Modèle de langue|jeux d'évaluation|Catégories »", contenu),
                          "page À propos : aucun autre terme technique (modèle, version, jeux d'évaluation, FORMATION)")
