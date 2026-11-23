@@ -171,6 +171,19 @@ def analyser(texte, systeme=SYSTEME_PAR_DEFAUT):
             for e in doc.ents if e.label_ in ETIQUETTE_VERS_TYPE]
 
 
+
+def entites_en_csv(entites):
+    """Le contenu du fichier CSV téléchargeable (colonnes texte, type, debut, fin ; encodage lisible par Excel)."""
+    import csv
+    import io
+    sortie = io.StringIO()
+    ecrivain = csv.writer(sortie, lineterminator="\n")
+    ecrivain.writerow(["texte", "type", "debut", "fin"])
+    for e in entites:
+        ecrivain.writerow([e.texte, e.type, e.debut, e.fin])
+    return sortie.getvalue().encode("utf-8-sig")
+
+
 # ------------------------------------------------------------------------------------ données de la démo
 def lire_segment(id_segment):
     """Retourne le texte réel d'un segment de La Nation (corpus du dépôt). Rien n'est inventé."""

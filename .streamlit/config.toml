@@ -15,9 +15,9 @@ runOnSave = false
 fileWatcherType = "none"
 
 [theme]
-# Thème clair imposé : les couleurs de l'application restent lisibles même si l'ordinateur est en mode sombre.
+# Thème clair imposé : fond #FAFAF9, texte #111827, une seule couleur d'accent #1E3A8A.
 base = "light"
-primaryColor = "#1D4ED8"
-backgroundColor = "#F3F6FB"
+primaryColor = "#1E3A8A"
+backgroundColor = "#FAFAF9"
 secondaryBackgroundColor = "#FFFFFF"
-textColor = "#0F172A"
+textColor = "#111827"

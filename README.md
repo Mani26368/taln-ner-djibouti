@@ -52,7 +52,7 @@ Sous Windows, la variante PowerShell sans activer le venv et la précaution sur 
 
 ## Lancer la démo
 
-**Repère Djibouti** est une application Streamlit (dossier `demo/`) : on colle un texte français et elle surligne les personnes, lieux,
+**Repère Djibouti** est une application Streamlit (dossier `demo/`) : on colle un texte français et elle souligne les personnes, lieux,
 organisations et dates. Elle sert aussi de démonstration de 3 minutes. Son nom technique est « reconnaissance d'entités nommées (NER) ».
 **C'est un prototype : il peut se tromper.**
 
@@ -61,7 +61,6 @@ organisations et dates. Elle sert aussi de démonstration de 3 minutes. Son nom 
 ```powershell
 git clone https://github.com/Mani26368/taln-ner-djibouti.git
 cd taln-ner-djibouti
-git checkout mako              # tant que la démo n'est pas fusionnée dans main
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 .venv\Scripts\python.exe -m spacy download fr_core_news_sm
@@ -88,8 +87,8 @@ les statistiques d'usage de Streamlit sont désactivées dans `.streamlit/config
 Le navigateur s'ouvre, et l'adresse locale est affichée dans le terminal.
 
 **Démarrage.** Le système par défaut, **3a+3b** (nos règles locales, version gelée), ne demande aucun entraînement :
-la page d'accueil est prête 14,0 s à 24,6 s après la commande (3 essais dédiés : 24,6 s, 15,2 s et 14,0 s ; cinq autres démarrages
-mesurés pendant les essais de D : de 15,2 s à 23,6 s).
+la page d'accueil est prête 8,4 s, 8,5 s et 8,7 s après la commande (3 essais, ordinateur peu chargé). Lors d'essais précédents,
+quand l'ordinateur était chargé, le même démarrage a pris de 14,0 s à 24,6 s : comptez jusqu'à une trentaine de secondes.
 
 **Première utilisation du modèle D : attendre environ 30 secondes.** Le modèle D (le modèle ré-entraîné de Kadiga, à choisir dans
 « Options avancées ») n'est enregistré nulle part dans Git (un modèle spaCy est trop gros) : la première fois qu'on le choisit, il s'entraîne.
@@ -103,10 +102,14 @@ utilisations suivantes 2,5 s, 1,9 s et 1,9 s (3 essais). Ces durées varient bea
   « Options avancées » permet de choisir « D – modèle ré-entraîné (Kadiga) » ou « A – spaCy seul ». D trouve peu de dates sur nos
   segments de La Nation (les chiffres, lus dans `results/`, sont sur la page « Catégories reconnues »).
   La légende indique ce que le système PEUT produire, pas ce qu'il trouve toujours.
-- **Apparence** : les couleurs, le titre et les textes sont dans `demo/theme.py` (valeurs marquées « À REMPLACER ») ;
-  la mise en forme (hauteur du bandeau, tailles de police, couleur du bouton) est dans `demo/style.css`, bloc « RÉGLAGES » en haut du fichier.
-  Une image facultative `demo/assets/bandeau.jpg` est utilisée si elle existe (avec le dégradé par-dessus) ; son crédit s'écrit dans `demo/theme.py`.
-  `demo/maquette.png` ne sert que de référence visuelle : l'application ne l'utilise pas.
+- **Résultat** : à gauche le texte, à droite le même texte avec les entités soulignées en pastel et une petite étiquette de type ;
+  dessous, une ligne de chiffres (total et un par type), puis un tableau (texte, type, début, fin) et un bouton « Télécharger en CSV ».
+  Trois petits exemples (A14_S001 : date, A12_S005 : personnes, A04_S020 : erreur sur « Washington ») sont de vrais extraits de La Nation.
+- **Apparence** : design sobre (fond `#FAFAF9`, texte `#111827`, une seule couleur d'accent `#1E3A8A`, pas de dégradé).
+  Les couleurs et les textes sont dans `demo/theme.py` (valeurs marquées « À REMPLACER ») ; la mise en forme (largeur, tailles de police,
+  couleur du bouton) est dans `demo/style.css`, bloc « RÉGLAGES » en haut du fichier. La police **Inter** est un fichier local
+  (`demo/assets/fonts/`, licence OFL fournie) : rien n'est téléchargé. `demo/maquette.png` est la maquette de la première version
+  de l'interface ; l'application actuelle ne l'utilise pas.
 - **Plan B** (si la démo en direct échoue) : `python demo/enregistrer_essais.py` écrit les résultats réels des 3 systèmes sur 3 exemples
   dans `demo/essais_demo.txt` (déjà fourni). `python demo/tester_app.py` teste l'application et écrit `demo/test_application.txt`.
 

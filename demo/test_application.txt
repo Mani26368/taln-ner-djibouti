@@ -1,174 +1,161 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 06:18:02
+Fait le 2026-11-23 à 09:09:26
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
-      12.6  texte sombre sur surlignage ORG  (#0F172A sur #BFDBFE)
-  [OK ] contraste suffisant : texte sombre sur surlignage ORG
-      13.2  texte sombre sur surlignage LOC  (#0F172A sur #FED7AA)
-  [OK ] contraste suffisant : texte sombre sur surlignage LOC
-      13.1  texte sombre sur surlignage DATE  (#0F172A sur #E9D5FF)
-  [OK ] contraste suffisant : texte sombre sur surlignage DATE
-      14.7  texte sombre sur surlignage PER  (#0F172A sur #BBF7D0)
-  [OK ] contraste suffisant : texte sombre sur surlignage PER
-      12.9  texte sombre sur surlignage FORMATION  (#0F172A sur #FBCFE8)
-  [OK ] contraste suffisant : texte sombre sur surlignage FORMATION
-      17.9  texte sombre sur carte blanche  (#0F172A sur #FFFFFF)
-  [OK ] contraste suffisant : texte sombre sur carte blanche
-      16.5  texte sombre sur fond de page  (#0F172A sur #F3F6FB)
-  [OK ] contraste suffisant : texte sombre sur fond de page
-      16.9  texte sombre sur la carte « Résultats »  (#0F172A sur #ECFDF5)
-  [OK ] contraste suffisant : texte sombre sur la carte « Résultats »
-      15.7  texte sombre sur encadré d'avertissement  (#0F172A sur #EAF1FD)
-  [OK ] contraste suffisant : texte sombre sur encadré d'avertissement
-       7.6  texte secondaire (légendes) sur blanc  (#475569 sur #FFFFFF)
-  [OK ] contraste suffisant : texte secondaire (légendes) sur blanc
-       7.0  texte secondaire sur fond de page  (#475569 sur #F3F6FB)
-  [OK ] contraste suffisant : texte secondaire sur fond de page
-       7.2  texte secondaire sur la carte « Résultats »  (#475569 sur #ECFDF5)
-  [OK ] contraste suffisant : texte secondaire sur la carte « Résultats »
-      16.0  titres bleu nuit sur blanc  (#0B1F4B sur #FFFFFF)
-  [OK ] contraste suffisant : titres bleu nuit sur blanc
-      15.2  titres bleu nuit sur la carte « Résultats »  (#0B1F4B sur #ECFDF5)
-  [OK ] contraste suffisant : titres bleu nuit sur la carte « Résultats »
-      16.0  blanc sur le haut de la barre latérale (bleu nuit)  (#FFFFFF sur #0B1F4B)
-  [OK ] contraste suffisant : blanc sur le haut de la barre latérale (bleu nuit)
-       6.7  blanc sur le bas de la barre latérale (bleu royal)  (#FFFFFF sur #1D4ED8)
-  [OK ] contraste suffisant : blanc sur le bas de la barre latérale (bleu royal)
-       6.7  blanc sur le bouton (bleu royal)  (#FFFFFF sur #1D4ED8)
-  [OK ] contraste suffisant : blanc sur le bouton (bleu royal)
-       8.7  blanc sur le bouton au survol  (#FFFFFF sur #1E40AF)
-  [OK ] contraste suffisant : blanc sur le bouton au survol
-       5.5  blanc sur la coche verte  (#FFFFFF sur #047857)
-  [OK ] contraste suffisant : blanc sur la coche verte
-       6.7  blanc sur la pastille « 1 »  (#FFFFFF sur #1D4ED8)
-  [OK ] contraste suffisant : blanc sur la pastille « 1 »
-       4.9  blanc sur le bandeau, à 59 % de sa largeur (là où s'arrête le texte : #176EDE)  (#FFFFFF sur #176EDE)
-  [OK ] contraste suffisant : blanc sur le bandeau, à 59 % de sa largeur (là où s'arrête le texte : #176EDE)
-       6.7  blanc sur le bandeau, tout à gauche  (#FFFFFF sur #1D4ED8)
-  [OK ] contraste suffisant : blanc sur le bandeau, tout à gauche
-       8.7  blanc sur le bandeau en écran étroit (bleu royal sombre)  (#FFFFFF sur #1E40AF)
-  [OK ] contraste suffisant : blanc sur le bandeau en écran étroit (bleu royal sombre)
-     -> contraste le plus faible : 4.9
-     (pour information : le blanc sur le bleu ciel #0EA5E9 seul ferait 2.8 : le texte est donc gardé loin de ce bord)
-  [OK ] le texte du bandeau reste dans la partie gauche, sur le bleu royal
-     Audit du contraste sur la page RENDUE (navigateur sans fenêtre, 3 pages) : voir le rapport de mise en œuvre.
+      12.5  texte sombre sur le soulignement pastel ORG  (#111827 sur #BFDBFE)
+  [OK ] contraste suffisant : texte sombre sur le soulignement pastel ORG
+      13.1  texte sombre sur le soulignement pastel LOC  (#111827 sur #FED7AA)
+  [OK ] contraste suffisant : texte sombre sur le soulignement pastel LOC
+      13.0  texte sombre sur le soulignement pastel DATE  (#111827 sur #E9D5FF)
+  [OK ] contraste suffisant : texte sombre sur le soulignement pastel DATE
+      14.6  texte sombre sur le soulignement pastel PER  (#111827 sur #BBF7D0)
+  [OK ] contraste suffisant : texte sombre sur le soulignement pastel PER
+      12.8  texte sombre sur le soulignement pastel FORMATION  (#111827 sur #FBCFE8)
+  [OK ] contraste suffisant : texte sombre sur le soulignement pastel FORMATION
+      17.0  texte sur le fond de page  (#111827 sur #FAFAF9)
+  [OK ] contraste suffisant : texte sur le fond de page
+      17.7  texte sur une carte blanche  (#111827 sur #FFFFFF)
+  [OK ] contraste suffisant : texte sur une carte blanche
+      16.1  texte sur l'encadré gris  (#111827 sur #F3F4F6)
+  [OK ] contraste suffisant : texte sur l'encadré gris
+       7.2  texte secondaire (légendes) sur le fond de page  (#4B5563 sur #FAFAF9)
+  [OK ] contraste suffisant : texte secondaire (légendes) sur le fond de page
+       7.6  texte secondaire sur une carte blanche  (#4B5563 sur #FFFFFF)
+  [OK ] contraste suffisant : texte secondaire sur une carte blanche
+       6.9  texte secondaire sur l'encadré gris  (#4B5563 sur #F3F4F6)
+  [OK ] contraste suffisant : texte secondaire sur l'encadré gris
+       9.9  accent (titre, liens, menu actif) sur le fond de page  (#1E3A8A sur #FAFAF9)
+  [OK ] contraste suffisant : accent (titre, liens, menu actif) sur le fond de page
+      10.4  accent sur une carte blanche  (#1E3A8A sur #FFFFFF)
+  [OK ] contraste suffisant : accent sur une carte blanche
+       9.4  accent sur l'encadré gris (menu actif)  (#1E3A8A sur #F3F4F6)
+  [OK ] contraste suffisant : accent sur l'encadré gris (menu actif)
+      10.4  blanc sur l'accent (bouton « Analyser le texte »)  (#FFFFFF sur #1E3A8A)
+  [OK ] contraste suffisant : blanc sur l'accent (bouton « Analyser le texte »)
+     -> contraste le plus faible : 6.9
+     Audit du contraste sur la page RENDUE (navigateur sans fenêtre) : voir le rapport de mise en œuvre.
 
 2. Hors ligne et configuration
   [OK ] aucune URL de ressource en ligne (rien trouvé)
   [OK ] aucune police en ligne
-  [OK ] aucune photo dans le dossier demo/
+  [OK ] aucune photo dans demo/
   [OK ] l'application ne charge pas la maquette
   [OK ] le serveur reste sur l'adresse locale (pas de recherche d'adresse publique)
   [OK ] statistiques d'usage de Streamlit désactivées
   [OK ] toolbarMode = "minimal" (pas de bouton « Deploy » ni de menu)
   [OK ] pas de surveillance des fichiers : le bandeau « Changement de fichier / Toujours relancer » n'apparaît pas
+  [OK ] la police Inter est un fichier LOCAL (demo/assets/fonts/, format woff2)
+  [OK ] la licence de la police (OFL) est dans le dépôt
 
-3. Design et nom de l'interface
-  [OK ] style.css : aucune police ni feuille de style en ligne (@import, @font-face)
+3. Design sobre
+  [OK ] style.css : aucun dégradé
+  [OK ] style.css : aucune ombre portée (seulement le soulignement pastel)
+  [OK ] style.css : une seule règle @font-face, pour la police locale ; aucun @import
   [OK ] style.css : aucune couleur écrite en dur (toutes viennent de demo/theme.py par des variables --nom)
-  [OK ] style.css : polices du système uniquement
-  [OK ] style.css : le réglage --hauteur-bandeau est dans le bloc « RÉGLAGES » du début
-  [OK ] style.css : le réglage --taille-titre-bandeau est dans le bloc « RÉGLAGES » du début
+  [OK ] style.css : police Inter, avec polices du système en secours
+  [OK ] style.css : le réglage --largeur-max est dans le bloc « RÉGLAGES » du début
+  [OK ] style.css : le réglage --taille-titre est dans le bloc « RÉGLAGES » du début
   [OK ] style.css : le réglage --taille-texte est dans le bloc « RÉGLAGES » du début
   [OK ] style.css : le réglage --bouton-couleur est dans le bloc « RÉGLAGES » du début
-  [OK ] cartes : bords arrondis de 16 px
-  [OK ] ombre légère rgba(15,42,107,0.08)
-  [OK ] palette de base : bleu nuit, bleu royal, turquoise, fond, texte
-  [OK ] surlignages : ORG, LOC, DATE, PER, FORMATION
-  [OK ] app.py : plus d'ancien nom « NER Djibouti »
-  [OK ] theme.py : plus d'ancien nom « NER Djibouti »
-  [OK ] analyse.py : plus d'ancien nom « NER Djibouti »
-  [OK ] titre et bandeau : « Repère Djibouti »
-  [OK ] sous-titre demandé
+  [OK ] app.py : aucun emoji
+  [OK ] theme.py : aucun emoji
+  [OK ] analyse.py : aucun emoji
+  [OK ] style.css : aucun emoji
+  [OK ] aucune bannière ni vague
+  [OK ] palette : fond #FAFAF9, texte #111827, accent #1E3A8A
+  [OK ] une seule couleur d'accent : le reste de la palette est neutre (fond, texte, gris, blanc)
+  [OK ] soulignements pastel : ORG, LOC, DATE, PER, FORMATION
+  [OK ] en-tête : « Repère Djibouti » et la phrase demandée
   [OK ] titre de page = « Repère Djibouti »
-  [OK ] étiquettes courtes des exemples : ['Date, lieu, organisation', 'Personnes', 'Cas difficile']
-  [OK ] phrase sous les boutons d'exemples : texte demandé
-  [OK ] 3e exemple = A04_S020 (« Washington » pris pour une personne)
+  [OK ] 3 exemples discrets : ['Date', 'Personnes', 'Erreur'] = A14_S001 (date), A12_S005 (personnes), A04_S020 (erreur Washington)
+  [OK ] phrase sur les extraits : texte demandé
 
-4. Les 3 systèmes sur les 3 exemples (ce que l'écran affiche, comparé à analyser())
+4. Page Analyser : mise en page, exemples, systèmes
   [OK ] la page d'accueil s'affiche sans erreur
-  [OK ] bandeau « Bienvenue sur Repère Djibouti ! » présent
-  [OK ] sous-titre « Repérez les personnes… » présent
-  [OK ] barre latérale : « Repère Djibouti » (plus l'ancien nom)
-  [OK ] cartes « Votre texte » et « Résultats de l'analyse » présentes
+  [OK ] en-tête : « Repère Djibouti » et la phrase d'accueil
   [OK ] bouton « Analyser le texte » présent
   [OK ] système par défaut = 3a+3b
   [OK ] 3a+3b par défaut ; D et A restent dans « Options avancées »
-  [OK ] barre latérale : aucun bouton radio (donc aucun rond de radio)
+  [OK ] barre latérale : aucun bouton radio
   [OK ] barre latérale : le menu est fait de 3 boutons
-  [OK ] 3 boutons d'exemples aux étiquettes courtes : ['Date, lieu, organisation', 'Personnes', 'Cas difficile']
-  [OK ] la phrase « Les extraits viennent du corpus de travail… » est affichée sous les boutons
-  [OK ] le bouton « Date, lieu, organisation » remplit le texte du segment A14_S001
+  [OK ] 3 boutons d'exemples : ['Date', 'Personnes', 'Erreur']
+  [OK ] la légende de l'erreur n'est pas affichée avant le choix de l'exemple d'erreur
+  [OK ] le bouton « Date » remplit le texte du segment A14_S001
+  [OK ] A14_S001 : la légende de l'erreur est absente (ce n'est pas l'exemple d'erreur)
 
-  [A14_S001] Date, lieu, organisation
+  [A14_S001] Date
   Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxième édition du Challenge intercommunautaire culturel et sportif, placé sous l'égide du ministère de la Jeunesse et de la Culture.
     3a+3b – nos règles locales (version gelée) -> écran : ['Ardo Bankoualé [LOC]', 'vendredi 14 août [DATE]', 'ministère de la Jeunesse et de la Culture [ORG]']
   [OK ] A14_S001 / 3a+3b : aucune erreur
   [OK ] A14_S001 / 3a+3b : l'écran affiche exactement les entités de analyser()
-  [OK ] A14_S001 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
-  [OK ] A14_S001 / 3a+3b : le résumé annonce 3 entité(s)
-  [OK ] A14_S001 / 3a+3b : le tableau « entité / type » a 3 ligne(s)
+  [OK ] A14_S001 / 3a+3b : ligne de chiffres = total (3) + un chiffre par type du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A14_S001 / 3a+3b : tableau « Texte, Type, Début, Fin » identique aux entités (3 ligne(s))
+  [OK ] A14_S001 / 3a+3b : bouton « Télécharger en CSV » présent
   [OK ] A14_S001 : avec 3a+3b le résultat est exact
-  [OK ] A14_S001 : une DATE est surlignée (le violet apparaît) avec le système par défaut
+  [OK ] A14_S001 : une DATE est soulignée avec le système par défaut
     D – modèle ré-entraîné (Kadiga) -> écran : ['Ardo Bankoualé [LOC]', '14 août [DATE]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
   [OK ] A14_S001 / D : aucune erreur
   [OK ] A14_S001 / D : l'écran affiche exactement les entités de analyser()
-  [OK ] A14_S001 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-  [OK ] A14_S001 / D : le résumé annonce 4 entité(s)
-  [OK ] A14_S001 / D : le tableau « entité / type » a 4 ligne(s)
+  [OK ] A14_S001 / D : ligne de chiffres = total (4) + un chiffre par type du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A14_S001 / D : tableau « Texte, Type, Début, Fin » identique aux entités (4 ligne(s))
+  [OK ] A14_S001 / D : bouton « Télécharger en CSV » présent
     A – spaCy seul -> écran : ['Ardo Bankoualé [PER]', 'Challenge [LOC]', 'ministère de la Jeunesse et de la Culture [ORG]']
   [OK ] A14_S001 / A : aucune erreur
   [OK ] A14_S001 / A : l'écran affiche exactement les entités de analyser()
-  [OK ] A14_S001 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
-  [OK ] A14_S001 / A : le résumé annonce 3 entité(s)
-  [OK ] A14_S001 / A : le tableau « entité / type » a 3 ligne(s)
+  [OK ] A14_S001 / A : ligne de chiffres = total (3) + un chiffre par type du système ['ORG', 'LOC', 'PER']
+  [OK ] A14_S001 / A : tableau « Texte, Type, Début, Fin » identique aux entités (3 ligne(s))
+  [OK ] A14_S001 / A : bouton « Télécharger en CSV » présent
   [OK ] le bouton « Personnes » remplit le texte du segment A12_S005
+  [OK ] A12_S005 : la légende de l'erreur est absente (ce n'est pas l'exemple d'erreur)
 
   [A12_S005] Personnes
   Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
     3a+3b – nos règles locales (version gelée) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / 3a+3b : aucune erreur
   [OK ] A12_S005 / 3a+3b : l'écran affiche exactement les entités de analyser()
-  [OK ] A12_S005 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
-  [OK ] A12_S005 / 3a+3b : le résumé annonce 2 entité(s)
-  [OK ] A12_S005 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
+  [OK ] A12_S005 / 3a+3b : ligne de chiffres = total (2) + un chiffre par type du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A12_S005 / 3a+3b : tableau « Texte, Type, Début, Fin » identique aux entités (2 ligne(s))
+  [OK ] A12_S005 / 3a+3b : bouton « Télécharger en CSV » présent
   [OK ] A12_S005 : avec 3a+3b le résultat est exact
     D – modèle ré-entraîné (Kadiga) -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / D : aucune erreur
   [OK ] A12_S005 / D : l'écran affiche exactement les entités de analyser()
-  [OK ] A12_S005 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-  [OK ] A12_S005 / D : le résumé annonce 2 entité(s)
-  [OK ] A12_S005 / D : le tableau « entité / type » a 2 ligne(s)
+  [OK ] A12_S005 / D : ligne de chiffres = total (2) + un chiffre par type du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A12_S005 / D : tableau « Texte, Type, Début, Fin » identique aux entités (2 ligne(s))
+  [OK ] A12_S005 / D : bouton « Télécharger en CSV » présent
     A – spaCy seul -> écran : ['Mohamed Abdo [PER]', 'Abdillahi Farah [PER]']
   [OK ] A12_S005 / A : aucune erreur
   [OK ] A12_S005 / A : l'écran affiche exactement les entités de analyser()
-  [OK ] A12_S005 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
-  [OK ] A12_S005 / A : le résumé annonce 2 entité(s)
-  [OK ] A12_S005 / A : le tableau « entité / type » a 2 ligne(s)
-  [OK ] le bouton « Cas difficile » remplit le texte du segment A04_S020
+  [OK ] A12_S005 / A : ligne de chiffres = total (2) + un chiffre par type du système ['ORG', 'LOC', 'PER']
+  [OK ] A12_S005 / A : tableau « Texte, Type, Début, Fin » identique aux entités (2 ligne(s))
+  [OK ] A12_S005 / A : bouton « Télécharger en CSV » présent
+  [OK ] le bouton « Erreur » remplit le texte du segment A04_S020
+  [OK ] A04_S020 : la légende de l'erreur est affichée sous l'exemple d'erreur
 
-  [A04_S020] Cas difficile
+  [A04_S020] Erreur
   Texte : Leur présence au sommet de New Delhi pouvait ainsi être interprétée comme la manifestation d'une diplomatie de diversification plutôt que comme un repositionnement stratégique contre Washington.
     3a+3b – nos règles locales (version gelée) -> écran : ['New Delhi [LOC]', 'Washington [PER]']
   [OK ] A04_S020 / 3a+3b : aucune erreur
   [OK ] A04_S020 / 3a+3b : l'écran affiche exactement les entités de analyser()
-  [OK ] A04_S020 / 3a+3b : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER']
-  [OK ] A04_S020 / 3a+3b : le résumé annonce 2 entité(s)
-  [OK ] A04_S020 / 3a+3b : le tableau « entité / type » a 2 ligne(s)
+  [OK ] A04_S020 / 3a+3b : ligne de chiffres = total (2) + un chiffre par type du système ['ORG', 'LOC', 'DATE', 'PER']
+  [OK ] A04_S020 / 3a+3b : tableau « Texte, Type, Début, Fin » identique aux entités (2 ligne(s))
+  [OK ] A04_S020 / 3a+3b : bouton « Télécharger en CSV » présent
   [OK ] A04_S020 : avec 3a+3b le résultat est faux (exemple d'erreur voulu)
   [OK ] A04_S020 : « Washington » est pris pour une PERSONNE par 3a+3b (l'erreur voulue)
     D – modèle ré-entraîné (Kadiga) -> écran : ['New Delhi [LOC]', 'Washington [LOC]']
   [OK ] A04_S020 / D : aucune erreur
   [OK ] A04_S020 / D : l'écran affiche exactement les entités de analyser()
-  [OK ] A04_S020 / D : la légende = les types possibles du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-  [OK ] A04_S020 / D : le résumé annonce 2 entité(s)
-  [OK ] A04_S020 / D : le tableau « entité / type » a 2 ligne(s)
+  [OK ] A04_S020 / D : ligne de chiffres = total (2) + un chiffre par type du système ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+  [OK ] A04_S020 / D : tableau « Texte, Type, Début, Fin » identique aux entités (2 ligne(s))
+  [OK ] A04_S020 / D : bouton « Télécharger en CSV » présent
     A – spaCy seul -> écran : ['New Delhi [LOC]', 'Washington [PER]']
   [OK ] A04_S020 / A : aucune erreur
   [OK ] A04_S020 / A : l'écran affiche exactement les entités de analyser()
-  [OK ] A04_S020 / A : la légende = les types possibles du système ['ORG', 'LOC', 'PER']
-  [OK ] A04_S020 / A : le résumé annonce 2 entité(s)
-  [OK ] A04_S020 / A : le tableau « entité / type » a 2 ligne(s)
+  [OK ] A04_S020 / A : ligne de chiffres = total (2) + un chiffre par type du système ['ORG', 'LOC', 'PER']
+  [OK ] A04_S020 / A : tableau « Texte, Type, Début, Fin » identique aux entités (2 ligne(s))
+  [OK ] A04_S020 / A : bouton « Télécharger en CSV » présent
+  [OK ] deux colonnes : la zone de texte est dans une colonne, le texte annoté dans l'autre
+  [OK ] CSV : colonnes texte, type, debut, fin ; accents et guillemets corrects ; lisible par Excel (BOM)
 
 5. Cas limites
   [OK ] texte vide : message clair affiché
@@ -181,7 +168,8 @@ Fait le 2026-11-23 à 06:18:02
 6. Les trois pages (menu en boutons)
   [OK ] page « Catégories reconnues » : s'affiche sans erreur
   [OK ] page « Catégories reconnues » : le clic sur le menu change bien de page
-  [OK ] page « Catégories reconnues » : aucun score affiché
+  [OK ] page « Catégories reconnues » : l'en-tête « Repère Djibouti » est présent
+  [OK ] page « Catégories reconnues » : aucun chiffre de performance affiché
   [OK ] page Catégories : le type ORG est présenté
   [OK ] page Catégories : le type LOC est présenté
   [OK ] page Catégories : le type DATE est présenté
@@ -204,7 +192,8 @@ Personne (PER)                                               Oui                
 Formation (FORMATION)                                        Non                             Oui            Non
   [OK ] page « À propos » : s'affiche sans erreur
   [OK ] page « À propos » : le clic sur le menu change bien de page
-  [OK ] page « À propos » : aucun score affiché
+  [OK ] page « À propos » : l'en-tête « Repère Djibouti » est présent
+  [OK ] page « À propos » : aucun chiffre de performance affiché
   [OK ] page À propos : « Repère Djibouti »
   [OK ] page À propos : « reconnaissance d'entités nommées (NER) »
   [OK ] page À propos : « Traitement automatique des langues (TALN) »
@@ -212,12 +201,20 @@ Formation (FORMATION)                                        Non                
   [OK ] page À propos : « Python, spaCy, Streamlit »
   [OK ] page À propos : « Binôme 5 »
   [OK ] page À propos : « Prototype de projet TALN – peut se tromper »
-  [OK ] page À propos : pas de crédit d'image tant que demo/assets/bandeau.jpg n'existe pas
+  [OK ] page À propos : « Modèle de langue »
+  [OK ] page À propos : « Limites »
+  [OK ] page À propos : « Dépôt »
+  [OK ] page À propos : « fr_core_news_sm »
+  [OK ] page À propos : « version 3.8.0 »
+  [OK ] page À propos : « https://github.com/Mani26368/taln-ner-djibouti »
+  [OK ] page À propos : « moins fiable sur d'autres textes »
+  [OK ] page À propos : « ne quitte pas l'ordinateur »
   [OK ] page « Analyser un texte » : s'affiche sans erreur
   [OK ] page « Analyser un texte » : le clic sur le menu change bien de page
-  [OK ] page « Analyser un texte » : aucun score affiché
+  [OK ] page « Analyser un texte » : l'en-tête « Repère Djibouti » est présent
+  [OK ] page « Analyser un texte » : aucun chiffre de performance affiché
 
-6 bis. Message d'attente pour la première utilisation de D
+6 bis. Message d'attente, README, dépendances
   [OK ] le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application
   [OK ] le README annonce l'attente d'environ 30 secondes pour D
   [OK ] le README présente l'application sous le nom « Repère Djibouti »
@@ -225,7 +222,7 @@ Formation (FORMATION)                                        Non                
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 1.7 s (source : cache disque)
+     D chargé en 0.8 s (source : cache disque)
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 32 s | échecs : 0
+Durée totale : 10 s | contrôles OK : 164 | échecs : 0
