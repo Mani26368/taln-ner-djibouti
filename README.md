@@ -116,8 +116,7 @@ utilisations suivantes 2,5 s, 1,9 s et 1,9 s (3 essais). Ces durées varient bea
 - **Apparence** : d'après la maquette de l'interface (bandeau `#13255C`, bouton `#1E3FAE`, fond `#F4F6FA`, cartes blanches à bord `#E2E6EF`,
   pas de dégradé ni d'ombre). Les couleurs et les textes sont dans `demo/theme.py` (valeurs marquées « À REMPLACER ») ; la mise en forme
   (largeur, tailles, arrondis) est dans `demo/style.css`, bloc « RÉGLAGES » en haut du fichier. La police **Inter** est un fichier local
-  (`demo/assets/fonts/`, licence OFL fournie) : rien n'est téléchargé. `demo/maquette.png` est l'image de la toute première version
-  de l'interface ; l'application actuelle ne l'utilise pas.
+  (`demo/assets/fonts/`, licence OFL fournie) : rien n'est téléchargé.
 - **Traduction du navigateur** : la page déclare `lang="fr"`, `translate="no"` et `<meta name="google" content="notranslate">` (script dans `demo/app.py`),
   car la traduction automatique de Chrome casse l'affichage de Streamlit (erreur `removeChild`).
 - **Plan B** (si la démo en direct échoue) : `python demo/enregistrer_essais.py` écrit les résultats réels des 3 systèmes sur 3 exemples
