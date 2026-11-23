@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 17:15:26
+Fait le 2026-11-23 à 17:36:15
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -235,7 +235,7 @@ Fait le 2026-11-23 à 17:15:26
   [OK ] chaque petite carte a une icône simple
   [OK ] carte « LE PROJET » : 4 informations en deux colonnes
   [OK ] information du projet : Projet = Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti
-  [OK ] information du projet : Réalisé par = Mako Mohamed Aden et Kadiga Ali
+  [OK ] information du projet : Réalisé par = Mako Mohamed Aden et Kadiga Ali Ahmed
   [OK ] information du projet : Encadrant = Dr Houssein Ahmed Assowe
   [OK ] information du projet : Formation = M2 IAMD, Université de Djibouti, cours TALN, 2026
   [OK ] bouton « Voir le dépôt GitHub » vers https://github.com/Mani26368/taln-ner-djibouti
@@ -262,7 +262,7 @@ Fait le 2026-11-23 à 17:15:26
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 33.5 s (source : entraîné (cache non enregistré))
+     D chargé en 51.3 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 55 s | contrôles OK : 203 | échecs : 0
+Durée totale : 87 s | contrôles OK : 203 | échecs : 0

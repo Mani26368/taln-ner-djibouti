@@ -97,7 +97,7 @@ A_PROPOS_CARTES = [                                                             
 # Informations du projet (les deux auteures ensemble, sans dire qui a fait quelle partie).
 A_PROPOS_INFOS = [                                                                                                               # À REMPLACER
     ("Projet", "Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti"),
-    ("Réalisé par", "Mako Mohamed Aden et Kadiga Ali"),
+    ("Réalisé par", "Mako Mohamed Aden et Kadiga Ali Ahmed"),
     ("Encadrant", "Dr Houssein Ahmed Assowe"),
     ("Formation", "M2 IAMD, Université de Djibouti, cours TALN, 2026"),
 ]

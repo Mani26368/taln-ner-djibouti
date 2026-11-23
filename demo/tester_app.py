@@ -404,7 +404,7 @@ def test_pages():
                 verifier('class="etiquette">Le projet<' in texte and texte.count('class="info"') == 4 and 'class="grille-infos"' in texte,
                          "carte « LE PROJET » : 4 informations en deux colonnes")
                 for libelle, valeur in [("Projet", "Binôme 5 – Reconnaissance d'entités nommées propres à Djibouti"),
-                                        ("Réalisé par", "Mako Mohamed Aden et Kadiga Ali"), ("Encadrant", "Dr Houssein Ahmed Assowe"),
+                                        ("Réalisé par", "Mako Mohamed Aden et Kadiga Ali Ahmed"), ("Encadrant", "Dr Houssein Ahmed Assowe"),
                                         ("Formation", "M2 IAMD, Université de Djibouti, cours TALN, 2026")]:
                     verifier(f'<div class="info-libelle">{libelle}</div><div class="info-valeur">{valeur}</div>' in texte,
                              f"information du projet : {libelle} = {valeur}")
