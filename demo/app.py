@@ -22,18 +22,22 @@ sys.path.insert(0, str(DOSSIER))
 import analyse  # noqa: E402
 import theme as T  # noqa: E402
 
-st.set_page_config(page_title=T.TITRE, layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title=T.TITRE, layout="wide", initial_sidebar_state="collapsed")
 
-PAGES = ["Analyser un texte", "Catégories reconnues", "À propos"]
+PAGES = ["Analyser", "Catégories", "À propos"]
 NOM_COMPLET = {code: f"{v['nom']} ({code})" for code, v in T.TYPES.items()}
 POLICE_INTER = DOSSIER / "assets" / "fonts" / "Inter-latin-variable.woff2"
+ICONE_LIEU = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+              'stroke-linejoin="round" style="color:var(--blanc)" aria-hidden="true">'
+              '<path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>')
 
 
 # ------------------------------------------------------------------------------------------------ apparence
 def variables_css():
     """Les couleurs de theme.py, sous forme de variables CSS (--nom) utilisables dans style.css."""
     morceaux = [f"--{cle.replace('_', '-')}: {valeur};" for cle, valeur in T.COULEURS.items()]
-    morceaux += [f"--{code.lower()}-fond: {v['fond']};" for code, v in T.TYPES.items()]
+    for code, v in T.TYPES.items():
+        morceaux.append(f"--{code.lower()}-fond: {v['fond']}; --{code.lower()}-texte: {v['texte']};")
     return ":root { " + " ".join(morceaux) + " }"
 
 
@@ -49,14 +53,29 @@ def injecter_css():
     st.html(f"<style>{variables_css()}\n{style}</style>")
 
 
-def en_tete():
-    st.markdown(f'<div class="en-tete"><div class="titre">{html.escape(T.TITRE)}</div>'
-                f'<div class="phrase">{html.escape(T.PHRASE)}</div></div>', unsafe_allow_html=True)
+def aller(page):
+    st.session_state["page"] = page
+
+
+def bandeau(page):
+    """Bandeau bleu foncé pleine largeur : marque à gauche, navigation à droite (Analyser, Catégories, À propos)."""
+    with st.container(key="bandeau"):
+        gauche, droite = st.columns([1, 1])
+        gauche.markdown(f'<div class="marque"><div class="icone">{ICONE_LIEU}</div><div>'
+                        f'<div class="titre">{html.escape(T.TITRE)}</div><div class="phrase">{html.escape(T.PHRASE)}</div>'
+                        f'</div></div>', unsafe_allow_html=True)
+        with droite:
+            with st.container(key="nav", horizontal=True, horizontal_alignment="right"):
+                for i, nom_page in enumerate(PAGES):
+                    st.button(nom_page, key=f"nav_{i}", on_click=aller, args=(nom_page,))
+    actif = PAGES.index(page)
+    st.html(f"<style>.st-key-nav_{actif} button {{ background: rgba(255, 255, 255, 0.14) !important; }}"
+            f" .st-key-nav_{actif} button p {{ color: var(--blanc) !important; }}</style>")   # onglet actif
 
 
 # ------------------------------------------------------------------------------------------------ composants
 def surligner(texte, entites):
-    """Le texte avec les entités soulignées en pastel et une petite étiquette de type.
+    """Le texte avec les entités surlignées en pastel et une petite étiquette de type en exposant.
     Tout le texte est « échappé » : aucun code HTML saisi n'est exécuté."""
     morceaux, position = [], 0
     for e in sorted(entites, key=lambda x: x.debut):
@@ -64,24 +83,55 @@ def surligner(texte, entites):
             continue
         morceaux.append(html.escape(texte[position:e.debut]))
         morceaux.append(f'<span class="ent ent-{e.type}" title="{html.escape(NOM_COMPLET[e.type])}">'
-                        f'{html.escape(texte[e.debut:e.fin])}<span class="type-tag">{e.type}</span></span>')
+                        f'{html.escape(texte[e.debut:e.fin])}<sup class="type-tag">{e.type}</sup></span>')
         position = e.fin
     morceaux.append(html.escape(texte[position:]))
     return "".join(morceaux)
 
 
-def pluriel(n, singulier, plur):
-    return f"{n} {singulier if n == 1 else plur}"
+def legende(types):
+    pastilles = "".join(f'<span class="leg-{t}">{t}</span>' for t in types)
+    return f'<div class="legende">{pastilles}</div>'
+
+
+def entete_carte(titre, types=None):
+    droite = legende(types) if types else ""
+    return f'<div class="entete-carte"><div class="etiquette">{html.escape(titre)}</div>{droite}</div>'
+
+
+def exemple_annote():
+    """La phrase d'exemple de theme.py, annotée (les positions sont calculées, pas écrites à la main)."""
+    entites = []
+    for texte, type_ in T.ENTITES_EXEMPLE:
+        debut = T.PHRASE_EXEMPLE.find(texte)
+        if debut >= 0:
+            entites.append(analyse.Entite(debut, debut + len(texte), type_, texte))
+    return surligner(T.PHRASE_EXEMPLE, entites)
 
 
 def chiffres(entites, systeme):
-    """Une ligne de chiffres : le total, puis un chiffre par type que CE système peut produire (lus dans son pipeline)."""
-    total = len(entites)
-    morceaux = [f'<span><b>{total}</b> {"entité" if total == 1 else "entités"}</span>']
-    for t in analyse.types_possibles(systeme):
+    """Une ligne de petites cartes : total, puis un chiffre par type. Un type que le système ne sait pas produire
+    affiche « – » (et non 0, qui laisserait croire qu'il n'a rien trouvé)."""
+    possibles = analyse.types_possibles(systeme)
+    types = list(T.TYPES_LEGENDE)
+    if any(e.type == "FORMATION" for e in entites):
+        types.append("FORMATION")
+    cartes = [f'<div class="chiffre chiffre-total"><div class="nom">Entités</div><div class="valeur">{len(entites)}</div></div>']
+    for t in types:
         n = sum(1 for e in entites if e.type == t)
-        morceaux.append(f'<span><i class="puce puce-{t}"></i><b>{n}</b> {t}</span>')
-    return f'<div class="chiffres">{"".join(morceaux)}</div>'
+        if t in possibles:
+            valeur, aide = str(n), ""
+        else:
+            valeur, aide = "–", ' title="Ce système ne sait pas repérer ce type."'
+        cartes.append(f'<div class="chiffre chiffre-{t}"{aide}><div class="nom">{html.escape(T.TYPES[t]["pluriel"])}</div>'
+                      f'<div class="valeur">{valeur}</div></div>')
+    return f'<div class="chiffres">{"".join(cartes)}</div>'
+
+
+def tableau_html(entites):
+    lignes = "".join(f"<tr><td>{html.escape(e.texte)}</td><td>{e.type}</td><td>{e.debut}</td><td>{e.fin}</td></tr>" for e in entites)
+    return ('<table class="tableau-entites"><thead><tr><th>Texte repéré</th><th>Type</th><th>Début</th><th>Fin</th></tr></thead>'
+            f"<tbody>{lignes}</tbody></table>")
 
 
 def avertissement():
@@ -125,38 +175,33 @@ def choisir_exemple(id_segment):
     st.session_state.pop("avertissement", None)
 
 
-def aller(page):
-    st.session_state["page"] = page
-
-
 # ------------------------------------------------------------------------------------------------ pages
 def page_analyser():
-    en_tete()
     systeme = st.session_state.get("systeme", analyse.SYSTEME_PAR_DEFAUT)
     if not preparer_systeme(systeme):
         st.stop()
 
-    gauche, droite = st.columns(2, gap="large")
+    gauche, droite = st.columns([1, 1.1])
     with gauche:
-        st.markdown('<div class="etiquette">Votre texte</div>', unsafe_allow_html=True)
-        st.text_area("Texte à analyser", key="texte", height=300, label_visibility="collapsed",
-                     placeholder="Collez ou écrivez un texte en français…")
-        st.caption("Exemples tirés du journal La Nation :")
-        colonnes = st.columns([1, 1.3, 1])
-        for colonne, (id_segment, libelle) in zip(colonnes, T.EXEMPLES):
-            colonne.button(libelle, key=f"exemple_{id_segment}", type="tertiary", on_click=choisir_exemple, args=(id_segment,),
-                           help=f"Segment {id_segment} du corpus La Nation")
-        if st.session_state.get("exemple_actif"):
-            st.caption(f"Extrait affiché : {st.session_state['exemple_actif']} (journal La Nation)")
-        if st.session_state.get("exemple_actif") == T.EXEMPLE_ERREUR:
-            st.caption(T.LEGENDE_ERREUR)
-        st.caption(T.NOTE_EXTRAITS)
-        clic = st.button("Analyser le texte", type="primary", key="analyser", width="stretch")
-        with st.expander("Options avancées", expanded=False):
-            st.selectbox("Système d'analyse", options=list(analyse.SYSTEMES), key="systeme",
-                         format_func=lambda k: analyse.SYSTEMES[k])
-        if st.session_state.get("avertissement"):
-            st.warning(st.session_state["avertissement"])
+        with st.container(key="carte_texte"):
+            st.markdown('<div class="etiquette">Votre texte</div>', unsafe_allow_html=True)
+            st.text_area("Texte à analyser", key="texte", height=150, label_visibility="collapsed",
+                         placeholder="Collez ou écrivez un texte en français…")
+            st.markdown('<div class="sous-titre-extraits">Essayer avec un extrait de La Nation</div>', unsafe_allow_html=True)
+            with st.container(key="pilules", horizontal=True):
+                for id_segment, libelle in T.EXEMPLES:
+                    st.button(libelle, key=f"exemple_{id_segment}", on_click=choisir_exemple, args=(id_segment,),
+                              help=f"Segment {id_segment} du corpus La Nation")
+            if st.session_state.get("exemple_actif"):
+                st.caption(f"Extrait affiché : {st.session_state['exemple_actif']} (journal La Nation). {T.NOTE_EXTRAITS}")
+            if st.session_state.get("exemple_actif") == T.EXEMPLE_ERREUR:
+                st.caption(T.LEGENDE_ERREUR)
+            clic = st.button("Analyser le texte", type="primary", key="analyser", width="stretch")
+            with st.expander("Options avancées", expanded=False):
+                st.selectbox("Système d'analyse", options=list(analyse.SYSTEMES), key="systeme",
+                             format_func=lambda k: analyse.SYSTEMES[k])
+            if st.session_state.get("avertissement"):
+                st.warning(st.session_state["avertissement"])
 
     if clic:
         st.session_state.pop("avertissement", None)
@@ -174,35 +219,39 @@ def page_analyser():
 
     res = st.session_state.get("resultat")
     with droite:
-        st.markdown('<div class="etiquette">Texte annoté</div>', unsafe_allow_html=True)
-        if not res:
-            st.caption("Le texte annoté s'affichera ici après l'analyse.")
-        else:
-            st.markdown(f'<div class="texte-annote">{surligner(res["texte"], res["entites"])}</div>', unsafe_allow_html=True)
-            st.markdown(chiffres(res["entites"], res["systeme"]), unsafe_allow_html=True)
-            st.caption(f"Système utilisé : {analyse.SYSTEMES[res['systeme']]}")
+        with st.container(key="carte_annote"):
+            types = list(T.TYPES_LEGENDE)
+            if res and any(e.type == "FORMATION" for e in res["entites"]):
+                types.append("FORMATION")
+            st.markdown(entete_carte("Texte annoté", types), unsafe_allow_html=True)
+            if not res:
+                st.markdown(f'<div class="texte-annote exemple">{exemple_annote()}</div>'
+                            f'<div class="note-exemple">Exemple : votre texte apparaîtra ainsi</div>', unsafe_allow_html=True)
+            else:
+                st.markdown(f'<div class="texte-annote">{surligner(res["texte"], res["entites"])}</div>', unsafe_allow_html=True)
+                st.caption(f"Système utilisé : {analyse.SYSTEMES[res['systeme']]}")
 
     if res:
-        st.markdown('<div class="etiquette" style="margin-top:1.6rem">Entités repérées</div>', unsafe_allow_html=True)
-        if res["entites"]:
-            tableau = pd.DataFrame({"Texte": [e.texte for e in res["entites"]],
-                                    "Type": [e.type for e in res["entites"]],
-                                    "Début": [e.debut for e in res["entites"]],
-                                    "Fin": [e.fin for e in res["entites"]]})
-            st.dataframe(tableau, hide_index=True)
-            st.download_button("Télécharger en CSV", data=analyse.entites_en_csv(res["entites"]), file_name="entites_reperees.csv",
-                               mime="text/csv", key="telecharger")
-        else:
-            st.info("Aucune entité n'a été trouvée dans ce texte par ce système.")
-        st.markdown(avertissement(), unsafe_allow_html=True)
+        st.markdown(chiffres(res["entites"], res["systeme"]), unsafe_allow_html=True)
+        with st.container(key="carte_tableau"):
+            titre, telecharger = st.columns([3, 1])
+            titre.markdown('<div class="titre-tableau">Entités repérées</div>', unsafe_allow_html=True)
+            if res["entites"]:
+                with telecharger:
+                    st.download_button("Télécharger en CSV", data=analyse.entites_en_csv(res["entites"]), file_name="entites_reperees.csv",
+                                       mime="text/csv", key="telecharger", type="tertiary")
+                st.markdown(tableau_html(res["entites"]), unsafe_allow_html=True)
+            else:
+                st.info("Aucune entité n'a été trouvée dans ce texte par ce système.")
+    st.markdown(avertissement(), unsafe_allow_html=True)
 
 
-def lire_phrase_kadiga(id_phrase):
+def lire_phrase_ressources(id_phrase):
     with open(RACINE / "data" / "corpus_kadiga" / "sentences.csv", encoding="utf-8", newline="") as f:
         for ligne in csv.DictReader(f):
             if ligne["id"] == id_phrase:
                 return ligne["text"]
-    raise analyse.ErreurDemo(f"Phrase introuvable dans le corpus de Kadiga : {id_phrase}")
+    raise analyse.ErreurDemo(f"Phrase introuvable dans le corpus de ressources : {id_phrase}")
 
 
 def formations_predites_par_d():
@@ -246,9 +295,8 @@ def ajouter_d_au_tableau():
 
 
 def page_categories():
-    en_tete()
     st.markdown('<div class="etiquette">Catégories reconnues</div>', unsafe_allow_html=True)
-    st.caption("Les cinq types d'informations que l'application peut chercher dans un texte, avec un exemple réel de chacun.")
+    st.caption("Les cinq types d'informations que l'application peut chercher dans un texte, avec un exemple de chacun.")
     # La légende et le tableau ci-dessous sont lus dans les systèmes chargés. 3a+3b et A sont rapides à charger ;
     # D demande un entraînement la première fois : on ne le charge que si l'utilisateur le demande (ou s'il est déjà prêt).
     if not all(preparer_systeme(cle) for cle in ["3a+3b", "A"]):
@@ -259,61 +307,62 @@ def page_categories():
     for code in analyse.ORDRE_TYPES:
         id_segment, entite = T.EXEMPLES_CATEGORIES[code]
         if code == "FORMATION":
-            phrase, origine = lire_phrase_kadiga(id_segment), "exemple tiré du corpus de Kadiga (textes officiels)"
+            phrase, origine = lire_phrase_ressources(id_segment), T.ORIGINE_FORMATION
         else:
             phrase, origine = analyse.lire_segment(id_segment), f"extrait réel de La Nation ({id_segment})"
         debut = phrase.find(entite)
         extrait = surligner(phrase, [analyse.Entite(debut, debut + len(entite), code, entite)]) if debut >= 0 else html.escape(phrase)
         st.markdown(f'<div class="carte-type"><h4><i class="puce puce-{code}"></i>{html.escape(NOM_COMPLET[code])}</h4>'
                     f'<div>C\'est {html.escape(T.DEFINITIONS[code])}.</div>'
-                    f'<div class="texte-annote" style="margin-top:.6rem">{extrait}</div>'
+                    f'<div class="texte-annote sans-cadre" style="margin-top:.5rem">{extrait}</div>'
                     f'<div class="source">{html.escape(origine)}</div></div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="etiquette" style="margin-top:1.4rem">Ce que chaque système sait reconnaître</div>', unsafe_allow_html=True)
-    st.caption("Lu dans le code des systèmes : un type est « Oui » seulement si le modèle ou ses règles peuvent l'étiqueter.")
-    lignes = {}
-    for cle, nom in analyse.SYSTEMES.items():
-        if not analyse.est_charge(cle):
-            continue
-        possibles = analyse.types_possibles(cle)
-        lignes[nom] = {NOM_COMPLET[t]: ("Oui" if t in possibles else "Non") for t in analyse.ORDRE_TYPES}
-    st.dataframe(pd.DataFrame(lignes))
-    if not analyse.est_charge("D"):
-        st.button("Ajouter le modèle D au tableau (il se charge ; la première fois, environ 30 secondes)",
-                  key="ajouter_d", on_click=ajouter_d_au_tableau, width="stretch")
-    st.info(f"**3a+3b** (nos règles, système par défaut) : {T.NOTE_3A3B}.")
-    dates = dates_retrouvees_par_d()
-    if dates is not None:
-        trouvees, total = sum(d[1] for d in dates), sum(d[2] for d in dates)
-        detail = ", ".join(f"{v} sur {n}" for _jeu, v, n in dates)
-        st.info(f"**D** (modèle ré-entraîné de Kadiga) : il trouve peu de dates sur nos segments de La Nation. "
-                f"Dans nos mesures (dossier results/), sur {total} dates à trouver il en retrouve exactement {trouvees} "
-                f"(par groupe d'articles : {detail}).")
-    n_form = formations_predites_par_d()
-    if n_form is not None:
-        st.info(f"Remarque : le système D peut étiqueter des formations, mais dans nos mesures sur des textes de La Nation "
-                f"(dossier results/) il en a prédit {n_form}. Ces textes ne contiennent aucune formation : "
-                f"cette catégorie n'a donc pas été vérifiée sur des cas réels de La Nation.")
+    with st.container(key="carte_simple"):
+        st.markdown('<div class="etiquette">Ce que chaque système sait reconnaître</div>', unsafe_allow_html=True)
+        st.caption("Lu dans le code des systèmes : un type est « Oui » seulement si le modèle ou ses règles peuvent l'étiqueter.")
+        lignes = {}
+        for cle, nom in analyse.SYSTEMES.items():
+            if not analyse.est_charge(cle):
+                continue
+            possibles = analyse.types_possibles(cle)
+            lignes[nom] = {NOM_COMPLET[t]: ("Oui" if t in possibles else "Non") for t in analyse.ORDRE_TYPES}
+        st.dataframe(pd.DataFrame(lignes))
+        if not analyse.est_charge("D"):
+            st.button("Ajouter le modèle D au tableau (il se charge ; la première fois, environ 30 secondes)",
+                      key="ajouter_d", on_click=ajouter_d_au_tableau, width="stretch")
+        st.info(f"**3a+3b** (nos règles, système par défaut) : {T.NOTE_3A3B}.")
+        dates = dates_retrouvees_par_d()
+        if dates is not None:
+            trouvees, total = sum(d[1] for d in dates), sum(d[2] for d in dates)
+            detail = ", ".join(f"{v} sur {n}" for _jeu, v, n in dates)
+            st.info(f"**D** (modèle ré-entraîné) : il trouve peu de dates sur nos segments de La Nation. "
+                    f"Dans nos mesures (dossier results/), sur {total} dates à trouver il en retrouve exactement {trouvees} "
+                    f"(par groupe d'articles : {detail}).")
+        n_form = formations_predites_par_d()
+        if n_form is not None:
+            st.info(f"Remarque : le système D peut étiqueter des formations, mais dans nos mesures sur des textes de La Nation "
+                    f"(dossier results/) il en a prédit {n_form}. Ces textes ne contiennent aucune formation : "
+                    f"cette catégorie n'a donc pas été vérifiée sur des cas réels de La Nation.")
     st.markdown(avertissement(), unsafe_allow_html=True)
 
 
 def page_a_propos():
-    en_tete()
     with st.container(key="carte_simple"):
+        st.markdown('<div class="etiquette">À propos</div>', unsafe_allow_html=True)
         for cle, valeur in T.A_PROPOS.items():
             st.markdown(f"**{cle}** : {valeur}")
         version_modele = spacy.util.get_package_version(analyse.MODELE_SPACY)
         st.markdown("### Modèle de langue")
         st.markdown(f"Le modèle spaCy utilisé est **`{analyse.MODELE_SPACY}`** (version {version_modele}, spaCy {spacy.__version__}) : "
                     "un petit modèle français généraliste. Le système par défaut (3a+3b) s'appuie sur lui et lui ajoute des règles locales ; "
-                    "le modèle D est le même modèle ré-entraîné sur le corpus de Kadiga.")
+                    "le modèle D est le même modèle ré-entraîné sur le corpus de ressources (textes officiels).")
         st.markdown("### Limites")
         st.markdown(
             "- C'est un prototype : il se trompe parfois, par exemple en prenant un lieu pour une personne.\n"
             f"- Système par défaut (3a+3b) : {T.NOTE_3A3B}.\n"
             "- Le modèle spaCy n'a pas été entraîné sur la presse de Djibouti et ne sait pas repérer les dates : "
             "les dates viennent de nos règles.\n"
-            "- Le modèle D trouve peu de dates sur nos segments de La Nation (les chiffres sont sur la page « Catégories reconnues »).\n"
+            "- Le modèle D trouve peu de dates sur nos segments de La Nation (les chiffres sont sur la page « Catégories »).\n"
             "- Les jeux d'évaluation sont petits (moins de 60 entités par jeu) : un seul changement déplace les résultats de plusieurs points. "
             "Aucun chiffre de performance n'est affiché ici pour cette raison.\n"
             "- Aucun texte de La Nation ne contient de formation (diplôme, master) : cette catégorie n'a pas été vérifiée sur de vrais cas de La Nation.\n"
@@ -326,15 +375,7 @@ def page_a_propos():
 # ------------------------------------------------------------------------------------------------ assemblage
 st.session_state.setdefault("page", PAGES[0])
 injecter_css()
-with st.sidebar:
-    for i, nom_page in enumerate(PAGES):
-        st.button(nom_page, key=f"nav_{i}", on_click=aller, args=(nom_page,), width="stretch")
-    st.markdown(f'<div class="barre-pied">{html.escape(T.PIED_BARRE_LATERALE)}<br>{html.escape(T.AVERTISSEMENT)}</div>',
-                unsafe_allow_html=True)
-
 page = st.session_state["page"]
-actif = PAGES.index(page)
-st.html(f"<style>.st-key-nav_{actif} button {{ border-left-color: var(--accent) !important; background: var(--encadre) !important; }}"
-        f" .st-key-nav_{actif} button p {{ color: var(--accent) !important; font-weight: 700 !important; }}</style>")   # menu actif
-
-{"Analyser un texte": page_analyser, "Catégories reconnues": page_categories, "À propos": page_a_propos}[page]()
+bandeau(page)
+with st.container(key="contenu"):
+    {"Analyser": page_analyser, "Catégories": page_categories, "À propos": page_a_propos}[page]()

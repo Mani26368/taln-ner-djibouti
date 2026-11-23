@@ -102,18 +102,20 @@ Il est ensuite gardé dans `demo/.cache/` (dossier ignoré par Git, environ 26 M
 Temps mesurés sur l'ordinateur de Mako (Windows) pour ce choix de D : première utilisation 27,4 s et 23,5 s (2 essais) ;
 utilisations suivantes 2,5 s, 1,9 s et 1,9 s (3 essais). Ces durées varient beaucoup d'un ordinateur et d'un moment à l'autre.
 
-- **Pages** (barre de gauche) : « Analyser un texte », « Catégories reconnues », « À propos ».
+- **Pages** (navigation en haut à droite du bandeau bleu) : « Analyser », « Catégories », « À propos ».
 - **Systèmes** : **3a+3b** par défaut (règles réglées sur les articles du projet, moins fiable sur d'autres textes).
-  « Options avancées » permet de choisir « D – modèle ré-entraîné (Kadiga) » ou « A – spaCy seul ». D trouve peu de dates sur nos
-  segments de La Nation (les chiffres, lus dans `results/`, sont sur la page « Catégories reconnues »).
-  La légende indique ce que le système PEUT produire, pas ce qu'il trouve toujours.
-- **Résultat** : à gauche le texte, à droite le même texte avec les entités soulignées en pastel et une petite étiquette de type ;
-  dessous, une ligne de chiffres (total et un par type), puis un tableau (texte, type, début, fin) et un bouton « Télécharger en CSV ».
-  Trois petits exemples (A14_S001 : date, A12_S005 : personnes, A04_S020 : erreur sur « Washington ») sont de vrais extraits de La Nation.
-- **Apparence** : design sobre (fond `#FAFAF9`, texte `#111827`, une seule couleur d'accent `#1E3A8A`, pas de dégradé).
-  Les couleurs et les textes sont dans `demo/theme.py` (valeurs marquées « À REMPLACER ») ; la mise en forme (largeur, tailles de police,
-  couleur du bouton) est dans `demo/style.css`, bloc « RÉGLAGES » en haut du fichier. La police **Inter** est un fichier local
-  (`demo/assets/fonts/`, licence OFL fournie) : rien n'est téléchargé. `demo/maquette.png` est la maquette de la première version
+  Le repli « Options avancées » (sous le bouton « Analyser le texte ») permet de choisir « D – modèle ré-entraîné » ou « A – spaCy seul ».
+  D trouve peu de dates sur nos segments de La Nation (les chiffres, lus dans `results/`, sont sur la page « Catégories »).
+  Le tableau de la page « Catégories » indique ce que chaque système PEUT produire, pas ce qu'il trouve toujours.
+- **Résultat** : à gauche la carte « Votre texte » (avec trois pilules d'exemples : une date, des personnes, un cas difficile) ; à droite la carte
+  « Texte annoté » (entités surlignées en pastel, petite étiquette de type en exposant, légende des 4 types ; avant l'analyse, une phrase
+  d'exemple en grisé). Dessous : une ligne de 5 petites cartes (Entités, Organisations, Lieux, Dates, Personnes ; « – » si le système
+  ne sait pas produire ce type), puis la carte « Entités repérées » (texte repéré, type, début, fin) avec « Télécharger en CSV ».
+  Les trois exemples (A14_S001 : date, A12_S005 : personnes, A04_S020 : erreur sur « Washington ») sont de vrais extraits de La Nation.
+- **Apparence** : d'après la maquette de l'interface (bandeau `#13255C`, bouton `#1E3FAE`, fond `#F4F6FA`, cartes blanches à bord `#E2E6EF`,
+  pas de dégradé ni d'ombre). Les couleurs et les textes sont dans `demo/theme.py` (valeurs marquées « À REMPLACER ») ; la mise en forme
+  (largeur, tailles, arrondis) est dans `demo/style.css`, bloc « RÉGLAGES » en haut du fichier. La police **Inter** est un fichier local
+  (`demo/assets/fonts/`, licence OFL fournie) : rien n'est téléchargé. `demo/maquette.png` est l'image de la toute première version
   de l'interface ; l'application actuelle ne l'utilise pas.
 - **Plan B** (si la démo en direct échoue) : `python demo/enregistrer_essais.py` écrit les résultats réels des 3 systèmes sur 3 exemples
   dans `demo/essais_demo.txt` (déjà fourni). `python demo/tester_app.py` teste l'application et écrit `demo/test_application.txt`.

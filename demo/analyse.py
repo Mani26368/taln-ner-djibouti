@@ -30,7 +30,7 @@ MAX_CARACTERES = 3000            # limite choisie pour une démo (environ 500 mo
 # clé interne -> nom affiché
 SYSTEMES = {          # le premier est le système par défaut (menu « Options avancées »)
     "3a+3b": "3a+3b – nos règles locales (version gelée)",
-    "D": "D – modèle ré-entraîné (Kadiga)",
+    "D": "D – modèle ré-entraîné",
     "A": "A – spaCy seul",
 }
 SYSTEME_PAR_DEFAUT = "3a+3b"

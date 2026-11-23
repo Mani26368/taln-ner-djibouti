@@ -1,23 +1,23 @@
 ESSAIS DE LA DÉMONSTRATION REPÈRE DJIBOUTI (plan B)
-Fichier produit par demo/enregistrer_essais.py le 2026-11-23 à 09:09:15
+Fichier produit par demo/enregistrer_essais.py le 2026-11-23 à 09:50:59
 Python 3.12.10 | spaCy 3.8.18 | Windows
 Rien n'est inventé : les textes sont de vrais segments du journal La Nation (corpus du dépôt) ;
 les entités sont celles que renvoie la fonction analyser() de l'application. Prototype : peut se tromper.
 
 === 1. Chargement des systèmes (une seule fois par lancement) ===
-- 3a+3b – nos règles locales (version gelée) : chargé en 4.1 s (source : règles locales) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER']
-- D – modèle ré-entraîné (Kadiga) : chargé en 1.0 s (source : cache disque) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-- A – spaCy seul : chargé en 0.9 s (source : règles : aucune) ; types possibles : ['ORG', 'LOC', 'PER']
+- 3a+3b – nos règles locales (version gelée) : chargé en 5.0 s (source : règles locales) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER']
+- D – modèle ré-entraîné : chargé en 1.0 s (source : cache disque) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+- A – spaCy seul : chargé en 1.1 s (source : règles : aucune) ; types possibles : ['ORG', 'LOC', 'PER']
 
 === 2. Les trois exemples, avec les trois systèmes ===
 
-[A14_S001] Date
+[A14_S001] Une date
 Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxième édition du Challenge intercommunautaire culturel et sportif, placé sous l'égide du ministère de la Jeunesse et de la Culture.
   3a+3b – nos règles locales (version gelée) -> 3 entité(s)
       'Ardo Bankoualé'                              LOC        positions 14-28
       'vendredi 14 août'                            DATE       positions 42-58
       'ministère de la Jeunesse et de la Culture'   ORG        positions 155-196
-  D – modèle ré-entraîné (Kadiga) -> 4 entité(s)
+  D – modèle ré-entraîné -> 4 entité(s)
       'Ardo Bankoualé'                              LOC        positions 14-28
       '14 août'                                     DATE       positions 51-58
       'Challenge'                                   LOC        positions 83-92
@@ -27,24 +27,24 @@ Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxi�
       'Challenge'                                   LOC        positions 83-92
       'ministère de la Jeunesse et de la Culture'   ORG        positions 155-196
 
-[A12_S005] Personnes
+[A12_S005] Des personnes
 Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
   3a+3b – nos règles locales (version gelée) -> 2 entité(s)
       'Mohamed Abdo'                                PER        positions 67-79
       'Abdillahi Farah'                             PER        positions 125-140
-  D – modèle ré-entraîné (Kadiga) -> 2 entité(s)
+  D – modèle ré-entraîné -> 2 entité(s)
       'Mohamed Abdo'                                PER        positions 67-79
       'Abdillahi Farah'                             PER        positions 125-140
   A – spaCy seul -> 2 entité(s)
       'Mohamed Abdo'                                PER        positions 67-79
       'Abdillahi Farah'                             PER        positions 125-140
 
-[A04_S020] Erreur
+[A04_S020] Un cas difficile
 Texte : Leur présence au sommet de New Delhi pouvait ainsi être interprétée comme la manifestation d'une diplomatie de diversification plutôt que comme un repositionnement stratégique contre Washington.
   3a+3b – nos règles locales (version gelée) -> 2 entité(s)
       'New Delhi'                                   LOC        positions 27-36
       'Washington'                                  PER        positions 183-193
-  D – modèle ré-entraîné (Kadiga) -> 2 entité(s)
+  D – modèle ré-entraîné -> 2 entité(s)
       'New Delhi'                                   LOC        positions 27-36
       'Washington'                                  LOC        positions 183-193
   A – spaCy seul -> 2 entité(s)
