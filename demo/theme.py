@@ -1,59 +1,66 @@
-"""Apparence et textes de la démonstration. Kadiga : changez les valeurs marquées « À REMPLACER ».
+"""Apparence et textes de « Repère Djibouti ». Kadiga : changez les valeurs marquées « À REMPLACER ».
 
+Les COULEURS sont ici ; la MISE EN FORME (tailles, espaces, formes) est dans demo/style.css, qui utilise ces couleurs.
 Ce fichier ne contient AUCUN code d'analyse et AUCUN score : seulement des couleurs, des textes et des numéros d'exemples.
-Les couleurs sont reprises de la maquette (demo/maquette.png). Aucune image n'est utilisée : tout est local (dégradés CSS).
+Aucune ressource en ligne : tout est local (dégradés et dessin vectoriel CSS).
 """
 
 # ---------------------------------------------------------------------------------------------- textes
-TITRE = "NER Djibouti"                                                                   # À REMPLACER
-SOUS_TITRE = "Extraire facilement les informations clés de vos textes"                   # À REMPLACER
-BANDEAU_TITRE = "Bienvenue sur NER Djibouti !"                                           # À REMPLACER
-PHRASE_ACCUEIL = ("Collez un texte et découvrez automatiquement les personnes, lieux, "
-                  "organisations et plus encore.")                                       # À REMPLACER
+TITRE = "Repère Djibouti"                                                                # À REMPLACER
+SOUS_TITRE = "Repérez les personnes, lieux, organisations et dates de vos textes."      # À REMPLACER
+BANDEAU_TITRE = "Bienvenue sur Repère Djibouti !"                                        # À REMPLACER
 PIED_BARRE_LATERALE = "Prototype de projet TALN"                                         # À REMPLACER
 FORMATION_PIED = "Master 2 IAMD"                                                         # À REMPLACER
 AVERTISSEMENT = "Prototype de projet TALN – peut se tromper."                            # À REMPLACER
+NOTE_EXTRAITS = ("Les extraits viennent du corpus de travail du projet : "
+                 "le système les connaît mieux que des textes nouveaux.")               # À REMPLACER
 
 # ---------------------------------------------------------------------------------------------- couleurs
 COULEURS = {                                                                             # À REMPLACER
-    "fond_page": "#F3F7FC",
-    "texte": "#14213D",             # texte sombre (sur fond clair ou pastel)
-    "titre": "#14306E",
-    "barre_haut": "#0D2B6B",        # barre latérale : dégradé du haut vers le bas
-    "barre_bas": "#1A4BA3",
-    "barre_texte": "#FFFFFF",
-    "menu_actif": "#1F5FD6",
-    "bouton": "#1D4FC2",
-    "bouton_fin": "#2A63D6",
-    "bouton_texte": "#FFFFFF",
-    "bandeau_debut": "#DCEBFB",
-    "bandeau_fin": "#BBD6F5",
+    "bleu_nuit": "#0B1F4B",
+    "bleu_royal": "#1D4ED8",
+    "bleu_royal_survol": "#1E40AF",              # bouton au survol de la souris
+    "ciel": "#0EA5E9",
+    "turquoise": "#14B8A6",                      # décoration seulement (jamais derrière du texte)
+    "fond_page": "#F3F6FB",
+    "texte": "#0F172A",
+    "texte_secondaire": "#475569",
     "carte_fond": "#FFFFFF",
-    "carte_bord": "#D5E1F1",
-    "resultats_fond": "#EEF8F1",
-    "resultats_bord": "#C9E5D2",
+    "carte_bord": "#DBE4F3",
+    "ombre": "rgba(15, 42, 107, 0.08)",
+    "resultats_fond": "#ECFDF5",
+    "resultats_bord": "#A7F3D0",
+    "coche": "#047857",                          # coche verte de « Résultats de l'analyse »
+    "encadre": "#EAF1FD",                        # encadré « Prototype… peut se tromper »
+    "blanc": "#FFFFFF",
 }
 
-# Pour chaque type : fond pastel du texte surligné (texte sombre dessus) et couleur du point de la légende.
+# Bandeau d'accueil : dégradé bleu royal -> bleu ciel. Le blanc sur le bleu ciel est trop pâle (contraste 2,8) :
+# le bleu royal est donc gardé jusqu'à « arret_pct » % de la largeur, et le texte reste dans les « largeur_texte_pct » % de gauche.
+BANDEAU = {"debut": COULEURS["bleu_royal"], "fin": COULEURS["ciel"], "arret_pct": 35, "largeur_texte_pct": 55}   # À REMPLACER
+
+# Pour chaque type : fond pastel du texte surligné (texte sombre dessus) et couleur de la pastille (légende, résumé).
 TYPES = {                                                                                # À REMPLACER
-    "ORG": {"nom": "Organisation", "pluriel": "organisations", "fond": "#BFD8F7", "point": "#1F5FD6"},   # bleu
-    "LOC": {"nom": "Lieu", "pluriel": "lieux", "fond": "#F9CFA3", "point": "#F28C28"},                 # orange
-    "DATE": {"nom": "Date", "pluriel": "dates", "fond": "#DCC9F3", "point": "#9B51E0"},                # violet
-    "PER": {"nom": "Personne", "pluriel": "personnes", "fond": "#BDE8C4", "point": "#2E9E4F"},         # vert
-    "FORMATION": {"nom": "Formation", "pluriel": "formations", "fond": "#F7C4DA", "point": "#E0508F"},  # rose
+    "ORG": {"nom": "Organisation", "pluriel": "organisations", "fond": "#BFDBFE", "point": "#1D4ED8"},   # bleu
+    "LOC": {"nom": "Lieu", "pluriel": "lieux", "fond": "#FED7AA", "point": "#EA580C"},                 # orange
+    "DATE": {"nom": "Date", "pluriel": "dates", "fond": "#E9D5FF", "point": "#9333EA"},                # violet
+    "PER": {"nom": "Personne", "pluriel": "personnes", "fond": "#BBF7D0", "point": "#16A34A"},          # vert
+    "FORMATION": {"nom": "Formation", "pluriel": "formations", "fond": "#FBCFE8", "point": "#DB2777"},  # rose
 }
+
+# Image facultative du bandeau : si demo/assets/bandeau.jpg existe, elle est utilisée (avec le dégradé par-dessus)
+# et le crédit ci-dessous est affiché dans « À propos ». Sinon, le bandeau garde le dégradé et le dessin vectoriel.
+CREDIT_BANDEAU = "Photo du bandeau : à créditer (auteur, source, licence)."               # À REMPLACER
 
 # ---------------------------------------------------------------------------------------------- exemples (vrais textes)
 # Numéros de segments du corpus La Nation (data/corpus_*.csv). Le texte est lu dans le corpus : rien n'est inventé.
-# Règles de choix (écrites avant de regarder les segments), en ordre du corpus (corpus_ner, test2, test3) :
-#   1 = un segment avec une DATE, un lieu et une organisation que le système par défaut (3a+3b) trouve entièrement
-#       (A14_S001, suggéré ; il montre les trois couleurs, A12_S001 n'en montre que deux) ;
-#   2 = premier segment suivant avec au moins 2 entités réelles dont des personnes, où D est entièrement correct (A12_S005) ;
-#   3 = premier segment avec au moins 2 entités réelles où le système par défaut (3a+3b) se trompe (A03_S002).
+#   1 = un segment avec une DATE, un lieu et une organisation que le système par défaut (3a+3b) trouve entièrement (A14_S001) ;
+#   2 = un segment avec des personnes, que D et 3a+3b trouvent entièrement (A12_S005) ;
+#   3 = un cas difficile choisi par Mako : A04_S020, où le système par défaut (3a+3b) prend « Washington » pour une personne.
 EXEMPLES = [                                                                             # À REMPLACER
-    ("A14_S001", "Un extrait avec une date, un lieu et une organisation"),
-    ("A12_S005", "Un extrait avec des personnes"),
-    ("A03_S002", "Un extrait où le système par défaut se trompe"),
+    ("A14_S001", "Date, lieu, organisation"),
+    ("A12_S005", "Personnes"),
+    ("A04_S020", "Cas difficile"),
 ]
 
 # Un exemple par catégorie (page « Catégories reconnues »).
@@ -81,7 +88,8 @@ NOTE_3A3B = "règles réglées sur les articles du projet, moins fiable sur d'au
 
 # ---------------------------------------------------------------------------------------------- page « À propos »
 A_PROPOS = {                                                                             # À REMPLACER
-    "Nom": "NER Djibouti",
+    "Nom": "Repère Djibouti",
+    "Nom technique": "reconnaissance d'entités nommées (NER)",
     "Domaine": "Traitement automatique des langues (TALN)",
     "Objectif": ("Montrer comment un programme peut repérer, dans un texte français, les personnes, les lieux, "
                  "les organisations, les dates et les formations."),

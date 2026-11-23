@@ -1,13 +1,16 @@
-"""Teste VRAIMENT l'application (avec l'outil de test de Streamlit, sans navigateur) et écrit demo/test_application.txt.
+"""Teste VRAIMENT l'application « Repère Djibouti » (outil de test de Streamlit, sans navigateur) et écrit demo/test_application.txt.
 
 Ce qui est vérifié :
-  1. contraste du texte sur les fonds (lisibilité) ;      2. aucune ressource en ligne ;
-  3. les 3 systèmes sur les 3 exemples : ce que l'écran affiche = ce que renvoie analyser() ;
-     le système par défaut (3a+3b) est exact sur les 2 premiers exemples et se trompe sur le 3e (voulu) ; le violet apparaît ;
-  4. légende = types réellement produits par le système ;  5. texte vide, texte trop long, code HTML saisi, modèle manquant ;
-  6. les 3 pages s'affichent, sans score ; chiffres sur D recalculés séparément ;  7. D rechargé depuis le cache = D de results/test3.csv.
+  1. contraste des couleurs de demo/theme.py (dont le bandeau en dégradé, calculé à l'endroit où s'arrête le texte) ;
+  2. hors ligne : aucune ressource en ligne ; configuration (barre d'outils minimale, pas de bandeau « fichier modifié ») ;
+  3. design : demo/style.css (aucune couleur écrite en dur, aucune police en ligne), nom « Repère Djibouti » partout ;
+  4. les 3 systèmes sur les 3 exemples : ce que l'écran affiche = ce que renvoie analyser() ;
+     le système par défaut (3a+3b) est exact sur les 2 premiers exemples et se trompe sur le 3e (Washington en PER) ;
+  5. cas limites : texte vide, texte trop long, code HTML saisi, modèle manquant ;
+  6. les 3 pages (menu en boutons, sans ronds de radio), sans score ; chiffres sur D recalculés séparément ;
+  7. D rechargé depuis le cache = D mesuré dans results/test3.csv.
 
-Ce test ne remplace PAS un coup d'œil humain sur l'écran (couleurs, mise en page).
+Ce test ne remplace PAS un coup d'œil sur l'écran réel (alignements, couleurs) : celui-là a été fait avec un navigateur sans fenêtre.
 Lancer, depuis la racine du dépôt :   python demo/tester_app.py
 """
 import html
@@ -25,6 +28,7 @@ import theme as T  # noqa: E402
 from streamlit.testing.v1 import AppTest  # noqa: E402
 
 LIGNES, ECHECS = [], []
+ATTENDU_EXEMPLES = ["Date, lieu, organisation", "Personnes", "Cas difficile"]
 
 
 def note(texte=""):
@@ -50,23 +54,41 @@ def contraste(a, b):
     return (la + 0.05) / (lb + 0.05)
 
 
+def melange(a, b, t):
+    """Couleur à la fraction t (0 à 1) du dégradé de a vers b."""
+    ca = [int(a[i:i + 2], 16) for i in (1, 3, 5)]
+    cb = [int(b[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#%02X%02X%02X" % tuple(round(x + (y - x) * t) for x, y in zip(ca, cb))
+
+
 def test_contraste():
     note("1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)")
     C = T.COULEURS
     paires = [(f"texte sombre sur surlignage {code}", C["texte"], v["fond"]) for code, v in T.TYPES.items()]
     paires += [("texte sombre sur carte blanche", C["texte"], C["carte_fond"]),
-               ("texte sombre sur carte des résultats", C["texte"], C["resultats_fond"]),
                ("texte sombre sur fond de page", C["texte"], C["fond_page"]),
-               ("texte sombre sur encadré d'avertissement", C["texte"], "#E7F1FC"),
-               ("titre sur début du bandeau", C["titre"], C["bandeau_debut"]),
-               ("titre sur fin du bandeau", C["titre"], C["bandeau_fin"]),
-               ("texte sombre sur début du bandeau", C["texte"], C["bandeau_debut"]),
-               ("texte sombre sur fin du bandeau", C["texte"], C["bandeau_fin"]),
-               ("texte blanc sur haut de la barre latérale", C["barre_texte"], C["barre_haut"]),
-               ("texte blanc sur bas de la barre latérale", C["barre_texte"], C["barre_bas"]),
-               ("texte blanc sur menu actif", C["barre_texte"], C["menu_actif"]),
-               ("texte du bouton sur le début du dégradé", C["bouton_texte"], C["bouton"]),
-               ("texte du bouton sur la fin du dégradé", C["bouton_texte"], C["bouton_fin"])]
+               ("texte sombre sur la carte « Résultats »", C["texte"], C["resultats_fond"]),
+               ("texte sombre sur encadré d'avertissement", C["texte"], C["encadre"]),
+               ("texte secondaire (légendes) sur blanc", C["texte_secondaire"], C["carte_fond"]),
+               ("texte secondaire sur fond de page", C["texte_secondaire"], C["fond_page"]),
+               ("texte secondaire sur la carte « Résultats »", C["texte_secondaire"], C["resultats_fond"]),
+               ("titres bleu nuit sur blanc", C["bleu_nuit"], C["carte_fond"]),
+               ("titres bleu nuit sur la carte « Résultats »", C["bleu_nuit"], C["resultats_fond"]),
+               ("blanc sur le haut de la barre latérale (bleu nuit)", C["blanc"], C["bleu_nuit"]),
+               ("blanc sur le bas de la barre latérale (bleu royal)", C["blanc"], C["bleu_royal"]),
+               ("blanc sur le bouton (bleu royal)", C["blanc"], C["bleu_royal"]),
+               ("blanc sur le bouton au survol", C["blanc"], C["bleu_royal_survol"]),
+               ("blanc sur la coche verte", C["blanc"], C["coche"]),
+               ("blanc sur la pastille « 1 »", C["blanc"], C["bleu_royal"])]
+    # Bandeau : le blanc est lu sur le dégradé. On calcule le contraste à l'endroit où s'arrête le texte
+    # (largeur du texte + marge de 4 %), et sur l'écran étroit (bleu uni sombre).
+    b = T.BANDEAU
+    bord = b["largeur_texte_pct"] + 4
+    t = max(0.0, (bord - b["arret_pct"]) / (100 - b["arret_pct"]))
+    couleur_bord = melange(b["debut"], b["fin"], t)
+    paires += [(f"blanc sur le bandeau, à {bord} % de sa largeur (là où s'arrête le texte : {couleur_bord})", C["blanc"], couleur_bord),
+               ("blanc sur le bandeau, tout à gauche", C["blanc"], b["debut"]),
+               ("blanc sur le bandeau en écran étroit (bleu royal sombre)", C["blanc"], C["bleu_royal_survol"])]
     pire = None
     for nom, fg, bg in paires:
         r = contraste(fg, bg)
@@ -74,24 +96,58 @@ def test_contraste():
         pire = r if pire is None else min(pire, r)
         verifier(r >= 4.5, f"contraste suffisant : {nom}")
     note(f"     -> contraste le plus faible : {pire:.1f}")
+    brut = contraste(C["blanc"], b["fin"])
+    note(f"     (pour information : le blanc sur le bleu ciel {b['fin']} seul ferait {brut:.1f} : le texte est donc gardé loin de ce bord)")
+    verifier(b["arret_pct"] > 0 and b["largeur_texte_pct"] <= 60, "le texte du bandeau reste dans la partie gauche, sur le bleu royal")
+    note("     Audit du contraste sur la page RENDUE (navigateur sans fenêtre, 3 pages) : voir le rapport de mise en œuvre.")
 
 
-# ------------------------------------------------------------------------------------------------ 2. hors ligne
+# ------------------------------------------------------------------------------------------------ 2 et 3. hors ligne et design
 def test_hors_ligne():
-    note("\n2. Hors ligne : recherche de ressources en ligne dans les fichiers de la démo")
+    note("\n2. Hors ligne et configuration")
     trouve = []
-    for f in [DOSSIER / "app.py", DOSSIER / "analyse.py", DOSSIER / "theme.py", RACINE / ".streamlit" / "config.toml"]:
+    for f in [DOSSIER / "app.py", DOSSIER / "analyse.py", DOSSIER / "theme.py", DOSSIER / "style.css", RACINE / ".streamlit" / "config.toml"]:
         for m in re.findall(r"https?://[^\s\"')]+", f.read_text(encoding="utf-8")):
-            if m != "http://www.w3.org/2000/svg":      # identifiant de format du dessin du drapeau, pas une ressource
+            if m != "http://www.w3.org/2000/svg":      # identifiant de format du dessin SVG, pas une ressource
                 trouve.append((f.name, m))
     verifier(not trouve, f"aucune URL de ressource en ligne ({trouve or 'rien trouvé'})")
     verifier("googleapis" not in (DOSSIER / "app.py").read_text(encoding="utf-8"), "aucune police en ligne")
-    verifier(not any(DOSSIER.glob("*.jpg")) and not any(DOSSIER.glob("*.jpeg")), "aucune photo dans l'application")
+    verifier(not any(DOSSIER.glob("*.jpg")) and not any(DOSSIER.glob("*.jpeg")), "aucune photo dans le dossier demo/")
     verifier("maquette" not in (DOSSIER / "app.py").read_text(encoding="utf-8"), "l'application ne charge pas la maquette")
-    verifier('address = "localhost"' in (RACINE / ".streamlit" / "config.toml").read_text(encoding="utf-8"),
-             "le serveur reste sur l'adresse locale (pas de recherche d'adresse publique sur internet)")
-    verifier("gatherUsageStats = false" in (RACINE / ".streamlit" / "config.toml").read_text(encoding="utf-8"),
-             "statistiques d'usage de Streamlit désactivées")
+    cfg = (RACINE / ".streamlit" / "config.toml").read_text(encoding="utf-8")
+    verifier('address = "localhost"' in cfg, "le serveur reste sur l'adresse locale (pas de recherche d'adresse publique)")
+    verifier("gatherUsageStats = false" in cfg, "statistiques d'usage de Streamlit désactivées")
+    verifier('toolbarMode = "minimal"' in cfg, 'toolbarMode = "minimal" (pas de bouton « Deploy » ni de menu)')
+    verifier("runOnSave = false" in cfg and 'fileWatcherType = "none"' in cfg,
+             "pas de surveillance des fichiers : le bandeau « Changement de fichier / Toujours relancer » n'apparaît pas")
+
+
+def test_design():
+    note("\n3. Design et nom de l'interface")
+    css = (DOSSIER / "style.css").read_text(encoding="utf-8")
+    verifier(not re.search(r"@import|@font-face", css), "style.css : aucune police ni feuille de style en ligne (@import, @font-face)")
+    sans_donnees = re.sub(r'url\("data:[^"]*"\)', "", css)
+    verifier(not re.search(r"#[0-9A-Fa-f]{6}\b|#[0-9A-Fa-f]{3}\b", sans_donnees),
+             "style.css : aucune couleur écrite en dur (toutes viennent de demo/theme.py par des variables --nom)")
+    verifier("system-ui" in css and "Segoe UI" in css, "style.css : polices du système uniquement")
+    for reglage in ["--hauteur-bandeau", "--taille-titre-bandeau", "--taille-texte", "--bouton-couleur"]:
+        verifier(reglage in css.split("/* ---------- Base")[0], f"style.css : le réglage {reglage} est dans le bloc « RÉGLAGES » du début")
+    verifier(re.search(r"border-radius: var\(--rayon\)", css) is not None and "--rayon: 16px" in css, "cartes : bords arrondis de 16 px")
+    verifier("rgba(15, 42, 107, 0.08)" in T.COULEURS["ombre"] or "rgba(15,42,107,0.08)" in T.COULEURS["ombre"].replace(" ", ""),
+             "ombre légère rgba(15,42,107,0.08)")
+    attendu = {"bleu_nuit": "#0B1F4B", "bleu_royal": "#1D4ED8", "turquoise": "#14B8A6", "fond_page": "#F3F6FB", "texte": "#0F172A"}
+    verifier(all(T.COULEURS[k].upper() == v for k, v in attendu.items()), "palette de base : bleu nuit, bleu royal, turquoise, fond, texte")
+    fonds = {"ORG": "#BFDBFE", "LOC": "#FED7AA", "DATE": "#E9D5FF", "PER": "#BBF7D0", "FORMATION": "#FBCFE8"}
+    verifier(all(T.TYPES[k]["fond"].upper() == v for k, v in fonds.items()), "surlignages : ORG, LOC, DATE, PER, FORMATION")
+    for fichier in ["app.py", "theme.py", "analyse.py"]:
+        verifier("NER Djibouti" not in (DOSSIER / fichier).read_text(encoding="utf-8"), f"{fichier} : plus d'ancien nom « NER Djibouti »")
+    verifier(T.TITRE == "Repère Djibouti" and T.BANDEAU_TITRE == "Bienvenue sur Repère Djibouti !", "titre et bandeau : « Repère Djibouti »")
+    verifier(T.SOUS_TITRE == "Repérez les personnes, lieux, organisations et dates de vos textes.", "sous-titre demandé")
+    verifier("page_title=T.TITRE" in (DOSSIER / "app.py").read_text(encoding="utf-8"), "titre de page = « Repère Djibouti »")
+    verifier([libelle for _, libelle in T.EXEMPLES] == ATTENDU_EXEMPLES, f"étiquettes courtes des exemples : {ATTENDU_EXEMPLES}")
+    verifier(T.NOTE_EXTRAITS == "Les extraits viennent du corpus de travail du projet : le système les connaît mieux que des textes nouveaux.",
+             "phrase sous les boutons d'exemples : texte demandé")
+    verifier(T.EXEMPLES[-1][0] == "A04_S020", "3e exemple = A04_S020 (« Washington » pris pour une personne)")
 
 
 # ------------------------------------------------------------------------------------------------ outils AppTest
@@ -139,19 +195,27 @@ def gold_du_segment(id_segment):
     return sortie
 
 
-# ------------------------------------------------------------------------------------------------ 3 et 4
+# ------------------------------------------------------------------------------------------------ 4
 def test_exemples():
-    note("\n3. Les 3 systèmes sur les 3 exemples (ce que l'écran affiche, comparé à analyser())")
+    note("\n4. Les 3 systèmes sur les 3 exemples (ce que l'écran affiche, comparé à analyser())")
     at = nouvelle_app()
     verifier(not at.exception, "la page d'accueil s'affiche sans erreur")
-    verifier("Bienvenue sur NER Djibouti !" in tout_html(at), "bandeau « Bienvenue sur NER Djibouti ! » présent")
-    verifier("Votre texte" in tout_html(at) and ("Résultats de l'analyse" in tout_html(at) or "Résultats de l&#x27;analyse" in tout_html(at)),
+    contenu = tout_html(at)
+    verifier("Bienvenue sur Repère Djibouti !" in contenu, "bandeau « Bienvenue sur Repère Djibouti ! » présent")
+    verifier(html.escape(T.SOUS_TITRE) in contenu or T.SOUS_TITRE in contenu, "sous-titre « Repérez les personnes… » présent")
+    verifier("Repère Djibouti" in contenu and "NER Djibouti" not in contenu, "barre latérale : « Repère Djibouti » (plus l'ancien nom)")
+    verifier("Votre texte" in contenu and ("Résultats de l'analyse" in contenu or "Résultats de l&#x27;analyse" in contenu),
              "cartes « Votre texte » et « Résultats de l'analyse » présentes")
     verifier(any(b.label == "Analyser le texte" for b in at.button), "bouton « Analyser le texte » présent")
     verifier(at.selectbox(key="systeme").value == "3a+3b", "système par défaut = 3a+3b")
-    verifier(analyse.SYSTEME_PAR_DEFAUT == "3a+3b" and list(analyse.SYSTEMES)[0] == "3a+3b",
-             "3a+3b est le premier du menu et le système par défaut")
-    verifier(list(analyse.SYSTEMES)[1:] == ["D", "A"], "D et A restent disponibles dans « Options avancées »")
+    verifier(list(analyse.SYSTEMES)[:1] == ["3a+3b"] and list(analyse.SYSTEMES)[1:] == ["D", "A"],
+             "3a+3b par défaut ; D et A restent dans « Options avancées »")
+    verifier(len(at.sidebar.radio) == 0, "barre latérale : aucun bouton radio (donc aucun rond de radio)")
+    verifier([b.label for b in at.sidebar.button] == ["Analyser un texte", "Catégories reconnues", "À propos"],
+             "barre latérale : le menu est fait de 3 boutons")
+    libelles = [b.label for b in at.button if b.key and b.key.startswith("exemple_")]
+    verifier(libelles == ATTENDU_EXEMPLES, f"3 boutons d'exemples aux étiquettes courtes : {libelles}")
+    verifier(any(T.NOTE_EXTRAITS in c.value for c in at.caption), "la phrase « Les extraits viennent du corpus de travail… » est affichée sous les boutons")
     for id_segment, libelle in T.EXEMPLES:
         at.button(key=f"exemple_{id_segment}").click()
         at.run()
@@ -178,6 +242,8 @@ def test_exemples():
                 verifier(exact == voulu, f"{id_segment} : avec 3a+3b le résultat est " + ("exact" if voulu else "faux (exemple d'erreur voulu)"))
                 if id_segment == T.EXEMPLES[0][0]:
                     verifier("DATE" in [t for t, _ in vu], f"{id_segment} : une DATE est surlignée (le violet apparaît) avec le système par défaut")
+                if id_segment == "A04_S020":
+                    verifier(("PER", "Washington") in vu, "A04_S020 : « Washington » est pris pour une PERSONNE par 3a+3b (l'erreur voulue)")
         at.selectbox(key="systeme").select("3a+3b")
 
 
@@ -236,16 +302,21 @@ def chiffres_d_recalcules():
     return vp, sup
 
 
+def aller_a(at, indice):
+    at.sidebar.button(key=f"nav_{indice}").click()
+    at.run()
+
+
 def test_pages():
-    note("\n6. Les trois pages")
+    note("\n6. Les trois pages (menu en boutons)")
     at = nouvelle_app()
     memoire_D = analyse._MEMOIRE.pop("D", None)          # on simule « D pas encore chargé » pour tester le chargement à la demande
     try:
-        for page in ["Catégories reconnues", "À propos", "Analyser un texte"]:
-            at.sidebar.radio(key="page").set_value(page)
-            at.run()
+        for indice, page in [(1, "Catégories reconnues"), (2, "À propos"), (0, "Analyser un texte")]:
+            aller_a(at, indice)
             contenu = tout_html(at) + " ".join(x.value for x in at.info) + " ".join(str(d.value) for d in at.dataframe)
             verifier(not at.exception, f"page « {page} » : s'affiche sans erreur")
+            verifier(at.session_state["page"] == page, f"page « {page} » : le clic sur le menu change bien de page")
             verifier(not re.search(r"\bF1\b|précision|rappel|score", contenu, flags=re.I), f"page « {page} » : aucun score affiché")
             if page == "Catégories reconnues":
                 for code in analyse.ORDRE_TYPES:
@@ -266,9 +337,11 @@ def test_pages():
                 verifier(len(tab.columns) == 3, "page Catégories : après le clic, le tableau a 3 systèmes (D ajouté)")
                 note("     Tableau « ce que chaque système sait reconnaître » (avec D) :\n" + tab.to_string())
             if page == "À propos":
-                for attendu in ["NER Djibouti", "Traitement automatique des langues (TALN)", "Master 2 IAMD – Université de Djibouti",
-                                "Python, spaCy, Streamlit", "Binôme 5", "Prototype de projet TALN – peut se tromper"]:
+                for attendu in ["Repère Djibouti", "reconnaissance d'entités nommées (NER)", "Traitement automatique des langues (TALN)",
+                                "Master 2 IAMD – Université de Djibouti", "Python, spaCy, Streamlit", "Binôme 5",
+                                "Prototype de projet TALN – peut se tromper"]:
                     verifier(attendu.replace("'", "&#x27;") in contenu or attendu in contenu, f"page À propos : « {attendu} »")
+                verifier("Photo du bandeau" not in contenu, "page À propos : pas de crédit d'image tant que demo/assets/bandeau.jpg n'existe pas")
     finally:
         if memoire_D is not None and "D" not in analyse._MEMOIRE:
             analyse._MEMOIRE["D"] = memoire_D
@@ -281,6 +354,11 @@ def test_messages():
              "le message d'attente « Première utilisation du modèle D … environ 30 secondes » est dans l'application")
     verifier("environ 30 secondes" in (RACINE / "README.md").read_text(encoding="utf-8"),
              "le README annonce l'attente d'environ 30 secondes pour D")
+    readme = (RACINE / "README.md").read_text(encoding="utf-8")
+    verifier("Repère Djibouti" in readme, "le README présente l'application sous le nom « Repère Djibouti »")
+    verifier("Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass" in readme and "-m streamlit run demo/app.py" in readme,
+             "le README donne la variante PowerShell (sans activer le venv) et la ligne Set-ExecutionPolicy")
+    verifier("streamlit>=1.67.0,<2" in (RACINE / "requirements.txt").read_text(encoding="utf-8"), "requirements.txt : streamlit>=1.67.0,<2")
 
 
 # ------------------------------------------------------------------------------------------------ 7
@@ -309,9 +387,9 @@ def test_cache_D():
 
 def main():
     debut = time.time()
-    note("TEST DE L'APPLICATION NER DJIBOUTI (outil de test de Streamlit, sans navigateur)")
+    note("TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)")
     note(f"Fait le {time.strftime('%Y-%m-%d à %H:%M:%S')}\n")
-    for t in [test_contraste, test_hors_ligne, test_exemples, test_cas_limites, test_pages, test_messages, test_cache_D]:
+    for t in [test_contraste, test_hors_ligne, test_design, test_exemples, test_cas_limites, test_pages, test_messages, test_cache_D]:
         t()
     note(f"\nDurée totale : {time.time() - debut:.0f} s | échecs : {len(ECHECS)}")
     for e in ECHECS:

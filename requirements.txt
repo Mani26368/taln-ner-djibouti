@@ -2,6 +2,6 @@ spacy>=3.7
 pandas
 matplotlib
 jupyter
-streamlit==1.67.0     # démo (dossier demo/) : seule version essayée
+streamlit>=1.67.0,<2     # démo (dossier demo/) : testée avec la version 1.67.0
 # Modèle spaCy à installer à part :
 # python -m spacy download fr_core_news_sm

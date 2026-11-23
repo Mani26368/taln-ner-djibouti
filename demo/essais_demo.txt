@@ -1,17 +1,17 @@
-ESSAIS DE LA DÉMONSTRATION NER DJIBOUTI (plan B)
-Fichier produit par demo/enregistrer_essais.py le 2026-11-22 à 21:22:56
+ESSAIS DE LA DÉMONSTRATION REPÈRE DJIBOUTI (plan B)
+Fichier produit par demo/enregistrer_essais.py le 2026-11-23 à 06:17:42
 Python 3.12.10 | spaCy 3.8.18 | Windows
 Rien n'est inventé : les textes sont de vrais segments du journal La Nation (corpus du dépôt) ;
 les entités sont celles que renvoie la fonction analyser() de l'application. Prototype : peut se tromper.
 
 === 1. Chargement des systèmes (une seule fois par lancement) ===
 - 3a+3b – nos règles locales (version gelée) : chargé en 7.2 s (source : règles locales) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER']
-- D – modèle ré-entraîné (Kadiga) : chargé en 1.4 s (source : cache disque) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
-- A – spaCy seul : chargé en 1.5 s (source : règles : aucune) ; types possibles : ['ORG', 'LOC', 'PER']
+- D – modèle ré-entraîné (Kadiga) : chargé en 1.5 s (source : cache disque) ; types possibles : ['ORG', 'LOC', 'DATE', 'PER', 'FORMATION']
+- A – spaCy seul : chargé en 1.4 s (source : règles : aucune) ; types possibles : ['ORG', 'LOC', 'PER']
 
 === 2. Les trois exemples, avec les trois systèmes ===
 
-[A14_S001] Un extrait avec une date, un lieu et une organisation
+[A14_S001] Date, lieu, organisation
 Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxième édition du Challenge intercommunautaire culturel et sportif, placé sous l'égide du ministère de la Jeunesse et de la Culture.
   3a+3b – nos règles locales (version gelée) -> 3 entité(s)
       'Ardo Bankoualé'                              LOC        positions 14-28
@@ -27,7 +27,7 @@ Texte : La localité d'Ardo Bankoualé a accueilli, vendredi 14 août, la deuxi�
       'Challenge'                                   LOC        positions 83-92
       'ministère de la Jeunesse et de la Culture'   ORG        positions 155-196
 
-[A12_S005] Un extrait avec des personnes
+[A12_S005] Personnes
 Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, Mohamed Abdo, et de l'inspecteur général de la pédagogie, Abdillahi Farah.
   3a+3b – nos règles locales (version gelée) -> 2 entité(s)
       'Mohamed Abdo'                                PER        positions 67-79
@@ -39,23 +39,17 @@ Texte : Ces travaux bénéficient de la supervision de l'inspecteur général, M
       'Mohamed Abdo'                                PER        positions 67-79
       'Abdillahi Farah'                             PER        positions 125-140
 
-[A03_S002] Un extrait où le système par défaut se trompe
-Texte : Réunis en Assemblée générale extraordinaire au siège de la Fédération, ils ont voté à l'unanimité la révocation du Comité directeur et de son président, Souleiman Hassan Waberi.
-  3a+3b – nos règles locales (version gelée) -> 3 entité(s)
-      'Réunis'                                      LOC        positions 0-6
-      'Comité directeur'                            ORG        positions 115-131
-      'Souleiman Hassan Waberi'                     PER        positions 153-176
-  D – modèle ré-entraîné (Kadiga) -> 4 entité(s)
-      'Réunis'                                      LOC        positions 0-6
-      'Assemblée générale'                          ORG        positions 10-28
-      'Comité directeur et de son président'        ORG        positions 115-151
-      'Souleiman Hassan Waberi'                     PER        positions 153-176
-  A – spaCy seul -> 5 entité(s)
-      'Réunis'                                      LOC        positions 0-6
-      'Assemblée générale'                          ORG        positions 10-28
-      'Fédération'                                  LOC        positions 59-69
-      'Comité directeur'                            ORG        positions 115-131
-      'Souleiman Hassan Waberi'                     PER        positions 153-176
+[A04_S020] Cas difficile
+Texte : Leur présence au sommet de New Delhi pouvait ainsi être interprétée comme la manifestation d'une diplomatie de diversification plutôt que comme un repositionnement stratégique contre Washington.
+  3a+3b – nos règles locales (version gelée) -> 2 entité(s)
+      'New Delhi'                                   LOC        positions 27-36
+      'Washington'                                  PER        positions 183-193
+  D – modèle ré-entraîné (Kadiga) -> 2 entité(s)
+      'New Delhi'                                   LOC        positions 27-36
+      'Washington'                                  LOC        positions 183-193
+  A – spaCy seul -> 2 entité(s)
+      'New Delhi'                                   LOC        positions 27-36
+      'Washington'                                  PER        positions 183-193
 
 === 3. Cas limites : messages affichés à l'utilisateur ===
 - texte vide -> Le texte est vide. Écrivez ou collez un texte en français, puis cliquez sur « Analyser le texte ».

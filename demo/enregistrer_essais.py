@@ -20,7 +20,7 @@ import theme as T  # noqa: E402
 def main():
     lignes = []
     ajouter = lignes.append
-    ajouter("ESSAIS DE LA DÉMONSTRATION NER DJIBOUTI (plan B)")
+    ajouter("ESSAIS DE LA DÉMONSTRATION REPÈRE DJIBOUTI (plan B)")
     ajouter(f"Fichier produit par demo/enregistrer_essais.py le {time.strftime('%Y-%m-%d à %H:%M:%S')}")
     import spacy
     ajouter(f"Python {platform.python_version()} | spaCy {spacy.__version__} | {platform.system()}")

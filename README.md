@@ -33,43 +33,60 @@ python -m spacy download fr_core_news_sm
 
 ## Lancer la démo
 
-Une application Streamlit (dossier `demo/`) permet d'essayer le système sur un texte, sans rien savoir de la programmation.
-Elle sert aussi de démonstration de 3 minutes. **C'est un prototype : il peut se tromper.**
+**Repère Djibouti** est une application Streamlit (dossier `demo/`) : on colle un texte français et elle surligne les personnes, lieux,
+organisations et dates. Elle sert aussi de démonstration de 3 minutes. Son nom technique est « reconnaissance d'entités nommées (NER) ».
+**C'est un prototype : il peut se tromper.**
 
-Depuis un dossier neuf (Windows : remplacer `source .venv/bin/activate` par `.venv\Scripts\activate`) :
+**Depuis un dossier neuf, Windows PowerShell, sans activer le venv** (variante la plus fiable) :
 
-```bash
+```powershell
 git clone https://github.com/Mani26368/taln-ner-djibouti.git
 cd taln-ner-djibouti
 git checkout mako              # tant que la démo n'est pas fusionnée dans main
 python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m spacy download fr_core_news_sm
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m spacy download fr_core_news_sm
+.venv\Scripts\python.exe -m streamlit run demo/app.py
+```
+
+Si on préfère activer le venv et que PowerShell répond « l'exécution de scripts est désactivée sur ce système » :
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass     # valable seulement pour cette fenêtre
+.venv\Scripts\Activate.ps1
 streamlit run demo/app.py
 ```
 
+**macOS / Linux** : `source .venv/bin/activate`, puis `pip install -r requirements.txt`, `python -m spacy download fr_core_news_sm`
+et `streamlit run demo/app.py`.
+
+> **Windows : « No such file or directory » pendant `pip install`.** Windows limite les chemins à 260 caractères et Jupyter
+> (dans `requirements.txt`) a des fichiers aux chemins très longs. Il faut alors cloner le projet dans un dossier au chemin court
+> (par exemple `C:\taln`) ou activer les chemins longs de Windows. Constaté lors du test depuis un clone neuf.
+
 Il faut internet **seulement pour l'installation**. Ensuite l'application fonctionne hors ligne (aucune police ni image en ligne ;
-les statistiques d'usage de Streamlit sont désactivées dans `.streamlit/config.toml`). Le navigateur s'ouvre, et l'adresse locale est affichée dans le terminal.
+les statistiques d'usage de Streamlit sont désactivées dans `.streamlit/config.toml`, qui masque aussi le bouton « Deploy » et le menu).
+Le navigateur s'ouvre, et l'adresse locale est affichée dans le terminal.
 
 **Démarrage.** Le système par défaut, **3a+3b** (nos règles locales, version gelée), ne demande aucun entraînement :
-la page d'accueil est prête 13,7 s à 18,4 s après la commande (3 essais ; sur d'autres démarrages mesurés pendant les essais,
-de 15,3 s à 37,1 s quand l'ordinateur était chargé).
+la page d'accueil est prête 14,0 s à 24,6 s après la commande (3 essais dédiés : 24,6 s, 15,2 s et 14,0 s ; cinq autres démarrages
+mesurés pendant les essais de D : de 15,2 s à 23,6 s).
 
 **Première utilisation du modèle D : attendre environ 30 secondes.** Le modèle D (le modèle ré-entraîné de Kadiga, à choisir dans
 « Options avancées ») n'est enregistré nulle part dans Git (un modèle spaCy est trop gros) : la première fois qu'on le choisit, il s'entraîne.
 L'application affiche un message d'attente (« Première utilisation du modèle D : il est en cours d'entraînement… »).
 Il est ensuite gardé dans `demo/.cache/` (dossier ignoré par Git, environ 26 Mo).
-Temps mesurés sur l'ordinateur de Mako (Windows) pour ce choix de D : première utilisation 25,2 s et 36,0 s (2 essais) ;
-utilisations suivantes 8,4 s, 1,8 s et 1,8 s (3 essais ; le premier incluait une lecture du disque à froid).
-Ces durées varient d'un ordinateur à l'autre.
+Temps mesurés sur l'ordinateur de Mako (Windows) pour ce choix de D : première utilisation 27,4 s et 23,5 s (2 essais) ;
+utilisations suivantes 2,5 s, 1,9 s et 1,9 s (3 essais). Ces durées varient beaucoup d'un ordinateur et d'un moment à l'autre.
 
 - **Pages** (barre de gauche) : « Analyser un texte », « Catégories reconnues », « À propos ».
 - **Systèmes** : **3a+3b** par défaut (règles réglées sur les articles du projet, moins fiable sur d'autres textes).
   « Options avancées » permet de choisir « D – modèle ré-entraîné (Kadiga) » ou « A – spaCy seul ». D trouve peu de dates sur nos
   segments de La Nation (les chiffres, lus dans `results/`, sont sur la page « Catégories reconnues »).
   La légende indique ce que le système PEUT produire, pas ce qu'il trouve toujours.
-- **Apparence** : couleurs, titre, phrase d'accueil et exemples sont dans `demo/theme.py` (valeurs marquées « À REMPLACER »).
+- **Apparence** : les couleurs, le titre et les textes sont dans `demo/theme.py` (valeurs marquées « À REMPLACER ») ;
+  la mise en forme (hauteur du bandeau, tailles de police, couleur du bouton) est dans `demo/style.css`, bloc « RÉGLAGES » en haut du fichier.
+  Une image facultative `demo/assets/bandeau.jpg` est utilisée si elle existe (avec le dégradé par-dessus) ; son crédit s'écrit dans `demo/theme.py`.
   `demo/maquette.png` ne sert que de référence visuelle : l'application ne l'utilise pas.
 - **Plan B** (si la démo en direct échoue) : `python demo/enregistrer_essais.py` écrit les résultats réels des 3 systèmes sur 3 exemples
   dans `demo/essais_demo.txt` (déjà fourni). `python demo/tester_app.py` teste l'application et écrit `demo/test_application.txt`.

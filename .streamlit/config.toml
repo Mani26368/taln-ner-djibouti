@@ -3,14 +3,21 @@
 # Aucune statistique d'usage envoyée sur internet.
 gatherUsageStats = false
 
+[client]
+# Barre d'outils minimale : pas de bouton « Deploy » ni de menu.
+toolbarMode = "minimal"
+
 [server]
 # La démo reste sur cet ordinateur (adresse locale) : Streamlit n'a pas besoin de chercher une adresse publique sur internet.
 address = "localhost"
+# Pas de surveillance des fichiers : le bandeau « Changement de fichier / Toujours relancer » n'apparaît pas.
+runOnSave = false
+fileWatcherType = "none"
 
 [theme]
-# Thème clair imposé : les couleurs pastel de l'application restent lisibles même si l'ordinateur est en mode sombre.
+# Thème clair imposé : les couleurs de l'application restent lisibles même si l'ordinateur est en mode sombre.
 base = "light"
-primaryColor = "#1F5FD6"
-backgroundColor = "#F3F7FC"
+primaryColor = "#1D4ED8"
+backgroundColor = "#F3F6FB"
 secondaryBackgroundColor = "#FFFFFF"
-textColor = "#14213D"
+textColor = "#0F172A"
