@@ -36,6 +36,11 @@ Sous Windows, la variante PowerShell sans activer le venv et la précaution sur 
 1. **Notebook final** : `notebooks/NER_Djibouti_final.ipynb`. Le lire ou l'exécuter de haut en bas (environ une minute). Choisir comme noyau
    l'environnement `.venv`. Il importe le code de `src/` et lit les résultats dans `results/` ; l'interrupteur `RELANCER = False`
    évite de ré-entraîner le modèle D de Kadiga.
+   En ligne de commande, `jupyter` peut prendre le Python du système (erreur « No module named 'spacy' »). Pour utiliser le
+   noyau du `.venv`, installer le noyau puis indiquer son dossier (PowerShell, depuis la racine du projet) :
+   `.venv\Scripts\python.exe -m ipykernel install --sys-prefix --name python3`, puis
+   `$env:JUPYTER_PATH = "$PWD\.venv\share\jupyter"` avant `.venv\Scripts\python.exe -m jupyter nbconvert --to notebook --execute notebooks\NER_Djibouti_final.ipynb`.
+   Dans VS Code, il suffit de choisir le noyau `.venv` en haut à droite du notebook.
 2. **Les résultats** de `results/` ont été produits par les scripts de `src/` :
 
    | Script | Rôle |
