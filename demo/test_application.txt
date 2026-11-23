@@ -1,5 +1,5 @@
 TEST DE L'APPLICATION REPÈRE DJIBOUTI (outil de test de Streamlit, sans navigateur)
-Fait le 2026-11-23 à 12:06:46
+Fait le 2026-11-23 à 16:43:29
 
 1. Lisibilité : rapport de contraste (norme WCAG : 4,5 minimum pour du texte courant, 7 = très confortable)
       11.0  texte sombre sur le surlignage pastel ORG  (#1B2336 sur #BFDBFE)
@@ -22,16 +22,16 @@ Fait le 2026-11-23 à 12:06:46
   [OK ] contraste suffisant : étiquette de type PER (petit texte coloré) sur son pastel
        7.0  étiquette de type FORMATION (petit texte coloré) sur son pastel  (#831843 sur #FBCFE8)
   [OK ] contraste suffisant : étiquette de type FORMATION (petit texte coloré) sur son pastel
-      10.4  chiffre ORG (coloré) sur carte blanche  (#1E3A8A sur #FFFFFF)
-  [OK ] contraste suffisant : chiffre ORG (coloré) sur carte blanche
-       8.5  chiffre LOC (coloré) sur carte blanche  (#7C3A0E sur #FFFFFF)
-  [OK ] contraste suffisant : chiffre LOC (coloré) sur carte blanche
-      11.0  chiffre DATE (coloré) sur carte blanche  (#4C1D95 sur #FFFFFF)
-  [OK ] contraste suffisant : chiffre DATE (coloré) sur carte blanche
-       9.1  chiffre PER (coloré) sur carte blanche  (#14532D sur #FFFFFF)
-  [OK ] contraste suffisant : chiffre PER (coloré) sur carte blanche
-       9.6  chiffre FORMATION (coloré) sur carte blanche  (#831843 sur #FFFFFF)
-  [OK ] contraste suffisant : chiffre FORMATION (coloré) sur carte blanche
+       7.3  chiffre ORG (coloré) sur sa carte pastel  (#1E3A8A sur #BFDBFE)
+  [OK ] contraste suffisant : chiffre ORG (coloré) sur sa carte pastel
+       6.3  chiffre LOC (coloré) sur sa carte pastel  (#7C3A0E sur #FED7AA)
+  [OK ] contraste suffisant : chiffre LOC (coloré) sur sa carte pastel
+       8.0  chiffre DATE (coloré) sur sa carte pastel  (#4C1D95 sur #E9D5FF)
+  [OK ] contraste suffisant : chiffre DATE (coloré) sur sa carte pastel
+       7.5  chiffre PER (coloré) sur sa carte pastel  (#14532D sur #BBF7D0)
+  [OK ] contraste suffisant : chiffre PER (coloré) sur sa carte pastel
+       7.0  chiffre FORMATION (coloré) sur sa carte pastel  (#831843 sur #FBCFE8)
+  [OK ] contraste suffisant : chiffre FORMATION (coloré) sur sa carte pastel
       14.5  texte sur le fond de page  (#1B2336 sur #F4F6FA)
   [OK ] contraste suffisant : texte sur le fond de page
       15.7  texte sur une carte blanche  (#1B2336 sur #FFFFFF)
@@ -101,8 +101,11 @@ Fait le 2026-11-23 à 12:06:46
   [OK ] pas de barre latérale : le menu est dans le bandeau
   [OK ] bandeau : navigation Analyser, Catégories, À propos
   [OK ] carte « Texte annoté » : légende des 4 types (ORG, LOC, DATE, PER)
-  [OK ] avant l'analyse : phrase d'exemple déjà annotée, en grisé, avec « Exemple : votre texte apparaîtra ainsi »
-  [OK ] avant l'analyse : pas de chiffres ni de tableau
+  [OK ] à l'ouverture : l'extrait de La Nation A01_S002 est dans la zone de texte
+  [OK ] à l'ouverture : l'extrait est déjà analysé (entités surlignées, comme le fait l'analyse)
+  [OK ] à l'ouverture : petites cartes de chiffres et tableau déjà affichés
+  [OK ] bande « Comment ça marche » : les 3 étapes
+  [OK ] pied de page : « Prototype de projet TALN · M2 IAMD · Université de Djibouti » et lien GitHub
   [OK ] aperçu avant analyse : texte en gris, surlignages en pleine couleur (pas d'opacité qui les délave)
   [OK ] 3 boutons d'exemples : ['Une date', 'Des personnes', 'Un cas difficile']
   [OK ] la légende de l'erreur n'est pas affichée avant le choix de l'exemple d'erreur
@@ -258,7 +261,7 @@ Fait le 2026-11-23 à 12:06:46
   [OK ] requirements.txt : streamlit>=1.67.0,<2
 
 7. D rechargé depuis le cache = D de results/test3.csv (63 valeurs comparées)
-     D chargé en 22.7 s (source : entraîné (cache non enregistré))
+     D chargé en 26.6 s (source : entraîné (cache non enregistré))
   [OK ] 63 valeurs comparées, 0 différence(s)
 
-Durée totale : 48 s | contrôles OK : 199 | échecs : 0
+Durée totale : 43 s | contrôles OK : 202 | échecs : 0

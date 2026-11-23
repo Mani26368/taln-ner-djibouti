@@ -68,8 +68,8 @@ a { color: var(--bouton); }
 .st-key-carte_simple p, .st-key-carte_simple li { font-size: 13px; line-height: 1.6; }
 
 /* ---------- Zone de texte, extraits (pilules), bouton principal ---------- */
-[data-testid="stTextArea"] textarea { border: none; min-height: 118px; padding: 10px 12px; color: var(--texte); background: var(--carte-fond);
-  font-size: 13px; line-height: 1.6; }
+[data-testid="stTextArea"] textarea { border: none; min-height: 118px; padding: 12px 14px; color: var(--texte); background: var(--carte-fond);
+  font-size: 15px; line-height: 1.6; }
 [data-testid="stTextArea"] [data-baseweb="textarea"], [data-testid="stTextArea"] [data-baseweb="base-input"] { border-radius: var(--rayon-petit); background: var(--carte-fond); }
 [data-testid="stTextArea"] [data-baseweb="textarea"] { border: 1px solid var(--bord-champ); }
 .sous-titre-extraits { margin: 6px 0 -2px; color: var(--texte-secondaire); font-size: 12px; }
@@ -81,6 +81,8 @@ a { color: var(--bouton); }
 .stButton > button[kind="primary"] { width: 100%; min-height: 0; padding: 10px; border: none; border-radius: var(--rayon-petit);
   background: var(--bouton); color: var(--blanc); box-shadow: none; }
 .stButton > button[kind="primary"] p { color: var(--blanc); font-size: 14px; font-weight: 500; }
+.st-key-analyser .stButton > button[kind="primary"], .st-key-analyser button[kind="primary"] { min-height: 58px; padding: 16px 12px; }
+.st-key-analyser button[kind="primary"] p { font-size: 17px; font-weight: 600; }
 .stButton > button[kind="primary"]:hover { background: var(--bouton); filter: brightness(.9); border: none; }
 .stButton > button[kind="secondary"] { border: 1px solid var(--bord); border-radius: var(--rayon-petit); background: var(--carte-fond); color: var(--texte); box-shadow: none; }
 .stButton > button[kind="secondary"] p { font-size: 13px; }
@@ -123,15 +125,16 @@ a { color: var(--bouton); }
 
 /* ---------- Ligne de 5 petites cartes (chiffres) ---------- */
 .chiffres { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-auto-flow: column; gap: 10px; animation: fondu .3s ease-out both; }
-.chiffre { padding: 10px 12px; background: var(--carte-fond); border: 1px solid var(--bord); border-radius: 10px; }
-.chiffre .nom { color: var(--texte-secondaire); font-size: 11px; }
+@media (max-width: 640px) { .chiffres { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-flow: row; } }
+.chiffre { padding: 10px 12px; background: var(--fond-carte-type, var(--carte-fond)); border: 1px solid var(--bord); border-radius: 10px; }
+.chiffre .nom { color: var(--couleur-valeur); font-size: 11px; font-weight: 500; }
 .chiffre .valeur { color: var(--couleur-valeur); font-size: 22px; font-weight: 500; line-height: 1.3; }
 .chiffre-total { --couleur-valeur: var(--bandeau); }
-.chiffre-ORG { --couleur-valeur: var(--org-texte); }
-.chiffre-LOC { --couleur-valeur: var(--loc-texte); }
-.chiffre-DATE { --couleur-valeur: var(--date-texte); }
-.chiffre-PER { --couleur-valeur: var(--per-texte); }
-.chiffre-FORMATION { --couleur-valeur: var(--formation-texte); }
+.chiffre-ORG { --couleur-valeur: var(--org-texte); --fond-carte-type: var(--org-fond); border-color: transparent; }
+.chiffre-LOC { --couleur-valeur: var(--loc-texte); --fond-carte-type: var(--loc-fond); border-color: transparent; }
+.chiffre-DATE { --couleur-valeur: var(--date-texte); --fond-carte-type: var(--date-fond); border-color: transparent; }
+.chiffre-PER { --couleur-valeur: var(--per-texte); --fond-carte-type: var(--per-fond); border-color: transparent; }
+.chiffre-FORMATION { --couleur-valeur: var(--formation-texte); --fond-carte-type: var(--formation-fond); border-color: transparent; }
 
 /* ---------- Carte « Entités repérées » ---------- */
 .st-key-carte_tableau { padding-top: 6px; padding-bottom: 8px; }
@@ -166,3 +169,16 @@ a[data-testid^="stBaseLinkButton"] { align-self: flex-start; padding: 8px 16px; 
   background: var(--bouton); box-shadow: none; text-decoration: none; }
 a[data-testid^="stBaseLinkButton"], a[data-testid^="stBaseLinkButton"] p, a[data-testid^="stBaseLinkButton"] span { color: var(--blanc); font-size: 14px; font-weight: 500; }
 a[data-testid^="stBaseLinkButton"]:hover { filter: brightness(.9); }
+
+/* ---------- Bande « Comment ça marche » et pied de page ---------- */
+.bande-etapes { margin-top: 2px; padding: 14px 16px; background: var(--carte-fond); border: 1px solid var(--bord); border-radius: var(--rayon-carte);
+  animation: fondu .3s ease-out both; }
+.etapes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 10px; }
+.etape { display: flex; align-items: center; gap: 10px; }
+.etape .num { flex: none; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bouton); color: var(--blanc); font-size: 13px; font-weight: 600; }
+.etape .texte-etape { color: var(--texte); font-size: 13px; line-height: 1.4; }
+@media (max-width: 640px) { .etapes { grid-template-columns: minmax(0, 1fr); } }
+.pied { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px; padding-top: 14px; border-top: 1px solid var(--bord);
+  color: var(--texte-secondaire); font-size: 12px; }
+.pied a { color: var(--bouton); }

@@ -153,6 +153,18 @@ def tableau_html(entites):
             f"<tbody>{lignes}</tbody></table>")
 
 
+def comment_ca_marche():
+    """Bande « Comment ça marche » : 3 étapes."""
+    etapes = "".join(f'<div class="etape"><div class="num">{n}</div><div class="texte-etape">{html.escape(t)}</div></div>'
+                     for n, t in T.ETAPES)
+    return f'<div class="bande-etapes"><div class="etiquette">Comment ça marche</div><div class="etapes">{etapes}</div></div>'
+
+
+def pied_de_page():
+    return (f'<div class="pied"><span>{html.escape(T.PIED)}</span><span class="sep">·</span>'
+            f'<a href="{html.escape(T.DEPOT)}" target="_blank" rel="noopener noreferrer">GitHub</a></div>')
+
+
 def avertissement():
     return f'<div class="avertissement">{html.escape(T.AVERTISSEMENT)}</div>'
 
@@ -200,11 +212,21 @@ def page_analyser():
     if not preparer_systeme(systeme):
         st.stop()
 
+    if "accueil_fait" not in st.session_state:        # première ouverture : un extrait de La Nation déjà analysé
+        st.session_state["accueil_fait"] = True
+        choisir_exemple(T.EXEMPLE_ACCUEIL)
+        try:
+            texte_accueil = st.session_state["texte"]
+            st.session_state["resultat"] = {"texte": texte_accueil, "systeme": systeme,
+                                            "entites": analyse.analyser(texte_accueil, systeme)}
+        except Exception:                              # imprévu : on garde l'aperçu simple, jamais de page cassée
+            st.session_state["resultat"] = None
+
     gauche, droite = st.columns([1, 1.1])
     with gauche:
         with st.container(key="carte_texte"):
             st.markdown('<div class="etiquette">Votre texte</div>', unsafe_allow_html=True)
-            st.text_area("Texte à analyser", key="texte", height=150, label_visibility="collapsed",
+            st.text_area("Texte à analyser", key="texte", height=260, label_visibility="collapsed",
                          placeholder="Collez ou écrivez un texte en français…")
             st.markdown('<div class="sous-titre-extraits">Essayer avec un extrait de La Nation</div>', unsafe_allow_html=True)
             with st.container(key="pilules", horizontal=True):
@@ -249,6 +271,8 @@ def page_analyser():
             else:
                 st.markdown(f'<div class="texte-annote">{surligner(res["texte"], res["entites"])}</div>', unsafe_allow_html=True)
                 st.caption(f"Système utilisé : {analyse.SYSTEMES[res['systeme']]}")
+
+    st.markdown(comment_ca_marche(), unsafe_allow_html=True)
 
     if res:
         st.markdown(chiffres(res["entites"], res["systeme"]), unsafe_allow_html=True)
@@ -334,3 +358,4 @@ page =st.session_state["page"]
 bandeau(page)
 with st.container(key="contenu"):
     {"Analyser": page_analyser, "Catégories": page_categories, "À propos": page_a_propos}[page]()
+    st.markdown(pied_de_page(), unsafe_allow_html=True)

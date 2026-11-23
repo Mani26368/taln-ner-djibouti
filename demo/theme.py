@@ -55,6 +55,9 @@ EXEMPLES = [                                                                    
     ("A12_S005", "Des personnes"),
     ("A04_S020", "Un cas difficile"),
 ]
+EXEMPLE_ACCUEIL = "A01_S002"      # extrait de La Nation analysé dès l'ouverture de la page (il contient les 4 types)
+ETAPES = [("1", "Collez un texte"), ("2", "Cliquez sur Analyser"), ("3", "Lisez les entités et téléchargez le CSV")]
+PIED = "Prototype de projet TALN · M2 IAMD · Université de Djibouti"
 EXEMPLE_ERREUR = "A04_S020"       # celui qui affiche LEGENDE_ERREUR
 
 # Un exemple par catégorie (page « Catégories »).

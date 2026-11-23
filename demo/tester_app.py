@@ -61,7 +61,7 @@ def test_contraste():
     C = T.COULEURS
     paires = [(f"texte sombre sur le surlignage pastel {code}", C["texte"], v["fond"]) for code, v in T.TYPES.items()]
     paires += [(f"étiquette de type {code} (petit texte coloré) sur son pastel", v["texte"], v["fond"]) for code, v in T.TYPES.items()]
-    paires += [(f"chiffre {code} (coloré) sur carte blanche", v["texte"], C["carte_fond"]) for code, v in T.TYPES.items()]
+    paires += [(f"chiffre {code} (coloré) sur sa carte pastel", v["texte"], v["fond"]) for code, v in T.TYPES.items()]
     paires += [("texte sur le fond de page", C["texte"], C["fond_page"]),
                ("texte sur une carte blanche", C["texte"], C["carte_fond"]),
                ("texte secondaire (légendes) sur le fond de page", C["texte_secondaire"], C["fond_page"]),
@@ -242,10 +242,19 @@ def test_exemples():
              "bandeau : navigation Analyser, Catégories, À propos")
     verifier('class="legende"' in contenu and all(f'<span class="leg-{t}">{t}</span>' in contenu for t in T.TYPES_LEGENDE),
              "carte « Texte annoté » : légende des 4 types (ORG, LOC, DATE, PER)")
-    verifier("texte-annote exemple" in contenu and "Exemple : votre texte apparaîtra ainsi" in contenu
-             and entites_affichees(at) == [(t, x) for x, t in T.ENTITES_EXEMPLE],
-             "avant l'analyse : phrase d'exemple déjà annotée, en grisé, avec « Exemple : votre texte apparaîtra ainsi »")
-    verifier(ligne_de_chiffres(at) is None and tableau_affiche(at) is None, "avant l'analyse : pas de chiffres ni de tableau")
+    verifier(at.text_area(key="texte").value == analyse.lire_segment(T.EXEMPLE_ACCUEIL) and at.session_state["exemple_actif"] == T.EXEMPLE_ACCUEIL,
+             f"à l'ouverture : l'extrait de La Nation {T.EXEMPLE_ACCUEIL} est dans la zone de texte")
+    attendu = [(e.type, e.texte) for e in analyse.analyser(analyse.lire_segment(T.EXEMPLE_ACCUEIL), "3a+3b")]
+    verifier(entites_affichees(at) == attendu and len(attendu) > 0 and "Exemple : votre texte apparaîtra ainsi" not in contenu,
+             "à l'ouverture : l'extrait est déjà analysé (entités surlignées, comme le fait l'analyse)")
+    chiffres_accueil, tableau_accueil = ligne_de_chiffres(at), tableau_affiche(at)
+    verifier(chiffres_accueil is not None and chiffres_accueil[0] == len(attendu) and tableau_accueil is not None
+             and [(x, t) for x, t, _d, _f in tableau_accueil[1]] == [(x, t) for t, x in attendu],
+             "à l'ouverture : petites cartes de chiffres et tableau déjà affichés")
+    verifier("Comment ça marche" in contenu and all(html.escape(t) in contenu for _n, t in T.ETAPES),
+             "bande « Comment ça marche » : les 3 étapes")
+    verifier(html.escape(T.PIED) in contenu and f'href="{T.DEPOT}"' in contenu,
+             "pied de page : « Prototype de projet TALN · M2 IAMD · Université de Djibouti » et lien GitHub")
     css_apercu = (DOSSIER / "style.css").read_text(encoding="utf-8")
     verifier("opacity" not in re.search(r"\.texte-annote\.exemple[^}]*\}", css_apercu).group(0) and ".texte-annote.exemple .ent" in css_apercu,
              "aperçu avant analyse : texte en gris, surlignages en pleine couleur (pas d'opacité qui les délave)")
